@@ -10,6 +10,7 @@ namespace kasyno
     {
         public GameEvent(Gambler gambler, Seat seat, Game game, DateTimeOffset beginTime, DateTimeOffset? endTime)
         {
+            Id = Guid.NewGuid();
             Gambler = gambler;
             Seat = seat;
             Game = game;
@@ -17,6 +18,7 @@ namespace kasyno
             EndTime = endTime;
         }
 
+        public Guid Id { get; }
         public Gambler Gambler { get;  }
         public Seat Seat { get;  }
         public Game Game { get;  }

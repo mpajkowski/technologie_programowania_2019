@@ -8,9 +8,9 @@ namespace kasyno
 {
     class Gambler
     {
-        public Gambler(Guid id, string name, string surname, string phoneNumber, string address)
+        public Gambler(string name, string surname, string phoneNumber, string address)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Name = name;
             Surname = surname;
             PhoneNumber = phoneNumber;

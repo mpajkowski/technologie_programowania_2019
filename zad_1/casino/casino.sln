@@ -1,9 +1,8 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kasyno", "kasyno.csproj", "{0F583DAE-DE59-428D-B287-D5766FA5C6A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "casino", "casino.csproj", "{0F583DAE-DE59-428D-B287-D5766FA5C6A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

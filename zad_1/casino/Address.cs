@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
 
-namespace kasyno
+namespace casino
 {
-    class Address
+    public class Address
     {
-        public Address(string city, int postalCode, string street, RegionInfo country)
+        public Address(string city, string postalCode, string street, RegionInfo country)
         {
             City = city;
             PostalCode = postalCode;
@@ -18,7 +18,7 @@ namespace kasyno
         }
 
         public string City { get; set; }
-        public int PostalCode { get; set; }
+        public string PostalCode { get; set; }
         public string Street { get; set; }
         public RegionInfo Country { get; set; }
     }   

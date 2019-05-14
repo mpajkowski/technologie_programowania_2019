@@ -8,7 +8,7 @@ namespace casino
 {
     public class Gambler
     {
-        public Gambler(string name, string surname, string phoneNumber, string address)
+        public Gambler(string name, string surname, string phoneNumber, Address address)
         {
             Id = Guid.NewGuid();
             Name = name;

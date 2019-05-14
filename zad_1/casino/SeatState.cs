@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace casino
 {
-    class SeatState
+    public class SeatState
     {
         public SeatState(Seat seat, bool available)
         {

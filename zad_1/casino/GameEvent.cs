@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace casino
 {
-    class GameEvent
+    public class GameEvent
     {
         public GameEvent(Gambler gambler, Seat seat, Game game, DateTimeOffset beginTime, DateTimeOffset? endTime)
         {

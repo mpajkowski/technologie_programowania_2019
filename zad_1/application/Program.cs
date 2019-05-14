@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using casino;
 
-namespace casino
+namespace application
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Witaj C#!");
+            Gambler g = new Gambler("Żołnierz", "Fortuny", 102030);
         }
     }
 }

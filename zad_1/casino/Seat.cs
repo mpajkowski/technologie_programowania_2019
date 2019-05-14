@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace casino
 {
-    class Seat
+    public class Seat
     {
         private static int seatCounter = 0;
 

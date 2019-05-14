@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace casino
 {
-    class Gambler
+    public class Gambler
     {
         public Gambler(string name, string surname, string phoneNumber, string address)
         {
@@ -21,7 +21,7 @@ namespace casino
         public string Name { get; set; }
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
-        public string Address { get; set; }
+        public Address Address { get; set; }
 
     }
 }

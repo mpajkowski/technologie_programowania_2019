@@ -117,18 +117,6 @@ namespace application
 
         public void FillSeats(ref DataContext data)
         {
-            SeatState seatState1 = new SeatState(new Seat());
-            SeatState seatState2 = new SeatState(new Seat());
-
-            Seat seat1 = seatState1.Seat;
-            Seat seat2 = seatState2.Seat;
-
-            data.seatStates.Add(seatState1);
-            data.seatStates.Add(seatState2);
-
-            data.seats.Add(seat1);
-            data.seats.Add(seat2);
-
             var roulette = (from game in data.games
                             where game.Name.Equals("roulette")
                             select game).Single();
@@ -137,8 +125,17 @@ namespace application
                             where game.Name.Equals("blackjack")
                             select game).Single();
 
-            data.seatGamesMap.Add(seat1, roulette);
-            data.seatGamesMap.Add(seat2, blackjack);
+            SeatState seatState1 = new SeatState(new Seat(roulette));
+            SeatState seatState2 = new SeatState(new Seat(blackjack));
+
+            Seat seat1 = seatState1.Seat;
+            Seat seat2 = seatState2.Seat;
+
+            data.seatStates.Add(seatState1);
+            data.seatStates.Add(seatState2);
+
+            data.seats.Add(Seat.GetNextNumber(), seat1);
+            data.seats.Add(Seat.GetNextNumber(), seat2);
         }
 
         public void FillGameEvents(ref DataContext data)

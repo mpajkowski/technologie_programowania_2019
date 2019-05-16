@@ -25,5 +25,25 @@ namespace casino
         public string PostalCode { get; set; }
         public string Street { get; set; }
         public RegionInfo Country { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var address = obj as Address;
+            return address != null &&
+                   City == address.City &&
+                   PostalCode == address.PostalCode &&
+                   Street == address.Street &&
+                   EqualityComparer<RegionInfo>.Default.Equals(Country, address.Country);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1741022360;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(City);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PostalCode);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Street);
+            hashCode = hashCode * -1521134295 + EqualityComparer<RegionInfo>.Default.GetHashCode(Country);
+            return hashCode;
+        }
     }   
 }

@@ -16,5 +16,17 @@ namespace casino
         }
 
         public int Number { get; }
+
+        public override bool Equals(object obj)
+        {
+            var seat = obj as Seat;
+            return seat != null &&
+                   Number == seat.Number;
+        }
+
+        public override int GetHashCode()
+        {
+            return 187193536 + Number.GetHashCode();
+        }
     }
 }

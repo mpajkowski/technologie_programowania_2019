@@ -8,12 +8,13 @@ namespace casino
 {
     public class Seat
     {
-        private static int numberCounter = 0;
-
-        public static int GetNextNumber()
+        public Seat(Game game)
         {
-            return numberCounter++;
+            Id = Guid.NewGuid();
+            Game = game;
         }
+
+        public Guid Id { get; }
 
         public Game Game { get; }
 
@@ -27,11 +28,6 @@ namespace casino
         public override int GetHashCode()
         {
             return 764056639 + EqualityComparer<Game>.Default.GetHashCode(Game);
-        }
-
-        public Seat(Game game)
-        {
-            Game = game;
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace application
 {
-    class Repository
+    public class Repository
     {
         private DataContext dataContext;
         private IDataFiller dataFiller;
@@ -18,7 +18,7 @@ namespace application
             this.dataFiller = dataFiller;
             this.dataContext = new DataContext();
 
-            dataFiller.Fill(ref dataContext);
+            dataFiller.Fill(dataContext);
         }
 
         private T GetByIndex<T>(int index, IEnumerable<T> collection)
@@ -57,13 +57,14 @@ namespace application
             dataContext.gamblers.Remove(gambler);
         }
 
-        public void Update(Person updatedGambler)
+        public void UpdateGambler(Person updatedGambler)
         {
             var currentGambler = dataContext.gamblers
                 .Single(Person => Person.Id.Equals(updatedGambler.Id));
 
             int index = dataContext.gamblers.IndexOf(currentGambler);
             dataContext.gamblers[index] = updatedGambler;
+
         }
 
         // dataContext.croupiers
@@ -136,9 +137,9 @@ namespace application
         }
 
         // dataContext.seats
-        public void AddNewSeat(Seat seat)
+        public void AddNewSeat(int number, Seat seat)
         {
-            dataContext.seats.Add(Seat.GetNextNumber(), seat);
+            dataContext.seats.Add(number, seat);
         }
 
         public Seat GetSeat(int index)

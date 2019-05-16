@@ -14,7 +14,7 @@ namespace application
         public List<Person> gamblers;
         public List<Person> croupiers;
         public List<Game> games;
-        public Dictionary<int, Seat> seats;
+        public List<Seat> seats;
         public List<SeatState> seatStates;
         public ObservableCollection<GameEvent> gameEvents;
 
@@ -23,7 +23,7 @@ namespace application
             gamblers = new List<Person>();
             croupiers = new List<Person>();
             games = new List<Game>();
-            seats = new Dictionary<int, Seat>();
+            seats = new List<Seat>();
             seatStates = new List<SeatState>();
             gameEvents = new ObservableCollection<GameEvent>();
 

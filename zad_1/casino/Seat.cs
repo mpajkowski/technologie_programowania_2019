@@ -22,12 +22,16 @@ namespace casino
         {
             var seat = obj as Seat;
             return seat != null &&
+                   Id.Equals(seat.Id) &&
                    EqualityComparer<Game>.Default.Equals(Game, seat.Game);
         }
 
         public override int GetHashCode()
         {
-            return 764056639 + EqualityComparer<Game>.Default.GetHashCode(Game);
+            var hashCode = 1076413479;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Game>.Default.GetHashCode(Game);
+            return hashCode;
         }
     }
 }

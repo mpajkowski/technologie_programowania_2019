@@ -9,10 +9,14 @@ namespace application
     class Repository
     {
         private DataContext dataContext;
+        private IDataFiller dataFiller;
 
-        Repository()
+        Repository(IDataFiller dataFiller)
         {
-            dataContext = new DataContext();
+            this.dataFiller = dataFiller;
+            this.dataContext = new DataContext();
+
+            dataFiller.Fill(ref dataContext);
         }
     }
 }

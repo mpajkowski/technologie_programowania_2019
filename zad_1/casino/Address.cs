@@ -9,6 +9,10 @@ namespace casino
 {
     public class Address
     {
+        public Address()
+        {
+        }
+
         public Address(string city, string postalCode, string street, RegionInfo country)
         {
             City = city;

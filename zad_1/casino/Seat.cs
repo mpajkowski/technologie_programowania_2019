@@ -10,13 +10,11 @@ namespace casino
     {
         private static int seatCounter = 0;
 
-        public Seat(int number, int game)
+        public Seat()
         {
             Number = seatCounter++;
-            Game = game;
         }
 
         public int Number { get; }
-        public int Game { get; set; }
     }
 }

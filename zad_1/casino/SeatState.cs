@@ -8,13 +8,13 @@ namespace casino
 {
     public class SeatState
     {
-        public SeatState(Seat seat, bool available)
+        public SeatState(Seat seat)
         {
             Seat = seat;
-            Available = available;
+            CreationTime = new DateTimeOffset();
         }
 
         public Seat Seat { get;  }
-        public bool Available { get; set; }
+        public DateTimeOffset CreationTime { get;  }
     }
 }

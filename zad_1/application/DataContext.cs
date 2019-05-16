@@ -11,16 +11,24 @@ namespace application
 {
     public class DataContext
     {
-        public List<Gambler> gamblers;
+        public List<Person> gamblers;
+        public List<Person> croupiers;
         public List<Game> games;
+        public List<Seat> seats;
+        public Dictionary<Seat, Game> seatGamesMap;
+        public List<SeatState> seatStates;
         public ObservableCollection<GameEvent> gameEvents;
-        public Dictionary<int, Seat> seats;
 
         public DataContext()
         {
-            gamblers = new List<Gambler>();
+            gamblers = new List<Person>();
+            croupiers = new List<Person>();
             games = new List<Game>();
+            seats = new List<Seat>();
+            seatGamesMap = new Dictionary<Seat, Game>();
+            seatStates = new List<SeatState>();
             gameEvents = new ObservableCollection<GameEvent>();
+
             gameEvents.CollectionChanged += GameEvents_CollectionChanged;
         }
 

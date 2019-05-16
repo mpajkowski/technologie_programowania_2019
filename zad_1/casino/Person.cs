@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace casino
 {
-    public class Gambler
+    public class Person
     {
-        public Gambler(string name, string surname, string phoneNumber, Address address)
+        public Person(string name, string surname, string phoneNumber, Address address)
         {
             Id = Guid.NewGuid();
             Name = name;

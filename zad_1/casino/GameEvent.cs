@@ -8,10 +8,16 @@ namespace casino
 {
     public class GameEvent
     {
-        public GameEvent(Gambler gambler, Seat seat, Game game, DateTimeOffset beginTime, DateTimeOffset? endTime)
+        public GameEvent(List<Person> gamblers, Person croupier, Seat seat, Game game, DateTimeOffset beginTime, DateTimeOffset? endTime)
         {
+            if (beginTime > endTime)
+            {
+                throw new ArgumentException("BeginTime > endTime!");
+            }
+
             Id = Guid.NewGuid();
-            Gambler = gambler;
+            Gamblers = gamblers;
+            Croupier = croupier;
             Seat = seat;
             Game = game;
             BeginTime = beginTime;
@@ -19,7 +25,8 @@ namespace casino
         }
 
         public Guid Id { get; }
-        public Gambler Gambler { get;  }
+        public List<Person> Gamblers { get;  }
+        public Person Croupier { get; }
         public Seat Seat { get;  }
         public Game Game { get;  }
         public DateTimeOffset BeginTime { get;  }

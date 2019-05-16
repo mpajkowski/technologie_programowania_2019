@@ -9,17 +9,9 @@ using casino;
 
 namespace application
 {
-    class ConstDataFiller : IDataFiller
+    public class ConstDataFiller : IDataFiller
     {
-        public void Fill(ref DataContext dataContext)
-        {
-            FillPeople(ref dataContext);
-            FillGames(ref dataContext);
-            FillSeats(ref dataContext);
-            FillGameEvents(ref dataContext);
-        }
-
-        public void FillPeople(ref DataContext data)
+        public void Fill(DataContext data)
         {
             Person gambler1 = new Person(
                 "Grzegorz",
@@ -107,26 +99,15 @@ namespace application
 
             data.croupiers.Add(croupier1);
             data.croupiers.Add(croupier2);
-        }
 
-        public void FillGames(ref DataContext data)
-        {
-            data.games.Add(new Game("roulette"));
-            data.games.Add(new Game("blackjack"));
-        }
+            Game roulette = new Game("roulette");
+            Game poker = new Game("poker");
 
-        public void FillSeats(ref DataContext data)
-        {
-            var roulette = (from game in data.games
-                            where game.Name.Equals("roulette")
-                            select game).Single();
-
-            var blackjack = (from game in data.games
-                            where game.Name.Equals("blackjack")
-                            select game).Single();
+            data.games.Add(roulette);
+            data.games.Add(poker);
 
             SeatState seatState1 = new SeatState(new Seat(roulette));
-            SeatState seatState2 = new SeatState(new Seat(blackjack));
+            SeatState seatState2 = new SeatState(new Seat(poker));
 
             Seat seat1 = seatState1.Seat;
             Seat seat2 = seatState2.Seat;
@@ -134,29 +115,29 @@ namespace application
             data.seatStates.Add(seatState1);
             data.seatStates.Add(seatState2);
 
-            data.seats.Add(Seat.GetNextNumber(), seat1);
-            data.seats.Add(Seat.GetNextNumber(), seat2);
-        }
+            data.seats.Add(0, seat1);
+            data.seats.Add(1, seat2);
 
-        public void FillGameEvents(ref DataContext data)
-        {
             GameEvent pastGame = new GameEvent(
                 data.gamblers.GetRange(0, 2),
-                data.croupiers[0],
-                data.seats[0],
-                data.games[0],
+                croupier1,
+                seat1,
+                roulette,
                 new DateTimeOffset(2017, 10, 10, 11, 0, 0, new TimeSpan(1,0,0)),
                 new DateTimeOffset(2017, 10, 10, 17, 0, 0, new TimeSpan(1,0,0))
             );
 
             GameEvent ongoingGame = new GameEvent(
                 data.gamblers.GetRange(2, 2),
-                data.croupiers[1],
-                data.seats[1],
-                data.games[1],
+                croupier2,
+                seat2,
+                poker,
                 new DateTimeOffset(2019, 05, 16, 14, 50, 00, new TimeSpan(1, 0, 0)),
                 null
             );
+
+            data.gameEvents.Add(pastGame);
+            data.gameEvents.Add(ongoingGame);
         }
     }
 }

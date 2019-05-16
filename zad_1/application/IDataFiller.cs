@@ -10,6 +10,6 @@ namespace application
 {
     public interface IDataFiller
     {
-        void Fill(ref DataContext dataContext);
+        void Fill(DataContext dataContext);
     }
 }

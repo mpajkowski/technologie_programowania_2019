@@ -356,28 +356,65 @@ namespace application.Tests
             Assert.IsFalse(seats.Contains(firstSeat));
         }
 
-        [TestMethod()]
         public void AddNewSeatStateTest()
         {
-            //Assert.Fail();
+            var seatStates = repository.GetAllSeatStates();
+            int seatStatesCount = seatStates.Count;
+
+            Seat seat = repository.GetSeat(0);
+            SeatState newSeatState = new SeatState(seat);
+
+            repository.AddNewSeatState(newSeatState);
+
+            Assert.AreEqual(seatStates.Last(), newSeatState);
         }
 
         [TestMethod()]
         public void GetSeatStateTest()
         {
-            //Assert.Fail();
-        }
+            Seat seat = repository.GetAllSeats()[0];
+            SeatState seatState = new SeatState(seat);
 
-        [TestMethod()]
-        public void GetAllSeatStatesTest()
-        {
-            //Assert.Fail();
+            // by index
+            Assert.AreEqual(repository.GetSeatState(0).Seat, seatState.Seat);
+
+            try
+            {
+                var hey = repository.GetSeatState(seatState);
+                Assert.Fail();
+            }
+            catch (System.InvalidOperationException e)
+            {
+                // should throw - Ids don't match
+            }
+
+            var seatStatesFromRepo = repository.GetAllSeatStates();
+
+            var indexSeatStates = new List<SeatState>();
+            for (int i = 0; i < seatStatesFromRepo.Count; ++i)
+            {
+                indexSeatStates.Add(seatStatesFromRepo[i]);
+            }
+
+            for (int i = 0; i < seatStatesFromRepo.Count; ++i)
+            {
+                Assert.IsTrue(seatStatesFromRepo[i].Equals(indexSeatStates[i]));
+            }
         }
 
         [TestMethod()]
         public void RemoveSeatStateTest()
         {
-            //Assert.Fail();
+            var seatStates = repository.GetAllSeatStates();
+            var firstSeatState = seatStates[0];
+
+            int seatStatesCount = seatStates.Count;
+            int expectedCount = seatStates.Count - 1;
+
+            repository.RemoveSeatState(firstSeatState);
+
+            Assert.IsTrue(seatStates.Count == expectedCount);
+            Assert.IsFalse(seatStates.Contains(firstSeatState));
         }
 
         [TestMethod()]

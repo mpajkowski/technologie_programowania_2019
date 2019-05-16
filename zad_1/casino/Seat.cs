@@ -8,25 +8,30 @@ namespace casino
 {
     public class Seat
     {
-        private static int seatCounter = 0;
+        private static int numberCounter = 0;
 
-        public Seat()
+        public static int GetNextNumber()
         {
-            Number = seatCounter++;
+            return numberCounter++;
         }
 
-        public int Number { get; }
+        public Game Game { get; }
 
         public override bool Equals(object obj)
         {
             var seat = obj as Seat;
             return seat != null &&
-                   Number == seat.Number;
+                   EqualityComparer<Game>.Default.Equals(Game, seat.Game);
         }
 
         public override int GetHashCode()
         {
-            return 187193536 + Number.GetHashCode();
+            return 764056639 + EqualityComparer<Game>.Default.GetHashCode(Game);
+        }
+
+        public Seat(Game game)
+        {
+            Game = game;
         }
     }
 }

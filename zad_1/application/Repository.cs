@@ -168,6 +168,11 @@ namespace application
             dataContext.seatStates.Add(seatState);
         }
 
+        public SeatState GetSeatState(SeatState seatState)
+        {
+            return GetByReference(seatState, dataContext.seatStates);
+        }
+
         public SeatState GetSeatState(int index)
         {
             return GetByIndex(index, dataContext.seatStates);

@@ -137,24 +137,29 @@ namespace application
         }
 
         // dataContext.seats
-        public void AddNewSeat(int number, Seat seat)
+        public void AddNewSeat(Seat seat)
         {
-            dataContext.seats.Add(number, seat);
+            dataContext.seats.Add(seat);
         }
 
         public Seat GetSeat(int index)
         {
-            return dataContext.seats[index];
+            return GetByIndex(index, dataContext.seats);
         }
 
-        public Dictionary<int, Seat> getAllSeats()
+        public Seat GetSeat(Seat seat)
+        {
+            return GetByReference(seat, dataContext.seats);
+        }
+
+        public List<Seat> GetAllSeats()
         {
             return dataContext.seats;
         }
 
-        public void RemoveSeat(int number)
+        public void RemoveSeat(Seat seat)
         {
-            dataContext.seats.Remove(number);
+            dataContext.seats.Remove(seat);
         }
 
         // dataContext.seatStates
@@ -211,5 +216,6 @@ namespace application
         {
             dataContext.gameEvents.Remove(gameEvent);
         }
+
     }
 }

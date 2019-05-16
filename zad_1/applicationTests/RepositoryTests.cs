@@ -73,7 +73,7 @@ namespace application.Tests
             }
             catch (System.InvalidOperationException e)
             {
-                // should from - Ids don't match
+                // should throw - Ids don't match
             }
 
             var gamblersFromRepo = repository.GetAllGamblers();
@@ -172,7 +172,7 @@ namespace application.Tests
             }
             catch (System.InvalidOperationException e)
             {
-                // should from - Ids don't match
+                // should throw - Ids don't match
             }
 
             var croupiersFromRepo = repository.GetAllCroupiers();
@@ -247,7 +247,7 @@ namespace application.Tests
             }
             catch (System.InvalidOperationException e)
             {
-                // should from - Ids don't match
+                // should throw - Ids don't match
             }
 
             var gamesFromRepo = repository.GetAllGames();
@@ -295,28 +295,65 @@ namespace application.Tests
             Assert.AreEqual(actualGame, firstGame);
         }
 
-        [TestMethod()]
         public void AddNewSeatTest()
         {
-            //Assert.Fail();
+            var seats = repository.GetAllSeats();
+            int seatsCount = seats.Count;
+
+            Game game = repository.GetGame(0);
+            Seat newSeat = new Seat(game);
+
+            repository.AddNewSeat(newSeat);
+
+            Assert.AreEqual(seats.Last(), newSeat);
         }
 
         [TestMethod()]
         public void GetSeatTest()
         {
-            //Assert.Fail();
-        }
+            Game game = repository.GetAllGames()[0];
+            Seat seat = new Seat(game);
 
-        [TestMethod()]
-        public void getAllSeatsTest()
-        {
-            //Assert.Fail();
+            // by index
+            Assert.AreEqual(repository.GetSeat(0).Game.Name, seat.Game.Name);
+
+            try
+            {
+                var hey = repository.GetSeat(seat);
+                Assert.Fail();
+            }
+            catch (System.InvalidOperationException e)
+            {
+                // should throw - Ids don't match
+            }
+
+            var seatsFromRepo = repository.GetAllSeats();
+
+            var indexSeats = new List<Seat>();
+            for (int i = 0; i < seatsFromRepo.Count; ++i)
+            {
+                indexSeats.Add(seatsFromRepo[i]);
+            }
+
+            for (int i = 0; i < seatsFromRepo.Count; ++i)
+            {
+                Assert.IsTrue(seatsFromRepo[i].Equals(indexSeats[i]));
+            }
         }
 
         [TestMethod()]
         public void RemoveSeatTest()
         {
-            //Assert.Fail();
+            var seats = repository.GetAllSeats();
+            var firstSeat = seats[0];
+
+            int seatsCount = seats.Count;
+            int expectedCount = seats.Count - 1;
+
+            repository.RemoveSeat(firstSeat);
+
+            Assert.IsTrue(seats.Count == expectedCount);
+            Assert.IsFalse(seats.Contains(firstSeat));
         }
 
         [TestMethod()]

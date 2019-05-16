@@ -115,8 +115,8 @@ namespace application
             data.seatStates.Add(seatState1);
             data.seatStates.Add(seatState2);
 
-            data.seats.Add(0, seat1);
-            data.seats.Add(1, seat2);
+            data.seats.Add(seat1);
+            data.seats.Add(seat2);
 
             GameEvent pastGame = new GameEvent(
                 data.gamblers.GetRange(0, 2),

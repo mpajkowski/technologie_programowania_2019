@@ -220,40 +220,79 @@ namespace application.Tests
             Assert.AreEqual(actualCroupier, firstCroupier);
         }
 
-        [TestMethod()]
         public void AddNewGameTest()
         {
-            //Assert.Fail();
+            var games = repository.GetAllGames();
+            int gamesCount = games.Count;
+            
+            Game newGame = new Game("blackjack");
+
+            repository.AddNewGame(newGame);
+
+            Assert.AreEqual(games.Last(), newGame);
         }
 
         [TestMethod()]
         public void GetGameTest()
         {
-            //Assert.Fail();
-        }
+            Game game = new Game("roulette");
 
-        [TestMethod()]
-        public void GetGameTest1()
-        {
-            //Assert.Fail();
-        }
+            // by index
+            Assert.AreEqual(repository.GetGame(0).Name, game.Name);
 
-        [TestMethod()]
-        public void GetAllGamesTest()
-        {
-            //Assert.Fail();
+            try
+            {
+                repository.GetGame(game);
+                Assert.Fail();
+            }
+            catch (System.InvalidOperationException e)
+            {
+                // should from - Ids don't match
+            }
+
+            var gamesFromRepo = repository.GetAllGames();
+
+            var indexGames = new List<Game>();
+            for (int i = 0; i < gamesFromRepo.Count; ++i)
+            {
+                indexGames.Add(gamesFromRepo[i]);
+            }
+
+            for (int i = 0; i < gamesFromRepo.Count; ++i)
+            {
+                Assert.IsTrue(gamesFromRepo[i].Equals(indexGames[i]));
+            }
         }
 
         [TestMethod()]
         public void RemoveGameTest()
         {
-            //Assert.Fail();
+            var games = repository.GetAllGames();
+            var firstGame = games[0];
+
+            int gamesCount = games.Count;
+            int expectedCount = games.Count - 1;
+
+            repository.RemoveGame(firstGame);
+
+            Assert.IsTrue(games.Count == expectedCount);
+            Assert.IsFalse(games.Contains(firstGame));
         }
 
         [TestMethod()]
         public void UpdateGameTest()
         {
-            //Assert.Fail();
+            var games = repository.GetAllGames();
+            var firstGame = games[0];
+
+            const string NEW_NAME = "roulette-pro";
+            firstGame.Name = NEW_NAME;
+
+            repository.UpdateGame(firstGame);
+            var actualGame = repository.GetGame(firstGame);
+
+            Assert.AreEqual(actualGame, firstGame);
+            Assert.AreEqual(actualGame, firstGame);
         }
 
         [TestMethod()]

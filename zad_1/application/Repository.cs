@@ -1,6 +1,7 @@
 ﻿using casino;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,11 @@ namespace application
             return GetByIndex(index, dataContext.gamblers);
         }
 
+        public List<Person> GetAllGamblers()
+        {
+            return dataContext.gamblers;
+        }
+
         public void RemoveGambler(Person gambler)
         {
             dataContext.gamblers.Remove(gambler);
@@ -74,6 +80,11 @@ namespace application
         public Person GetCroupier(int index)
         {
             return GetByIndex(index, dataContext.croupiers);
+        }
+
+        public List<Person> GetAllCroupiers()
+        {
+            return dataContext.croupiers;
         }
 
         public void RemoveCroupier(Person croupier)
@@ -106,6 +117,11 @@ namespace application
             return GetByIndex(index, dataContext.games);
         }
 
+        public List<Game> GetAllGames()
+        {
+            return dataContext.games;
+        }
+
         public void RemoveGame(Game game)
         {
             dataContext.games.Remove(game);
@@ -130,6 +146,11 @@ namespace application
             return dataContext.seats[index];
         }
 
+        public Dictionary<int, Seat> getAllSeats()
+        {
+            return dataContext.seats;
+        }
+
         public void RemoveSeat(int number)
         {
             dataContext.seats.Remove(number);
@@ -144,6 +165,11 @@ namespace application
         public SeatState GetSeatState(int index)
         {
             return GetByIndex(index, dataContext.seatStates);
+        }
+
+        public List<SeatState> GetAllSeatStates()
+        {
+            return dataContext.seatStates;
         }
 
         public void RemoveSeatState(SeatState seatState)
@@ -173,6 +199,16 @@ namespace application
         public GameEvent GetGameEvent(int index)
         {
             return GetByIndex(index, dataContext.gameEvents);
+        }
+
+        public ObservableCollection<GameEvent> getAllGameEvents()
+        {
+            return dataContext.gameEvents;
+        }
+
+        public void RemoveGameEvent(GameEvent gameEvent)
+        {
+            dataContext.gameEvents.Remove(gameEvent);
         }
     }
 }

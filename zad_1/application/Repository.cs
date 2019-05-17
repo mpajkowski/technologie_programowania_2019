@@ -10,25 +10,25 @@ namespace application
 {
     public class Repository
     {
-        private DataContext dataContext;
-        private IDataFiller dataFiller;
+        private readonly DataContext dataContext;
+        private IDataFiller _dataFiller;
 
         public Repository(IDataFiller dataFiller)
         {
-            this.dataFiller = dataFiller;
+            this._dataFiller = dataFiller;
             this.dataContext = new DataContext();
 
-            dataFiller.Fill(dataContext);
+            _dataFiller.Fill(dataContext);
         }
 
-        private T GetByIndex<T>(int index, IEnumerable<T> collection)
+        private static T GetByIndex<T>(int index, IEnumerable<T> collection)
         {
             return collection.ElementAt(index);
         }
 
-        private T GetByReference<T>(T item, IEnumerable<T> collection)
+        private static T GetByReference<T>(T item, IEnumerable<T> collection)
         {
-            return collection.Where(it => item.Equals(it)).Single();
+            return collection.Single(it => item.Equals(it));
         }
 
         // dataContext.gamblers
@@ -60,9 +60,9 @@ namespace application
         public void UpdateGambler(Person updatedGambler)
         {
             var currentGambler = dataContext.gamblers
-                .Single(Person => Person.Id.Equals(updatedGambler.Id));
+                .Single(person => person.Id.Equals(updatedGambler.Id));
 
-            int index = dataContext.gamblers.IndexOf(currentGambler);
+            var index = dataContext.gamblers.IndexOf(currentGambler);
             dataContext.gamblers[index] = updatedGambler;
 
         }
@@ -98,7 +98,7 @@ namespace application
             var currentCroupier = dataContext.croupiers
                 .Single(Person => Person.Id.Equals(updatedCroupier.Id));
 
-            int index = dataContext.croupiers.IndexOf(currentCroupier);
+            var index = dataContext.croupiers.IndexOf(currentCroupier);
             dataContext.croupiers[index] = updatedCroupier;
         }
 
@@ -132,7 +132,7 @@ namespace application
         {
             var currentGame = dataContext.games
                 .Single(game => game.Id.Equals(updatedGame.Id));
-            int index = dataContext.games.IndexOf(currentGame);
+            var index = dataContext.games.IndexOf(currentGame);
             dataContext.games[index] = updatedGame;
         }
 
@@ -192,7 +192,7 @@ namespace application
         {
             var currentSeatState = dataContext.seatStates
                 .Single(seatState => seatState.Seat == updatedSeatState.Seat);
-            int index = dataContext.seatStates.IndexOf(currentSeatState);
+            var index = dataContext.seatStates.IndexOf(currentSeatState);
             dataContext.seatStates[index] = updatedSeatState;
         }
 
@@ -212,7 +212,7 @@ namespace application
             return GetByIndex(index, dataContext.gameEvents);
         }
 
-        public ObservableCollection<GameEvent> getAllGameEvents()
+        public ObservableCollection<GameEvent> GetAllGameEvents()
         {
             return dataContext.gameEvents;
         }

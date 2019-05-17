@@ -8,6 +8,11 @@ namespace casino
 {
     public class Seat
     {
+        public override string ToString()
+        {
+            return $"{nameof(Id)}: {Id}, {nameof(Game)}: {Game}";
+        }
+
         public Seat(Game game)
         {
             Id = Guid.NewGuid();

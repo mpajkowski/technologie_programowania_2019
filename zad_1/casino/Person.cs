@@ -17,6 +17,15 @@ namespace casino
             Address = address;
         }
 
+        public override string ToString()
+        {
+            return $"{nameof(Id)}: {Id}," +
+                   $" {nameof(Name)}: {Name}," +
+                   $" {nameof(Surname)}: {Surname}," +
+                   $" {nameof(PhoneNumber)}: {PhoneNumber}," +
+                   $" {nameof(Address)}: {Address}";
+        }
+
         public Guid Id { get; }
         public string Name { get; set; }
         public string Surname { get; set; }

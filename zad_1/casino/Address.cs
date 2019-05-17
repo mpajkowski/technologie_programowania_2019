@@ -26,6 +26,11 @@ namespace casino
         public string Street { get; set; }
         public RegionInfo Country { get; set; }
 
+        public override string ToString()
+        {
+            return $"{nameof(City)}: {City}, {nameof(PostalCode)}: {PostalCode}, {nameof(Street)}: {Street}, {nameof(Country)}: {Country}";
+        }
+
         public override bool Equals(object obj)
         {
             var address = obj as Address;

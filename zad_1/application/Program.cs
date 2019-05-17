@@ -12,8 +12,17 @@ namespace application
         static void Main(string[] args)
         {
             Person g = new Person("Żołnierz", "Fortuny", "05-825", new Address("Grodzisk", "05-825", "abc", new System.Globalization.RegionInfo("pl")));
-            Console.WriteLine(g.Id);
-            Console.WriteLine(g.Name);
+            Person b = new Person("Hej", "Hej", "05-825", new Address("Grodzisk", "05-825", "abc", new System.Globalization.RegionInfo("pl")));
+
+            List<Person> gamblers = new List<Person>
+            {
+                g,
+                b
+            };
+
+            Service service = new Service(null);
+            Console.WriteLine(service.GetGamblersInfo(gamblers));
+
             Thread.Sleep(4000);
         }
     }

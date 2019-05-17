@@ -121,7 +121,7 @@ namespace application
             GameEvent pastGame = new GameEvent(
                 data.gamblers.GetRange(0, 2),
                 croupier1,
-                seat1,
+                seatState1,
                 roulette,
                 new DateTimeOffset(2017, 10, 10, 11, 0, 0, new TimeSpan(1,0,0)),
                 new DateTimeOffset(2017, 10, 10, 17, 0, 0, new TimeSpan(1,0,0))
@@ -130,7 +130,7 @@ namespace application
             GameEvent ongoingGame = new GameEvent(
                 data.gamblers.GetRange(2, 2),
                 croupier2,
-                seat2,
+                seatState2,
                 poker,
                 new DateTimeOffset(2019, 05, 16, 14, 50, 00, new TimeSpan(1, 0, 0)),
                 null

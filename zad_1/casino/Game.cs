@@ -16,6 +16,11 @@ namespace casino
         public Guid Id { get; }
         public String Name { get; set; }
 
+        public override string ToString()
+        {
+            return $"{nameof(Id)}: {Id}, {nameof(Name)}: {Name}";
+        }
+
         public override bool Equals(object obj)
         {
             var game = obj as Game;

@@ -63,13 +63,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\casino\casino.csproj">
+      <Project>{0f583dae-de59-428d-b287-d5766fa5c6a9}</Project>
+      <Name>casino</Name>
+    </ProjectReference>
     <ProjectReference Include="..\application\application.csproj">
       <Project>{A7FB06F7-2581-41D1-A3C2-867A8A4254C2}</Project>
       <Name>application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\casino\casino.csproj">
-      <Project>{0F583DAE-DE59-428D-B287-D5766FA5C6A9}</Project>
-      <Name>casino</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

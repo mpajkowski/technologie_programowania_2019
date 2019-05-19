@@ -11,8 +11,8 @@ namespace application
 {
     public class DataContext
     {
-        public List<Person> gamblers;
-        public List<Person> croupiers;
+        public List<Gambler> gamblers;
+        public List<Croupier> croupiers;
         public List<Game> games;
         public List<Seat> seats;
         public List<SeatState> seatStates;
@@ -20,8 +20,8 @@ namespace application
 
         public DataContext()
         {
-            gamblers = new List<Person>();
-            croupiers = new List<Person>();
+            gamblers = new List<Gambler>();
+            croupiers = new List<Croupier>();
             games = new List<Game>();
             seats = new List<Seat>();
             seatStates = new List<SeatState>();

@@ -110,48 +110,48 @@ namespace application
                 .ToList();
         }
 
-        public void AddNewGambler(Person gambler)
+        public void AddNewGambler(Gambler gambler)
         {
             CheckRepoPresence(gambler, repository.GetAllGamblers(), false);
             repository.AddNewGambler(gambler);
         }
 
-        public IEnumerable<Person> GetAllGamblers()
+        public IEnumerable<Gambler> GetAllGamblers()
         {
             return repository.GetAllGamblers();
         }
 
-        public void RemoveGambler(Person gambler)
+        public void RemoveGambler(Gambler gambler)
         {
             CheckRepoPresence(gambler, repository.GetAllGamblers());
             repository.RemoveGambler(gambler);
         }
 
-        public void UpdateGambler(Person gambler)
+        public void UpdateGambler(Gambler gambler)
         {
             CheckRepoPresence(gambler, repository.GetAllGamblers());
             repository.UpdateGambler(gambler);
         }
 
-        public void AddNewCroupier(Person croupier)
+        public void AddNewCroupier(Croupier croupier)
         {
             CheckRepoPresence(croupier, repository.GetAllCroupiers(), false);
             repository.AddNewCroupier(croupier);
         }
 
-        public void RemoveCroupier(Person croupier)
+        public void RemoveCroupier(Croupier croupier)
         {
             CheckRepoPresence(croupier, repository.GetAllCroupiers());
             repository.RemoveCroupier(croupier);
         }
 
-        public void UpdateCroupier(Person croupier)
+        public void UpdateCroupier(Croupier croupier)
         {
             CheckRepoPresence(croupier, repository.GetAllCroupiers());
             repository.UpdateCroupier(croupier);
         }
 
-        public IEnumerable<Person> GetAllCroupiers()
+        public IEnumerable<Croupier> GetAllCroupiers()
         {
             return repository.GetAllCroupiers();
         }
@@ -213,7 +213,7 @@ namespace application
             return repository.GetAllSeatStates();
         }
 
-        public void StartGameEvent(IEnumerable<Person> gamblers, Person croupier, SeatState seatState, Game game)
+        public void StartGameEvent(ICollection<Gambler> gamblers, Croupier croupier, SeatState seatState, Game game)
         {
             if (!gamblers.All(gambler => repository.GetAllGamblers().Contains(gambler)))
             {

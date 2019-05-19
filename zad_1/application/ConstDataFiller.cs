@@ -13,7 +13,7 @@ namespace application
     {
         public void Fill(DataContext data)
         {
-            Person gambler1 = new Person(
+            Gambler gambler1 = new Gambler(
                 "Grzegorz",
                 "Janecki",
                 "545123098",
@@ -22,11 +22,11 @@ namespace application
                     City = "Mrągowo",
                     PostalCode = "44-150",
                     Street = "Arktyczna 13",
-                    Country = new RegionInfo("PL")
+                    Country = "Poland"
                 }
             );
 
-            Person gambler2 = new Person(
+            Gambler gambler2 = new Gambler(
                 "John",
                 "Deeee",
                 "123234345",
@@ -35,11 +35,11 @@ namespace application
                     City = "Dallas",
                     PostalCode = "70234",
                     Street = "Acatia 20",
-                    Country = new RegionInfo("US")
+                    Country = "US"
                 }
             );
 
-            Person gambler3 = new Person(
+            Gambler gambler3 = new Gambler(
                 "Glenn",
                 "Ark",
                 "123434454",
@@ -48,11 +48,11 @@ namespace application
                     City = "Glasgow",
                     PostalCode = "G1-G80",
                     Street = "Parliamentary Road",
-                    Country = new RegionInfo("GB")
+                    Country = "GB"
                 }
             );
 
-            Person gambler4 = new Person(
+            Gambler gambler4 = new Gambler(
                 "Ikativ",
                 "Armanov",
                 "10101010",
@@ -62,11 +62,11 @@ namespace application
                     City = "Koluszki",
                     PostalCode = "90-900",
                     Street = "Koluszkowa",
-                    Country = new RegionInfo("PL")
+                    Country = "PL"
                 }
             );
 
-            Person croupier1 = new Person(
+            Croupier croupier1 = new Croupier(
                 "Arkadiusz",
                 "Nowacki",
                 "3423122312",
@@ -75,11 +75,11 @@ namespace application
                     City = "Kutno",
                     PostalCode = "10-234",
                     Street = "Kutnowska",
-                    Country = new RegionInfo("PL")
+                    Country = "PL"
                 }
             );
 
-            Person croupier2 = new Person(
+            Croupier croupier2 = new Croupier(
                 "Antoni",
                 "Baltazar",
                 "10102030",
@@ -88,7 +88,7 @@ namespace application
                     City = "Gdynia",
                     PostalCode = "40-200",
                     Street = "Sarnia",
-                    Country = new RegionInfo("PL")
+                    Country = "PL"
                 }
             );
 

@@ -32,7 +32,7 @@ namespace application
         }
 
         // dataContext.gamblers
-        public void AddNewGambler(Person gambler)
+        public void AddNewGambler(Gambler gambler)
         {
             dataContext.gamblers.Add(gambler);
         }
@@ -47,17 +47,17 @@ namespace application
             return GetByIndex(index, dataContext.gamblers);
         }
 
-        public List<Person> GetAllGamblers()
+        public List<Gambler> GetAllGamblers()
         {
             return dataContext.gamblers;
         }
 
-        public void RemoveGambler(Person gambler)
+        public void RemoveGambler(Gambler gambler)
         {
             dataContext.gamblers.Remove(gambler);
         }
 
-        public void UpdateGambler(Person updatedGambler)
+        public void UpdateGambler(Gambler updatedGambler)
         {
             var currentGambler = dataContext.gamblers
                 .Single(person => person.Id.Equals(updatedGambler.Id));
@@ -68,35 +68,35 @@ namespace application
         }
 
         // dataContext.croupiers
-        public void AddNewCroupier(Person croupier)
+        public void AddNewCroupier(Croupier croupier)
         {
             dataContext.croupiers.Add(croupier);
         }
 
-        public Person GetCroupier(Person croupier)
+        public Croupier GetCroupier(Croupier croupier)
         {
             return GetByReference(croupier, dataContext.croupiers);
         }
 
-        public Person GetCroupier(int index)
+        public Croupier GetCroupier(int index)
         {
             return GetByIndex(index, dataContext.croupiers);
         }
 
-        public List<Person> GetAllCroupiers()
+        public List<Croupier> GetAllCroupiers()
         {
             return dataContext.croupiers;
         }
 
-        public void RemoveCroupier(Person croupier)
+        public void RemoveCroupier(Croupier croupier)
         {
             dataContext.croupiers.Remove(croupier);
         }
 
-        public void UpdateCroupier(Person updatedCroupier)
+        public void UpdateCroupier(Croupier updatedCroupier)
         {
             var currentCroupier = dataContext.croupiers
-                .Single(Person => Person.Id.Equals(updatedCroupier.Id));
+                .Single(Croupier => Croupier.Id.Equals(updatedCroupier.Id));
 
             var index = dataContext.croupiers.IndexOf(currentCroupier);
             dataContext.croupiers[index] = updatedCroupier;

@@ -27,7 +27,7 @@ namespace application.Tests
             var gamblers = repository.GetAllGamblers();
             int gamblersCount = gamblers.Count;
             
-            Person newGambler = new Person(
+            Gambler newGambler = new Gambler(
                 "Mikita",
                 "Kustorov",
                 "909089",
@@ -36,7 +36,7 @@ namespace application.Tests
                     City = "Kiev",
                     PostalCode = "010000-06999",
                     Street = "Lesi Ukrainky bulvar",
-                    Country = new RegionInfo("uk-UA")
+                    Country = "UA"
                 }
             );
 
@@ -48,7 +48,7 @@ namespace application.Tests
         [TestMethod()]
         public void GetGamblerTest()
         {
-            Person gambler = new Person(
+            Gambler gambler = new Gambler(
                 "Grzegorz",
                 "Janecki",
                 "545123098",
@@ -57,7 +57,7 @@ namespace application.Tests
                     City = "Mrągowo",
                     PostalCode = "44-150",
                     Street = "Arktyczna 13",
-                    Country = new RegionInfo("PL")
+                    Country = "PL"
                 }
             );
 
@@ -126,7 +126,7 @@ namespace application.Tests
             var croupiers = repository.GetAllCroupiers();
             int croupiersCount = croupiers.Count;
             
-            Person newCroupier = new Person(
+            Croupier newCroupier = new Croupier(
                 "Mikita",
                 "Kustorov",
                 "909089",
@@ -135,7 +135,7 @@ namespace application.Tests
                     City = "Kiev",
                     PostalCode = "010000-06999",
                     Street = "Lesi Ukrainky bulvar",
-                    Country = new RegionInfo("uk-UA")
+                    Country = "UA"
                 }
             );
 
@@ -147,7 +147,7 @@ namespace application.Tests
         [TestMethod()]
         public void GetCroupierTest()
         {
-            Person croupier = new Person(
+            Croupier croupier = new Croupier(
                 "Arkadiusz",
                 "Nowacki",
                 "3423122312",
@@ -156,7 +156,7 @@ namespace application.Tests
                     City = "Kutno",
                     PostalCode = "10-234",
                     Street = "Kutnowska",
-                    Country = new RegionInfo("PL")
+                    Country = "PL"
                 }
             );
 

@@ -11,10 +11,10 @@ namespace application
     {
         static void Main(string[] args)
         {
-            Person g = new Person("Żołnierz", "Fortuny", "05-825", new Address("Grodzisk", "05-825", "abc", new System.Globalization.RegionInfo("pl")));
-            Person b = new Person("Hej", "Hej", "05-825", new Address("Grodzisk", "05-825", "abc", new System.Globalization.RegionInfo("pl")));
+            Gambler g = new Gambler("Żołnierz", "Fortuny", "05-825", new Address("Grodzisk", "05-825", "abc", "PL"));
+            Gambler b = new Gambler("Hej", "Hej", "05-825", new Address("Grodzisk", "05-825", "abc", "PL"));
 
-            List<Person> gamblers = new List<Person>
+            List<Gambler> gamblers = new List<Gambler>
             {
                 g,
                 b

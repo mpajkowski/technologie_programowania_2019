@@ -57,7 +57,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\casino\casino.csproj">
+    <ProjectReference Include="..\..\casino\casino.csproj">
       <Project>{0F583DAE-DE59-428D-B287-D5766FA5C6A9}</Project>
       <Name>casino</Name>
     </ProjectReference>

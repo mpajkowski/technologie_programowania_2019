@@ -34,7 +34,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Button Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGamblerDataCmd}" RenderTransformOrigin="0.571,1.318" />
+                        <Button x:Name="GamblersDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGamblerDataCmd}" RenderTransformOrigin="0.571,1.318" />
 
                         <Label Content="Imię" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.gambler_name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
@@ -85,7 +85,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Button Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetCroupierDataCmd}" RenderTransformOrigin="0.571,1.318" />
+                        <Button x:Name="CroupiersDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetCroupierDataCmd}" RenderTransformOrigin="0.571,1.318" />
 
                         <Label Content="Imię" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.gambler_name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
@@ -116,7 +116,27 @@
             </TabItem>
             <TabItem Header="Gry">
                 <Grid>
+                    <Grid>
+                        <DataGrid IsReadOnly="True" ItemsSource="{Binding Games}" SelectedItem="{Binding CurrentGame}"
+            Margin="10,10,0,0" 
+            HorizontalAlignment="Left"
+            Height="293"
+            VerticalAlignment="Top"
+            Width="756"
+            AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID gry" Binding="{Binding game_id}"/>
+                                <DataGridTextColumn Header="Nazwa gry" Binding="{Binding game_name}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button x:Name="GamesDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="10,364,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGameDataCmd}" />
+                        
+                        <Label Content="Nazwa gry" HorizontalAlignment="Left" Margin="10,308,0,0" VerticalAlignment="Top"/>
+                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,331,0,0" TextWrapping="Wrap" Text="{Binding CurrentGame.game_name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="310"/>
+                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="587,334,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameCmd}"/>
 
+                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="691,334,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameCmd}"/>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

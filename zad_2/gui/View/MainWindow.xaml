@@ -163,7 +163,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Button x:Name="GameEventsDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetCroupierDataCmd}" RenderTransformOrigin="0.571,1.318" />
+                        <Button x:Name="GameEventsDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGameEventDataCmd}" RenderTransformOrigin="0.571,1.318" />
 
                         <Label Content="ID wydarzenia" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.gameevent_id, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>

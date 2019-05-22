@@ -1,11 +1,11 @@
 ﻿<Window x:Class="gui.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:gui"
-        mc:Ignorable="d"
-        Title="Aplikacja dla kasyna" Height="557.76" Width="901.707">
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:gui"
+	mc:Ignorable="d"
+	Title="Aplikacja dla kasyna" Height="557.76" Width="901.707">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -16,12 +16,12 @@
                 <Grid>
                     <Grid Margin="0,0,110,62">
                         <DataGrid IsReadOnly="True" ItemsSource="{Binding Gamblers}" SelectedItem="{Binding CurrentGambler}"
-            Margin="10,10,0,0" 
-            HorizontalAlignment="Left"
-            Height="293"
-            VerticalAlignment="Top"
-            Width="756"
-            AutoGenerateColumns="False">
+							Margin="10,10,0,0" 
+							HorizontalAlignment="Left"
+							Height="293"
+							VerticalAlignment="Top"
+							Width="756"
+							AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID gracza" Binding="{Binding gambler_id}"/>
                                 <DataGridTextColumn Header="Imię" Binding="{Binding gambler_name}"/>
@@ -67,12 +67,12 @@
                 <Grid>
                     <Grid Margin="0,0,110,62">
                         <DataGrid IsReadOnly="True" ItemsSource="{Binding Croupiers}" SelectedItem="{Binding CurrentCroupier}"
-            Margin="10,10,0,0" 
-            HorizontalAlignment="Left"
-            Height="293"
-            VerticalAlignment="Top"
-            Width="756"
-            AutoGenerateColumns="False">
+							Margin="10,10,0,0" 
+							HorizontalAlignment="Left"
+							Height="293"
+							VerticalAlignment="Top"
+							Width="756"
+							AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID krupiera" Binding="{Binding croupier_id}"/>
                                 <DataGridTextColumn Header="Imię" Binding="{Binding croupier_name}"/>
@@ -118,19 +118,19 @@
                 <Grid>
                     <Grid>
                         <DataGrid IsReadOnly="True" ItemsSource="{Binding Games}" SelectedItem="{Binding CurrentGame}"
-            Margin="10,10,0,0" 
-            HorizontalAlignment="Left"
-            Height="293"
-            VerticalAlignment="Top"
-            Width="756"
-            AutoGenerateColumns="False">
+							Margin="10,10,0,0" 
+							HorizontalAlignment="Left"
+							Height="293"
+							VerticalAlignment="Top"
+							Width="756"
+							AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID gry" Binding="{Binding game_id}"/>
                                 <DataGridTextColumn Header="Nazwa gry" Binding="{Binding game_name}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <Button x:Name="GamesDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="10,364,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGameDataCmd}" />
-                        
+
                         <Label Content="Nazwa gry" HorizontalAlignment="Left" Margin="10,308,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,331,0,0" TextWrapping="Wrap" Text="{Binding CurrentGame.game_name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="310"/>
                         <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="587,334,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameCmd}"/>

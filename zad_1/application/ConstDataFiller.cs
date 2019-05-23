@@ -11,7 +11,7 @@ namespace application
 {
     public class ConstDataFiller : IDataFiller
     {
-        public void Fill(DataContext data)
+        public void Fill(ref DataContext data)
         {
             Gambler gambler1 = new Gambler(
                 "Grzegorz",

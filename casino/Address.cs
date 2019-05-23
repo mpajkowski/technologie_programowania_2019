@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Globalization;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace casino
 {
+    [DataContract]
     public class Address
     {
         public Address()
@@ -25,12 +22,18 @@ namespace casino
             Country = country;
         }
 
+        [DataMember]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
+        [DataMember]
         public Guid PersonId { get; set; }
+        [DataMember]
         public string City { get; set; }
+        [DataMember]
         public string PostalCode { get; set; }
+        [DataMember]
         public string Street { get; set; }
+        [DataMember]
         public string Country { get; set; }
 
         public override bool Equals(object obj)

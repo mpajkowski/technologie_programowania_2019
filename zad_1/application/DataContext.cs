@@ -58,5 +58,29 @@ namespace application
                 Console.WriteLine(item);
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            var context = obj as DataContext;
+            return context != null &&
+                   gamblers.SequenceEqual(context.gamblers) &&
+                   croupiers.SequenceEqual(context.croupiers) &&
+                   games.SequenceEqual(context.games) &&
+                   seats.SequenceEqual(context.seats) &&
+                   seatStates.SequenceEqual(context.seatStates) &&
+                   gameEvents.SequenceEqual(context.gameEvents);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 329031736;
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<Gambler>>.Default.GetHashCode(gamblers);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<Croupier>>.Default.GetHashCode(croupiers);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<Game>>.Default.GetHashCode(games);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<Seat>>.Default.GetHashCode(seats);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<SeatState>>.Default.GetHashCode(seatStates);
+            hashCode = hashCode * -1521134295 + EqualityComparer<ObservableCollection<GameEvent>>.Default.GetHashCode(gameEvents);
+            return hashCode;
+        }
     }
 }

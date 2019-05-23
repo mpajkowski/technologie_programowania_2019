@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace casino
 {
+    [DataContract]
     public class Seat
     {
         public override string ToString()
@@ -20,9 +22,11 @@ namespace casino
             Game = game;
         }
 
+        [DataMember]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set;  }
 
+        [DataMember]
         public Game Game { get; }
 
         public override bool Equals(object obj)

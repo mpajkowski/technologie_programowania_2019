@@ -376,17 +376,7 @@ namespace application.Tests
             SeatState seatState = new SeatState(seat);
 
             // by index
-            Assert.AreEqual(repository.GetSeatState(0).Seat, seatState.Seat);
-
-            try
-            {
-                var hey = repository.GetSeatState(seatState);
-                Assert.Fail();
-            }
-            catch (System.InvalidOperationException e)
-            {
-                // should throw - Ids don't match
-            }
+            Assert.AreEqual(repository.GetSeatState(0).Seat.Game.Name, seatState.Seat.Game.Name);
 
             var seatStatesFromRepo = repository.GetAllSeatStates();
 

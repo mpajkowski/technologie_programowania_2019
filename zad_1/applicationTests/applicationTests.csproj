@@ -56,6 +56,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="FileDataFillerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryTests.cs" />
   </ItemGroup>

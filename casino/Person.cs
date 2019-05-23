@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace casino
 {
+    [DataContract]
     public abstract class Person
     {
         public Person(string name, string surname, string phoneNumber, Address address)
@@ -27,11 +29,16 @@ namespace casino
                    $" {nameof(Address)}: {Address}";
         }
 
+        [DataMember]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
+        [DataMember]
         public string Name { get; set; }
+        [DataMember]
         public string Surname { get; set; }
+        [DataMember]
         public string PhoneNumber { get; set; }
+        [DataMember]
         public Address Address { get; set; }
 
         public override bool Equals(object obj)

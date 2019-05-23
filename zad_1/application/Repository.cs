@@ -18,7 +18,7 @@ namespace application
             this._dataFiller = dataFiller;
             this.dataContext = new DataContext();
 
-            _dataFiller.Fill(dataContext);
+            _dataFiller.Fill(ref dataContext);
         }
 
         private static T GetByIndex<T>(int index, IEnumerable<T> collection)

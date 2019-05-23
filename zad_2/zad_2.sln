@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "services", "services\services.csproj", "{B00EB1CC-F2B5-4B29-B602-6395B80424C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gui", "gui\gui.csproj", "{31076CB0-EDAC-414B-AFC7-D10A7BF39F5C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0F583DAE-DE59-428D-B287-D5766FA5C6A9} = {0F583DAE-DE59-428D-B287-D5766FA5C6A9}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "casino", "..\casino\casino.csproj", "{0F583DAE-DE59-428D-B287-D5766FA5C6A9}"
 EndProject

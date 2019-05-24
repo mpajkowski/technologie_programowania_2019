@@ -410,37 +410,99 @@ namespace application.Tests
         [TestMethod()]
         public void UpdateSeatStateTest()
         {
-            //Assert.Fail();
+            var seatStates = repository.GetAllSeatStates();
+            var selectedSeatState = seatStates[0];
+
+            selectedSeatState.IsAvailable = false;
+
+            repository.UpdateSeatState(selectedSeatState);
+
+            var selectedSeatStateAgain = seatStates[0];
+
+            Assert.AreEqual(selectedSeatState, selectedSeatStateAgain);
         }
 
         [TestMethod()]
         public void AddNewGameEventTest()
         {
-            //Assert.Fail();
+            var gameEvents = repository.GetAllGameEvents();
+            int gameEventsCount = gameEvents.Count;
+
+            IEnumerable<Gambler> gamblers = repository.GetAllGamblers();
+            Croupier croupier = repository.GetCroupier(0);
+            SeatState seatState = repository.GetSeatState(0);
+            Game game = repository.GetGame(0);
+
+            GameEvent newGameEvent = new GameEvent(gamblers, croupier, seatState, game, DateTimeOffset.Now, null);
+
+            repository.AddNewGameEvent(newGameEvent);
+
+            int expectedGameEventsCount = gameEventsCount + 1;
+
+            Assert.AreEqual(expectedGameEventsCount, gameEvents.Count);
+            Assert.AreEqual(newGameEvent, gameEvents.Last());
         }
 
         [TestMethod()]
         public void GetGameEventTest()
         {
-            //Assert.Fail();
+            IEnumerable<Gambler> gamblers = repository.GetAllGamblers();
+            Croupier croupier = repository.GetCroupier(0);
+            SeatState seatState = repository.GetSeatState(0);
+            Game game = repository.GetGame(0);
+
+            GameEvent gameEvent = new GameEvent(gamblers, croupier, seatState, game, DateTimeOffset.Now, null);
+
+            try
+            {
+                repository.GetGameEvent(gameEvent);
+                Assert.Fail();
+            }
+            catch (System.InvalidOperationException e)
+            {
+                // should throw - Ids don't match
+            }
+
+            repository.AddNewGameEvent(gameEvent);
+
+            try
+            {
+                repository.GetGameEvent(gameEvent);
+            }
+            catch (System.InvalidOperationException e)
+            {
+                // shouldn't throw - Ids don't match
+                Assert.Fail();
+            }
         }
 
         [TestMethod()]
-        public void GetGameEventTest1()
+        public void UpdateGameEventTest()
         {
-            //Assert.Fail();
-        }
+            var gameEvent = repository.GetAllGameEvents();
+            var selectedGameEvent = gameEvent[0];
 
-        [TestMethod()]
-        public void getAllGameEventsTest()
-        {
-            //Assert.Fail();
+            selectedGameEvent.EndTime = DateTimeOffset.Now;
+
+            repository.UpdateGameEvent(selectedGameEvent);
+
+            var actualGameEvent = repository.GetGameEvent(0);
+
+            Assert.AreEqual(selectedGameEvent, actualGameEvent);
         }
 
         [TestMethod()]
         public void RemoveGameEventTest()
         {
-            //Assert.Fail();
+            var gameEvents = repository.GetAllGames();
+            var firstGameEvent = gameEvents[0];
+
+            int expectedGameEventsCount = gameEvents.Count - 1;
+
+            repository.RemoveGame(firstGameEvent);
+
+            Assert.AreEqual(expectedGameEventsCount, gameEvents.Count);
+            Assert.IsFalse(gameEvents.Contains(firstGameEvent));
         }
     }
 }

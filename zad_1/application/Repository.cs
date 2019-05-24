@@ -216,6 +216,13 @@ namespace application
         {
             return dataContext.gameEvents;
         }
+        public void UpdateGameEvent(GameEvent updatedGameEvent)
+        {
+            var currentGameEvent = dataContext.gameEvents
+                .Single(gameEvent => gameEvent.Id == updatedGameEvent.Id);
+            var index = dataContext.gameEvents.IndexOf(currentGameEvent);
+            dataContext.gameEvents[index] = updatedGameEvent;
+        }
 
         public void RemoveGameEvent(GameEvent gameEvent)
         {

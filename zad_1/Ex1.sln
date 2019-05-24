@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "application", "application\application.csproj", "{A7FB06F7-2581-41D1-A3C2-867A8A4254C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "applicationLibrary", "application\applicationLibrary.csproj", "{A7FB06F7-2581-41D1-A3C2-867A8A4254C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "applicationTests", "applicationTests\applicationTests.csproj", "{02AC2991-225A-469E-9AD6-BDBD195017F3}"
 EndProject

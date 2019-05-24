@@ -71,7 +71,7 @@ namespace application.Tests
                 repository.GetGambler(gambler);
                 Assert.Fail();
             }
-            catch (System.InvalidOperationException e)
+            catch (System.InvalidOperationException)
             {
                 // should throw - Ids don't match
             }
@@ -170,7 +170,7 @@ namespace application.Tests
                 repository.GetCroupier(croupier);
                 Assert.Fail();
             }
-            catch (System.InvalidOperationException e)
+            catch (System.InvalidOperationException)
             {
                 // should throw - Ids don't match
             }
@@ -245,7 +245,7 @@ namespace application.Tests
                 repository.GetGame(game);
                 Assert.Fail();
             }
-            catch (System.InvalidOperationException e)
+            catch (System.InvalidOperationException)
             {
                 // should throw - Ids don't match
             }
@@ -322,7 +322,7 @@ namespace application.Tests
                 var hey = repository.GetSeat(seat);
                 Assert.Fail();
             }
-            catch (System.InvalidOperationException e)
+            catch (System.InvalidOperationException)
             {
                 // should throw - Ids don't match
             }
@@ -458,7 +458,7 @@ namespace application.Tests
                 repository.GetGameEvent(gameEvent);
                 Assert.Fail();
             }
-            catch (System.InvalidOperationException e)
+            catch (System.InvalidOperationException)
             {
                 // should throw - Ids don't match
             }
@@ -469,7 +469,7 @@ namespace application.Tests
             {
                 repository.GetGameEvent(gameEvent);
             }
-            catch (System.InvalidOperationException e)
+            catch (System.InvalidOperationException)
             {
                 // shouldn't throw - Ids don't match
                 Assert.Fail();

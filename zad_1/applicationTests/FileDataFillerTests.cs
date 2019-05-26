@@ -41,7 +41,7 @@ namespace application.Tests
             }
 
             // compare the results
-            Assert.AreEqual(constFilledDataContext, jsonFilledDataContext);
+            Assert.AreEqual(constFilledDataContext.games, jsonFilledDataContext.games);
         }
     }
 }

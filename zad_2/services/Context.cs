@@ -98,7 +98,7 @@ namespace services
                 };
 
                 GameEvent pastGame = new GameEvent(
-                    gamblers,
+                    gamblers.GetRange(0,2),
                     croupier1,
                     seat1,
                     roulette,

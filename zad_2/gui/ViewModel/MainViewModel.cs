@@ -203,65 +203,119 @@ namespace gui.ViewModel
 
 
         // Get
-        internal void GetGamblerData()
+        internal async void GetGamblerData()
         {
-            var list = dataHandler.GetAllGamblers();
+            var list = await dataHandler.GetAllGamblers();
             Gamblers = new ObservableCollection<Gambler>(list);
         }
 
-        internal void GetCroupierData()
+        internal async void GetCroupierData()
         {
-            var list = dataHandler.GetAllCroupiers();
+            var list =  await dataHandler.GetAllCroupiers();
             Croupiers = new ObservableCollection<Croupier>(list);
         }
 
-        internal void GetGameData()
+        internal async void GetGameData()
         {
-            var list = dataHandler.GetAllGames();
+            var list = await dataHandler.GetAllGames();
             Games = new ObservableCollection<Game>(list);
         }
 
-        internal void GetGameEventData()
+        internal async void GetGameEventData()
         {
-            var list = dataHandler.GetAllGameEvents();
+            var list = await dataHandler.GetAllGameEvents();
             GameEvents = new ObservableCollection<GameEvent>(list);
         }
 
         // Update
         internal void UpdateCurrentGambler()
         {
+            if (CurrentGambler == null)
+            {
+                return;
+            }
 
+            Utils.Text.ValidateInput(newGamblerName);
+            Utils.Text.ValidateInput(newGamblerSurname);
+            Utils.Text.ValidateInput(newGamblerPhoneNumber);
+
+            dataHandler.UpdateGambler(CurrentGambler);
         }
 
         internal void UpdateCurrentCroupier()
         {
+            if (CurrentCroupier == null)
+            {
+                return;
+            }
 
+            Utils.Text.ValidateInput(NewCroupierName);
+            Utils.Text.ValidateInput(NewCroupierSurname);
+            Utils.Text.ValidateInput(NewCroupierPhoneNumber);
+
+            dataHandler.UpdateCroupier(CurrentCroupier);
         }
 
         internal void UpdateCurrentGame()
         {
+            if (CurrentGame == null)
+            {
+                return;
+            }
 
+            Utils.Text.ValidateInput(NewGameName);
+
+            dataHandler.UpdateGame(CurrentGame);
         }
 
         internal void UpdateCurrentGameEvent()
         {
+            if (CurrentGameEvent == null)
+            {
+                return;
+            }
 
+            Utils.Text.ValidateInput(NewGameName);
+
+            //dataHandler.UpdateGameEven();
         }
 
         // Create
         internal void CreateNewGambler()
         {
+            var gambler = new Gambler
+            {
+                Id = Guid.NewGuid(),
+                Name = NewGamblerName,
+                Surname = NewGamblerSurname,
+                PhoneNumber = NewCroupierPhoneNumber
+            };
 
+            Console.WriteLine("HALO");
+            dataHandler.AddNewGambler(gambler);
         }
 
         internal void CreateNewCroupier()
         {
+            Utils.Text.ValidateInput(NewCroupierName);
+            Utils.Text.ValidateInput(NewCroupierSurname);
+            Utils.Text.ValidateInput(NewCroupierPhoneNumber);
 
+            var newCroupier = new Croupier(NewCroupierName, NewCroupierSurname, NewCroupierPhoneNumber);
+            dataHandler.AddNewCroupier(newCroupier);
         }
 
         internal void CreateNewGame()
         {
+            if (CurrentGame == null)
+            {
+                return;
+            }
 
+            Utils.Text.ValidateInput(NewGameName);
+
+            var newGame = new Game(NewGameName);
+            dataHandler.AddNewGame(newGame);
         }
 
         internal void CreateNewGameEvent()
@@ -272,21 +326,33 @@ namespace gui.ViewModel
         // Delete
         internal void DeleteCurrentGambler()
         {
-
+            if (CurrentGambler != null)
+            {
+                dataHandler.RemoveGambler(CurrentGambler);
+            }
         }
 
         internal void DeleteCurrentCroupier()
         {
-
+            if (CurrentCroupier != null)
+            {
+                dataHandler.RemoveCroupier(CurrentCroupier);
+            }
         }
         internal void DeleteCurrentGame()
         {
-
+            if (CurrentGame != null)
+            {
+                dataHandler.RemoveGame(CurrentGame);
+            }
         }
 
         internal void DeleteCurrentGameEvent()
         {
-
+            if (CurrentGameEvent != null)
+            {
+                dataHandler.RemoveGameEvent(CurrentGameEvent);
+            }
         }
 
         public DelegateCommand GetGamblerDataCmd { get; private set; }
@@ -325,14 +391,14 @@ namespace gui.ViewModel
             GetGameEventDataCmd = new DelegateCommand(GetGameEventData);
 
             UpdateCurrentGamblerCmd = new DelegateCommand(UpdateCurrentGambler);
-            UpdateCurrentGamblerCmd = new DelegateCommand(UpdateCurrentCroupier);
-            UpdateCurrentGamblerCmd = new DelegateCommand(UpdateCurrentGame);
-            UpdateCurrentGamblerCmd = new DelegateCommand(UpdateCurrentGameEvent);
+            UpdateCurrentCroupierCmd = new DelegateCommand(UpdateCurrentCroupier);
+            UpdateCurrentGameCmd = new DelegateCommand(UpdateCurrentGame);
+            UpdateCurrentGameEventCmd = new DelegateCommand(UpdateCurrentGameEvent);
 
             CreateNewGamblerCmd = new DelegateCommand(CreateNewGambler);
-            CreateNewGamblerCmd = new DelegateCommand(CreateNewCroupier);
-            CreateNewGamblerCmd = new DelegateCommand(CreateNewGame);
-            CreateNewGamblerCmd = new DelegateCommand(CreateNewGameEvent);
+            CreateNewCroupierCmd = new DelegateCommand(CreateNewCroupier);
+            CreateNewGameCmd = new DelegateCommand(CreateNewGame);
+            CreateNewGameEventCmd = new DelegateCommand(CreateNewGameEvent);
 
             DeleteCurrentGamblerCmd = new DelegateCommand(DeleteCurrentGambler);
             DeleteCurrentCroupierCmd = new DelegateCommand(DeleteCurrentCroupier);

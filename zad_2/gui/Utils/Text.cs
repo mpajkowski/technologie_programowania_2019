@@ -8,7 +8,7 @@ namespace gui.Utils
 {
     public class Text
     {
-        static void ValidateInput(string input)
+        public static void ValidateInput(string input)
         {
             if (input.Length > 40)
             {

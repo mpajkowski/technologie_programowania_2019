@@ -22,9 +22,9 @@ namespace gui.Model
             Task.Run(() => repository.AddNewGambler(gambler));
         }
 
-        public IEnumerable<Gambler> GetAllGamblers()
+        public async Task<IEnumerable<Gambler>> GetAllGamblers()
         {
-            return repository.GetAllGamblers();
+            return await repository.GetAllGamblers();
         }
 
         public void RemoveGambler(Gambler gambler)
@@ -47,7 +47,7 @@ namespace gui.Model
             return repository.GetCroupier(croupier);
         }
 
-        public IEnumerable<Croupier> GetAllCroupiers()
+        public Task<IEnumerable<Croupier>> GetAllCroupiers()
         {
             return repository.GetAllCroupiers();
         }
@@ -72,9 +72,9 @@ namespace gui.Model
             return repository.GetGame(game);
         }
 
-        public IEnumerable<Game> GetAllGames()
+        public async Task<IEnumerable<Game>> GetAllGames()
         {
-            return repository.GetAllGames();
+            return await repository.GetAllGames();
         }
 
         public void RemoveGame(Game game)
@@ -97,9 +97,9 @@ namespace gui.Model
             return repository.GetSeat(seat);
         }
 
-        public IEnumerable<Seat> GetAllSeats()
+        public async Task<IEnumerable<Seat>> GetAllSeats()
         {
-            return repository.GetAllSeats();
+            return await repository.GetAllSeats();
         }
 
         public void RemoveSeat(Seat seat)
@@ -117,9 +117,9 @@ namespace gui.Model
             return repository.GetGameEvent(gameEvent);
         }
 
-        public IEnumerable<GameEvent> GetAllGameEvents()
+        public async Task<IEnumerable<GameEvent>> GetAllGameEvents()
         {
-            return repository.GetAllGameEvents();
+            return await repository.GetAllGameEvents();
         }
 
         public void RemoveGameEvent(GameEvent gameEvent)

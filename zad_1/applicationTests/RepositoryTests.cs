@@ -30,14 +30,7 @@ namespace application.Tests
             Gambler newGambler = new Gambler(
                 "Mikita",
                 "Kustorov",
-                "909089",
-                new Address
-                {
-                    City = "Kiev",
-                    PostalCode = "010000-06999",
-                    Street = "Lesi Ukrainky bulvar",
-                    Country = "UA"
-                }
+                "909089"
             );
 
             repository.AddNewGambler(newGambler);
@@ -51,14 +44,7 @@ namespace application.Tests
             Gambler gambler = new Gambler(
                 "Grzegorz",
                 "Janecki",
-                "545123098",
-                new Address
-                {
-                    City = "Mrągowo",
-                    PostalCode = "44-150",
-                    Street = "Arktyczna 13",
-                    Country = "PL"
-                }
+                "545123098"
             );
 
             // by index
@@ -129,14 +115,7 @@ namespace application.Tests
             Croupier newCroupier = new Croupier(
                 "Mikita",
                 "Kustorov",
-                "909089",
-                new Address
-                {
-                    City = "Kiev",
-                    PostalCode = "010000-06999",
-                    Street = "Lesi Ukrainky bulvar",
-                    Country = "UA"
-                }
+                "909089"
             );
 
             repository.AddNewCroupier(newCroupier);
@@ -150,14 +129,7 @@ namespace application.Tests
             Croupier croupier = new Croupier(
                 "Arkadiusz",
                 "Nowacki",
-                "3423122312",
-                new Address
-                {
-                    City = "Kutno",
-                    PostalCode = "10-234",
-                    Street = "Kutnowska",
-                    Country = "PL"
-                }
+                "3423122312"
             );
 
             // by index
@@ -363,7 +335,7 @@ namespace application.Tests
             var gameEvents = repository.GetAllGameEvents();
             int gameEventsCount = gameEvents.Count;
 
-            IEnumerable<Gambler> gamblers = repository.GetAllGamblers();
+            ICollection<Gambler> gamblers = repository.GetAllGamblers();
             Croupier croupier = repository.GetCroupier(0);
             Seat seatState = repository.GetSeat(0);
             Game game = repository.GetGame(0);
@@ -381,7 +353,7 @@ namespace application.Tests
         [TestMethod()]
         public void GetGameEventTest()
         {
-            IEnumerable<Gambler> gamblers = repository.GetAllGamblers();
+            ICollection<Gambler> gamblers = repository.GetAllGamblers();
             Croupier croupier = repository.GetCroupier(0);
             Seat seat = repository.GetSeat(0);
             Game game = repository.GetGame(0);
@@ -399,16 +371,6 @@ namespace application.Tests
             }
 
             repository.AddNewGameEvent(gameEvent);
-
-            try
-            {
-                repository.GetGameEvent(gameEvent);
-            }
-            catch (System.InvalidOperationException)
-            {
-                // shouldn't throw - Ids don't match
-                Assert.Fail();
-            }
         }
 
         [TestMethod()]

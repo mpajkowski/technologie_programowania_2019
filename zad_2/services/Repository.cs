@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +43,11 @@ namespace services
         // dataContext.gamblers
         public void AddNewGambler(Gambler gambler)
         {
-            AddToEntity(gambler, context, context.Gamblers);
+            using (Context c = new Context())
+            {
+                c.Gamblers.Add(gambler);
+                c.SaveChanges();
+            }
         }
 
         public Gambler GetGambler(Gambler gambler)
@@ -50,9 +55,9 @@ namespace services
             return GetFromEntity(gambler, context.Gamblers);
         }
 
-        public IEnumerable<Gambler> GetAllGamblers()
+        public async Task<IEnumerable<Gambler>> GetAllGamblers()
         {
-            return context.Gamblers.ToList();
+            return await context.Gamblers.ToListAsync();
         }
 
         public void RemoveGambler(Gambler gambler)
@@ -75,7 +80,8 @@ namespace services
         // dataContext.croupiers
         public void AddNewCroupier(Croupier croupier)
         {
-            AddToEntity(croupier, context, context.Croupiers);
+            context.Croupiers.Add(croupier);
+            context.SaveChanges();
         }
 
         public Croupier GetCroupier(Croupier croupier)
@@ -83,9 +89,10 @@ namespace services
             return GetFromEntity(croupier, context.Croupiers);
         }
 
-        public IEnumerable<Croupier> GetAllCroupiers()
+        public async Task<IEnumerable<Croupier>> GetAllCroupiers()
         {
-            return context.Croupiers.ToList();
+            var croupiers = await context.Croupiers.ToListAsync();
+            return croupiers;
         }
 
         public void RemoveCroupier(Croupier croupier)
@@ -107,7 +114,8 @@ namespace services
 
         public void AddNewGame(Game game)
         {
-            AddToEntity(game, context, context.Games);
+            context.Games.Add(game);
+            context.SaveChanges();
         }
 
         public Game GetGame(Game game)
@@ -115,9 +123,9 @@ namespace services
             return GetFromEntity(game, context.Games);
         }
 
-        public IEnumerable<Game> GetAllGames()
+        public async Task<IEnumerable<Game>> GetAllGames()
         {
-            return context.Games.ToList();
+            return await context.Games.ToListAsync();
         }
 
         public void RemoveGame(Game game)
@@ -136,7 +144,8 @@ namespace services
 
         public void AddNewSeat(Seat seat)
         {
-            AddToEntity(seat, context, context.Seats);
+            context.Seats.Add(seat);
+            context.SaveChanges();
         }
 
         public Seat GetSeat(Seat seat)
@@ -144,9 +153,9 @@ namespace services
             return GetFromEntity(seat, context.Seats);
         }
 
-        public IEnumerable<Seat> GetAllSeats()
+        public async Task<IEnumerable<Seat>> GetAllSeats()
         {
-            return context.Seats.ToList();
+            return await context.Seats.ToListAsync();
         }
 
         public void RemoveSeat(Seat seat)
@@ -156,7 +165,8 @@ namespace services
 
         public void AddNewGameEvent(GameEvent gameEvent)
         {
-            AddToEntity(gameEvent, context, context.GameEvents);
+            context.GameEvents.Add(gameEvent);
+            context.SaveChanges();
         }
 
         public GameEvent GetGameEvent(GameEvent gameEvent)
@@ -164,9 +174,61 @@ namespace services
             return GetFromEntity(gameEvent, context.GameEvents);
         }
 
-        public IEnumerable<GameEvent> GetAllGameEvents()
+        public async Task<IEnumerable<GameEvent>> GetAllGameEvents()
         {
-            return context.GameEvents.ToList();
+            var gameEvents = await context.GameEvents.ToListAsync();
+            var croupiers = await context.Croupiers.ToListAsync();
+            var games = await context.Games.ToListAsync();
+
+            var query = gameEvents.Join(
+                croupiers,
+                ge => ge.Croupier.Id,
+                c => c.Id,
+                (ge, c) => new GameEvent
+                {
+                    Id = ge.Id,
+                    Gamblers = ge.Gamblers,
+                    Croupier = c,
+                    Game = ge.Game,
+                    BeginTime = ge.BeginTime,
+                    EndTime = ge.EndTime
+                }).ToList();
+
+            
+            query = query.Join(
+                games,
+                ge => ge.Game.Id,
+                g => g.Id,
+                (ge, g) => new GameEvent
+                {
+                    Id = ge.Id,
+                    Gamblers = ge.Gamblers,
+                    Croupier = ge.Croupier,
+                    Game = g,
+                    BeginTime = ge.BeginTime,
+                    EndTime = ge.EndTime
+                }).ToList();
+
+            foreach (var q in query)
+            {
+                var param = new SqlParameter("@e_id", q.Id.ToString());
+                var gamblers = context.Database.SqlQuery<Gambler>(
+                    "select g.id, g.name, g.surname, g.phonenumber from gamblers g join gameeventgamblers as geg on gambler_id = g.id Where @e_id = geg.gameevent_id", param)
+                    .ToList();
+
+                Console.WriteLine(gamblers.ToString());
+
+                if (q.Gamblers == null)
+                {
+                    q.Gamblers = new List<Gambler>();
+                }
+
+                foreach (var g in gamblers)
+                {
+                    q.Gamblers.Add(g);
+                }
+            }
+            return query;
         }
 
         public void RemoveGameEvent(GameEvent gameEvent)

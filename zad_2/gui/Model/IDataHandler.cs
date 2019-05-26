@@ -11,7 +11,7 @@ namespace gui.Model
     {
         void AddNewGambler(Gambler gambler);
 
-        IEnumerable<Gambler> GetAllGamblers();
+        Task<IEnumerable<Gambler>> GetAllGamblers();
 
         void RemoveGambler(Gambler gambler);
 
@@ -21,7 +21,7 @@ namespace gui.Model
 
         Croupier GetCroupier(Croupier croupier);
 
-        IEnumerable<Croupier> GetAllCroupiers();
+        Task<IEnumerable<Croupier>> GetAllCroupiers();
 
         void RemoveCroupier(Croupier croupier);
 
@@ -31,7 +31,7 @@ namespace gui.Model
 
         Game GetGame(Game game);
 
-        IEnumerable<Game> GetAllGames();
+        Task<IEnumerable<Game>> GetAllGames();
 
         void RemoveGame(Game game);
 
@@ -41,7 +41,7 @@ namespace gui.Model
 
         Seat GetSeat(Seat seat);
 
-        IEnumerable<Seat> GetAllSeats();
+        Task<IEnumerable<Seat>> GetAllSeats();
 
         void RemoveSeat(Seat seat);
 
@@ -49,7 +49,7 @@ namespace gui.Model
 
         GameEvent GetGameEvent(GameEvent gameEvent);
 
-        IEnumerable<GameEvent> GetAllGameEvents();
+        Task<IEnumerable<GameEvent>> GetAllGameEvents();
 
         void RemoveGameEvent(GameEvent gameEvent);
     }

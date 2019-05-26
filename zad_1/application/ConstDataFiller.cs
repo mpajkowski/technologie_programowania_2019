@@ -16,80 +16,37 @@ namespace application
             Gambler gambler1 = new Gambler(
                 "Grzegorz",
                 "Janecki",
-                "545123098",
-                new Address
-                {
-                    City = "Mrągowo",
-                    PostalCode = "44-150",
-                    Street = "Arktyczna 13",
-                    Country = "Poland"
-                }
+                "545123098"
             );
 
             Gambler gambler2 = new Gambler(
                 "John",
                 "Deeee",
-                "123234345",
-                new Address
-                {
-                    City = "Dallas",
-                    PostalCode = "70234",
-                    Street = "Acatia 20",
-                    Country = "US"
-                }
+                "123234345"
             );
 
             Gambler gambler3 = new Gambler(
                 "Glenn",
                 "Ark",
-                "123434454",
-                new Address
-                {
-                    City = "Glasgow",
-                    PostalCode = "G1-G80",
-                    Street = "Parliamentary Road",
-                    Country = "GB"
-                }
+                "123434454"
             );
 
             Gambler gambler4 = new Gambler(
                 "Ikativ",
                 "Armanov",
-                "10101010",
-                new Address
-                {
-
-                    City = "Koluszki",
-                    PostalCode = "90-900",
-                    Street = "Koluszkowa",
-                    Country = "PL"
-                }
+                "10101010"
             );
 
             Croupier croupier1 = new Croupier(
                 "Arkadiusz",
                 "Nowacki",
-                "3423122312",
-                new Address
-                {
-                    City = "Kutno",
-                    PostalCode = "10-234",
-                    Street = "Kutnowska",
-                    Country = "PL"
-                }
+                "3423122312"
             );
 
             Croupier croupier2 = new Croupier(
                 "Antoni",
                 "Baltazar",
-                "10102030",
-                new Address
-                {
-                    City = "Gdynia",
-                    PostalCode = "40-200",
-                    Street = "Sarnia",
-                    Country = "PL"
-                }
+                "10102030"
             );
 
             data.gamblers.Add(gambler1);

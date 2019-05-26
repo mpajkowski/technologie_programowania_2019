@@ -11,6 +11,7 @@ namespace casino
     [DataContract]
     public class Seat
     {
+        public Seat() { }
         public override string ToString()
         {
             return $"{nameof(Id)}: {Id}, {nameof(Game)}: {Game}";
@@ -46,7 +47,7 @@ namespace casino
         public Guid Id { get; set;  }
 
         [DataMember]
-        public Game Game { get; }
+        public Game Game { get; set; }
 
         [DataMember]
         public bool IsAvailable { get; set; }

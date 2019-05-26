@@ -235,9 +235,9 @@ namespace gui.ViewModel
                 return;
             }
 
-            Utils.Text.ValidateInput(newGamblerName);
-            Utils.Text.ValidateInput(newGamblerSurname);
-            Utils.Text.ValidateInput(newGamblerPhoneNumber);
+            Utils.Text.ValidateInput(CurrentGambler.Name);
+            Utils.Text.ValidateInput(CurrentGambler.Surname);
+            Utils.Text.ValidateInput(CurrentGambler.PhoneNumber);
 
             dataHandler.UpdateGambler(CurrentGambler);
         }
@@ -249,9 +249,9 @@ namespace gui.ViewModel
                 return;
             }
 
-            Utils.Text.ValidateInput(NewCroupierName);
-            Utils.Text.ValidateInput(NewCroupierSurname);
-            Utils.Text.ValidateInput(NewCroupierPhoneNumber);
+            Utils.Text.ValidateInput(CurrentCroupier.Name);
+            Utils.Text.ValidateInput(CurrentCroupier.Surname);
+            Utils.Text.ValidateInput(CurrentCroupier.PhoneNumber);
 
             dataHandler.UpdateCroupier(CurrentCroupier);
         }
@@ -263,7 +263,7 @@ namespace gui.ViewModel
                 return;
             }
 
-            Utils.Text.ValidateInput(NewGameName);
+            Utils.Text.ValidateInput(CurrentGame.Name);
 
             dataHandler.UpdateGame(CurrentGame);
         }
@@ -275,9 +275,9 @@ namespace gui.ViewModel
                 return;
             }
 
-            Utils.Text.ValidateInput(NewGameName);
+            Utils.Text.ValidateInput(CurrentGameEvent.EndTime.ToString());
 
-            //dataHandler.UpdateGameEven();
+            dataHandler.UpdateGameEvent(CurrentGameEvent);
         }
 
         // Create

@@ -126,5 +126,10 @@ namespace gui.Model
         {
             Task.Run(() => repository.AddNewGameEvent(gameEvent));
         }
+
+        public void UpdateGameEvent(GameEvent gameEvent)
+        {
+            Task.Run(() => repository.UpdateGameEvent(gameEvent));
+        }
     }
 }

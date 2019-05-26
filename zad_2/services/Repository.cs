@@ -31,11 +31,9 @@ namespace services
 
         private static void RemoveFromEntity<T>(T item, Context context, DbSet<T> entity) where T : class
         {
-            T toDelete = GetFromEntity(item, entity);
-
-            if (null != toDelete)
+            if (null != item)
             {
-                entity.Remove(toDelete);
+                entity.Remove(item);
                 context.SaveChanges();
             }
         }
@@ -229,6 +227,15 @@ namespace services
                 }
             }
             return query;
+        }
+
+        public void UpdateGameEvent(GameEvent updatedGameEvent)
+        {
+            var currentEvent = context.GameEvents
+                .Single(gameEvent => gameEvent.Id.Equals(updatedGameEvent.Id));
+
+            currentEvent.EndTime = updatedGameEvent.EndTime;
+            context.SaveChanges();
         }
 
         public void RemoveGameEvent(GameEvent gameEvent)

@@ -51,6 +51,8 @@ namespace gui.Model
 
         Task<IEnumerable<GameEvent>> GetAllGameEvents();
 
+        void UpdateGameEvent(GameEvent gameEvent);
+
         void RemoveGameEvent(GameEvent gameEvent);
     }
 }

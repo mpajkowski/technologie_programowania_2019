@@ -61,21 +61,19 @@ namespace application
         {
             var context = obj as DataContext;
             return context != null &&
-                   gamblers.SequenceEqual(context.gamblers) &&
-                   croupiers.SequenceEqual(context.croupiers) &&
-                   games.SequenceEqual(context.games) &&
-                   seats.SequenceEqual(context.seats) &&
-                   seats.SequenceEqual(context.seats) &&
-                   gameEvents.SequenceEqual(context.gameEvents);
+                gamblers.SequenceEqual(context.gamblers) &&
+                croupiers.SequenceEqual(context.croupiers) &&
+                games.SequenceEqual(context.games) &&
+                seats.SequenceEqual(context.seats) &&
+                gameEvents.SequenceEqual(context.gameEvents);
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 329031736;
+            var hashCode = -1885301458;
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Gambler>>.Default.GetHashCode(gamblers);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Croupier>>.Default.GetHashCode(croupiers);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Game>>.Default.GetHashCode(games);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<Seat>>.Default.GetHashCode(seats);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Seat>>.Default.GetHashCode(seats);
             hashCode = hashCode * -1521134295 + EqualityComparer<ObservableCollection<GameEvent>>.Default.GetHashCode(gameEvents);
             return hashCode;

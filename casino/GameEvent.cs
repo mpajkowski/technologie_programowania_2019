@@ -45,6 +45,32 @@ namespace casino
         [DataMember]
         public DateTimeOffset? EndTime { get; set; }
 
+        public override bool Equals(object obj)
+        {
+            var @event = obj as GameEvent;
+            return @event != null &&
+                   Id.Equals(@event.Id) &&
+                   Gamblers.SequenceEqual(@event.Gamblers) &&
+                   EqualityComparer<Croupier>.Default.Equals(Croupier, @event.Croupier) &&
+                   EqualityComparer<Seat>.Default.Equals(Seat, @event.Seat) &&
+                   EqualityComparer<Game>.Default.Equals(Game, @event.Game) &&
+                   BeginTime.Equals(@event.BeginTime) &&
+                   EqualityComparer<DateTimeOffset?>.Default.Equals(EndTime, @event.EndTime);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -596209425;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<ICollection<Gambler>>.Default.GetHashCode(Gamblers);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Croupier>.Default.GetHashCode(Croupier);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Seat>.Default.GetHashCode(Seat);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Game>.Default.GetHashCode(Game);
+            hashCode = hashCode * -1521134295 + EqualityComparer<DateTimeOffset>.Default.GetHashCode(BeginTime);
+            hashCode = hashCode * -1521134295 + EqualityComparer<DateTimeOffset?>.Default.GetHashCode(EndTime);
+            return hashCode;
+        }
+
         public override string ToString()
         {
             return
@@ -57,32 +83,5 @@ namespace casino
                 $" {nameof(EndTime)}: {EndTime}";
         }
 
-        public override bool Equals(object obj)
-        {
-            GameEvent @event = obj as GameEvent;
-            return @event != null &&
-                   EndTime != null &&
-                   @event.EndTime != null &&
-                   Id.Equals(@event.Id) &&
-                   Gamblers.SequenceEqual(@event.Gamblers) &&
-                   EqualityComparer<Croupier>.Default.Equals(Croupier, @event.Croupier) &&
-                   EqualityComparer<Seat>.Default.Equals(Seat, @event.Seat) &&
-                   EqualityComparer<Game>.Default.Equals(Game, @event.Game) &&
-                   BeginTime.Equals(@event.BeginTime) &&
-                   EqualityComparer<DateTimeOffset?>.Default.Equals(EndTime, @event.EndTime);
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = 423756076;
-            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
-            hashCode = hashCode * -1521134295 + EqualityComparer<IEnumerable<Gambler>>.Default.GetHashCode(Gamblers);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Croupier>.Default.GetHashCode(Croupier);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Seat>.Default.GetHashCode(Seat);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Game>.Default.GetHashCode(Game);
-            hashCode = hashCode * -1521134295 + EqualityComparer<DateTimeOffset>.Default.GetHashCode(BeginTime);
-            hashCode = hashCode * -1521134295 + EqualityComparer<DateTimeOffset?>.Default.GetHashCode(EndTime);
-            return hashCode;
-        }
     }
 }

@@ -34,7 +34,7 @@ namespace casino
             var game = obj as Game;
             return game != null &&
                    Id.Equals(game.Id) &&
-                   Name == game.Name;
+                   Name.Equals(game.Name);
         }
 
         public override int GetHashCode()

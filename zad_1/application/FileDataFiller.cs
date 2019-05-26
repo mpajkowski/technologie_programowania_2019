@@ -18,7 +18,6 @@ namespace application
         public void Fill(ref DataContext dataContext)
         {
             dataContext = Serializer.Deserialize();
-            Console.WriteLine("HALO " + dataContext.gamblers[0].Name);
         }
     }
 }

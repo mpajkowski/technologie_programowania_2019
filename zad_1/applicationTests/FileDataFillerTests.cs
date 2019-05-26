@@ -41,7 +41,32 @@ namespace application.Tests
             }
 
             // compare the results
-            Assert.AreEqual(constFilledDataContext.games, jsonFilledDataContext.games);
+            for (int i = 0; i < constFilledDataContext.gamblers.Count; ++i)
+            {
+                Assert.AreEqual(constFilledDataContext.gamblers[i], jsonFilledDataContext.gamblers[i]);
+            }
+
+            for (int i = 0; i < constFilledDataContext.croupiers.Count; ++i)
+            {
+                Assert.AreEqual(constFilledDataContext.croupiers[i], jsonFilledDataContext.croupiers[i]);
+            }
+
+            for (int i = 0; i < constFilledDataContext.games.Count; ++i)
+            {
+                Assert.AreEqual(constFilledDataContext.games[i], jsonFilledDataContext.games[i]);
+            }
+
+            for (int i = 0; i < constFilledDataContext.seats.Count; ++i)
+            {
+                Assert.AreEqual(constFilledDataContext.seats[i], jsonFilledDataContext.seats[i]);
+            }
+
+            for (int i = 0; i < constFilledDataContext.gameEvents.Count; ++i)
+            {
+                Assert.AreEqual(constFilledDataContext.gameEvents[i], jsonFilledDataContext.gameEvents[i]);
+            }
+
+            Assert.AreEqual(constFilledDataContext, jsonFilledDataContext);
         }
     }
 }

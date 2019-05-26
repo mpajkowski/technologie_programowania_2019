@@ -94,6 +94,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="View\AddNewGameEventWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AddNewGamblerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AddNewGameWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AddNewCroupierWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -106,6 +122,18 @@
     <Compile Include="Model\IDataHandler.cs" />
     <Compile Include="Utils\Text.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="View\AddNewGameEventWindow.xaml.cs">
+      <DependentUpon>AddNewGameEventWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddNewGamblerWindow.xaml.cs">
+      <DependentUpon>AddNewGamblerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddNewGameWindow.xaml.cs">
+      <DependentUpon>AddNewGameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddNewCroupierWindow.xaml.cs">
+      <DependentUpon>AddNewCroupierWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

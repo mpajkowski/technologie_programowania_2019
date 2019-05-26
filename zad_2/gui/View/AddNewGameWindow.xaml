@@ -1,0 +1,16 @@
+﻿<Window x:Class="gui.View.AddNewGameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:gui.View"
+        mc:Ignorable="d"
+        Title="Dodaj nowa gre" Height="190.895" Width="338.132">
+    <Grid Margin="0,0,12,12">
+
+        <Label Content="Nazwa gry&#xD;&#xA;" HorizontalAlignment="Left" Margin="34,26,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="34,57,0,0" TextWrapping="Wrap" Text="{Binding NewGameName, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
+
+        <Button Content="Dodaj!" HorizontalAlignment="Left" Margin="132,104,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CreateNewGameCmd}"/>
+    </Grid>
+</Window>

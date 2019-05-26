@@ -50,7 +50,7 @@
                         <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="587,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGamblerCmd}"/>
 
                         <Button Content="Usuń!" HorizontalAlignment="Left" Margin="682,431,0,0" VerticalAlignment="Top" Width="84" Command="{Binding DeleteCurrentGamblerCmd}" RenderTransformOrigin="1.773,0.6"/>
-                        <Button x:Name="GamblerCreateButton" Content="Stwórz nowego gracza..." HorizontalAlignment="Left" Margin="523,431,0,0" VerticalAlignment="Top" Width="139" Command="{Binding CreateNewGamblerCmd}"/>
+                        <Button x:Name="GamblerCreateButton" Content="Stwórz nowego gracza..." Click="NewGambler_ButtonClick" HorizontalAlignment="Left" Margin="523,431,0,0" VerticalAlignment="Top" Width="139"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -86,7 +86,7 @@
                         <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="587,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentCroupierCmd}"/>
 
                         <Button Content="Usuń!" HorizontalAlignment="Left" Margin="691,436,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentCroupierCmd}"/>
-                        <Button Content="Stwórz nowego krupiera..." HorizontalAlignment="Left" Margin="521,436,0,0" VerticalAlignment="Top" Width="141" Command="{Binding CreateNewCroupierCmd}"/>
+                        <Button Content="Stwórz nowego krupiera..." Click="NewCroupier_ButtonClick" HorizontalAlignment="Left" Margin="521,436,0,0" VerticalAlignment="Top" Width="141" />
                     </Grid>
                 </Grid>
             </TabItem>
@@ -118,7 +118,7 @@
                         <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="601,339,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameCmd}" Grid.Column="3"/>
 
                         <Button Content="Usuń!" HorizontalAlignment="Left" Margin="601,397,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameCmd}" Grid.Column="3"/>
-                        <Button x:Name="GamesCreateButton" Content="Utwórz nową grę" HorizontalAlignment="Left" Margin="477,397,0,0" VerticalAlignment="Top" Width="100" Command="{Binding CreateNewGameCmd}" Grid.Column="3" />
+                        <Button x:Name="GamesCreateButton" Click="NewGame_ButtonClick" Content="Utwórz nową grę" HorizontalAlignment="Left" Margin="477,397,0,0" VerticalAlignment="Top" Width="100" Grid.Column="3" />
                     </Grid>
                 </Grid>
             </TabItem>
@@ -152,9 +152,10 @@
                         <Label Content="Czas zakonczenia" HorizontalAlignment="Left" Margin="186,303,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654" Grid.Column="2"/>
                         <TextBox HorizontalAlignment="Left" Height="24" Margin="186,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.EndTime, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="266" Grid.Column="2"/>
 
-                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="471.333,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameEventCmd}" Grid.Column="2"/>
+                        <Button Content="Stwórz nowe wydarzenie..." Click="NewGameEvent_ButtonClick" HorizontalAlignment="Left" Margin="375,447,0,0" VerticalAlignment="Top" Width="171" Grid.Column="2"/>
 
-                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="471.333,447,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameEventCmd}" Grid.Column="2"/>
+                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="566,447,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameEventCmd}" Grid.Column="2"/>
+                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="471,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameEventCmd}" Grid.Column="2"/>
                     </Grid>
                 </Grid>
             </TabItem>

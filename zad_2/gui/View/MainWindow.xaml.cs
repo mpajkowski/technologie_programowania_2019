@@ -1,4 +1,5 @@
-﻿using System;
+﻿using gui.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,29 @@ namespace gui
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void NewCroupier_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            AddNewCroupierWindow addNewCroupierWindow = new AddNewCroupierWindow();
+            addNewCroupierWindow.Show();
+        }
+
+        private void NewGambler_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            AddNewGamblerWindow addNewCroupierWindow = new AddNewGamblerWindow();
+            addNewCroupierWindow.Show();
+        }
+
+        private void NewGame_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            AddNewGameWindow addNewCroupierWindow = new AddNewGameWindow();
+            addNewCroupierWindow.Show();
+        }
+        private void NewGameEvent_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            AddNewGameEventWindow addNewCroupierWindow = new AddNewGameEventWindow();
+            addNewCroupierWindow.Show();
         }
     }
 }

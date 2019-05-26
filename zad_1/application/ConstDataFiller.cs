@@ -106,14 +106,8 @@ namespace application
             data.games.Add(roulette);
             data.games.Add(poker);
 
-            SeatState seatState1 = new SeatState(new Seat(roulette));
-            SeatState seatState2 = new SeatState(new Seat(poker));
-
-            Seat seat1 = seatState1.Seat;
-            Seat seat2 = seatState2.Seat;
-
-            data.seatStates.Add(seatState1);
-            data.seatStates.Add(seatState2);
+            Seat seat1 = new Seat(roulette);
+            Seat seat2 = new Seat(poker);
 
             data.seats.Add(seat1);
             data.seats.Add(seat2);
@@ -121,7 +115,7 @@ namespace application
             GameEvent pastGame = new GameEvent(
                 data.gamblers.GetRange(0, 2),
                 croupier1,
-                seatState1,
+                seat1,
                 roulette,
                 new DateTimeOffset(2017, 10, 10, 11, 0, 0, new TimeSpan(1,0,0)),
                 new DateTimeOffset(2017, 10, 10, 17, 0, 0, new TimeSpan(1,0,0))
@@ -130,7 +124,7 @@ namespace application
             GameEvent ongoingGame = new GameEvent(
                 data.gamblers.GetRange(2, 2),
                 croupier2,
-                seatState2,
+                seat2,
                 poker,
                 new DateTimeOffset(2019, 05, 16, 14, 50, 00, new TimeSpan(1, 0, 0)),
                 null

@@ -11,6 +11,7 @@ namespace casino
     [DataContract]
     public class Game
     {
+        public Game() { }
         public Game(string name)
         {
             Id = Guid.NewGuid();

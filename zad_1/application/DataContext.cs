@@ -15,7 +15,6 @@ namespace application
         public List<Croupier> croupiers;
         public List<Game> games;
         public List<Seat> seats;
-        public List<SeatState> seatStates;
         public ObservableCollection<GameEvent> gameEvents;
 
         public DataContext()
@@ -24,7 +23,6 @@ namespace application
             croupiers = new List<Croupier>();
             games = new List<Game>();
             seats = new List<Seat>();
-            seatStates = new List<SeatState>();
             gameEvents = new ObservableCollection<GameEvent>();
 
             gameEvents.CollectionChanged += GameEvents_CollectionChanged;
@@ -67,7 +65,7 @@ namespace application
                    croupiers.SequenceEqual(context.croupiers) &&
                    games.SequenceEqual(context.games) &&
                    seats.SequenceEqual(context.seats) &&
-                   seatStates.SequenceEqual(context.seatStates) &&
+                   seats.SequenceEqual(context.seats) &&
                    gameEvents.SequenceEqual(context.gameEvents);
         }
 
@@ -78,7 +76,7 @@ namespace application
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Croupier>>.Default.GetHashCode(croupiers);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Game>>.Default.GetHashCode(games);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Seat>>.Default.GetHashCode(seats);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<SeatState>>.Default.GetHashCode(seatStates);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<Seat>>.Default.GetHashCode(seats);
             hashCode = hashCode * -1521134295 + EqualityComparer<ObservableCollection<GameEvent>>.Default.GetHashCode(gameEvents);
             return hashCode;
         }

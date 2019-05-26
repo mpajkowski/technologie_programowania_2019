@@ -16,10 +16,29 @@ namespace casino
             return $"{nameof(Id)}: {Id}, {nameof(Game)}: {Game}";
         }
 
+        public override bool Equals(object obj)
+        {
+            var seat = obj as Seat;
+            return seat != null &&
+                   Id.Equals(seat.Id) &&
+                   EqualityComparer<Game>.Default.Equals(Game, seat.Game) &&
+                   IsAvailable == seat.IsAvailable;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1087062119;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Game>.Default.GetHashCode(Game);
+            hashCode = hashCode * -1521134295 + IsAvailable.GetHashCode();
+            return hashCode;
+        }
+
         public Seat(Game game)
         {
             Id = Guid.NewGuid();
             Game = game;
+            IsAvailable = true;
         }
 
         [DataMember]
@@ -29,20 +48,7 @@ namespace casino
         [DataMember]
         public Game Game { get; }
 
-        public override bool Equals(object obj)
-        {
-            var seat = obj as Seat;
-            return seat != null &&
-                   Id.Equals(seat.Id) &&
-                   EqualityComparer<Game>.Default.Equals(Game, seat.Game);
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = 1076413479;
-            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Game>.Default.GetHashCode(Game);
-            return hashCode;
-        }
+        [DataMember]
+        public bool IsAvailable { get; set; }
     }
 }

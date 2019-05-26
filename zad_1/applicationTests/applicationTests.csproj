@@ -72,7 +72,7 @@
       <Name>casino</Name>
     </ProjectReference>
     <ProjectReference Include="..\application\applicationLibrary.csproj">
-      <Project>{A7FB06F7-2581-41D1-A3C2-867A8A4254C2}</Project>
+      <Project>{a7fb06f7-2581-41d1-a3c2-867a8a4254c2}</Project>
       <Name>applicationLibrary</Name>
     </ProjectReference>
   </ItemGroup>

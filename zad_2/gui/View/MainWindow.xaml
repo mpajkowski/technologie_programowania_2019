@@ -7,6 +7,11 @@
     xmlns:ViewModel="clr-namespace:gui.ViewModel"
 	mc:Ignorable="d"
 	Title="Aplikacja dla kasyna" Height="557.76" Width="901.707">
+
+    <Window.DataContext>
+        <ViewModel:MainViewModel />
+    </Window.DataContext>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -28,10 +33,6 @@
                                 <DataGridTextColumn Header="Imię" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}"/>
                                 <DataGridTextColumn Header="Nr telefonu" Binding="{Binding PhoneNumber}"/>
-                                <DataGridTextColumn Header="Miasto" Binding="{Binding Address.City}"/>
-                                <DataGridTextColumn Header="Ulica" Binding="{Binding Address.Street}"/>
-                                <DataGridTextColumn Header="Kod pocztowy" Binding="{Binding Address.PostalCode}"/>
-                                <DataGridTextColumn Header="Kraj" Binding="{Binding Address.Country}"/>
                             </DataGrid.Columns>
                         </DataGrid>
 
@@ -46,21 +47,9 @@
                         <Label Content="Nr telefonu" HorizontalAlignment="Left" Margin="587,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="587,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.PhoneNumber, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="179"/>
 
-                        <Label Content="Miasto" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,388,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.Address.City, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
-                        <Label Content="Ulica" HorizontalAlignment="Left" Margin="300,362,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="300,388,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.Address.Street, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
-                        <Label Content="Kod pocztowy" HorizontalAlignment="Left" Margin="10,416,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.235,5.231"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,447,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.Address.PostalCode, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
-                        <Label Content="Kraj" HorizontalAlignment="Left" Margin="300,416,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="300,447,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.Address.Country, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
                         <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="587,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGamblerCmd}"/>
 
-                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="587,447,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGamblerCmd}"/>
+                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="587,427,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGamblerCmd}"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -79,10 +68,6 @@
                                 <DataGridTextColumn Header="Imię" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}"/>
                                 <DataGridTextColumn Header="Nr telefonu" Binding="{Binding PhoneNumber}"/>
-                                <DataGridTextColumn Header="Miasto" Binding="{Binding Address.City}"/>
-                                <DataGridTextColumn Header="Ulica" Binding="{Binding Address.Street}"/>
-                                <DataGridTextColumn Header="Kod pocztowy" Binding="{Binding Address.PostalCode}"/>
-                                <DataGridTextColumn Header="Kraj" Binding="{Binding Address.Country}"/>
                             </DataGrid.Columns>
                         </DataGrid>
 
@@ -96,18 +81,6 @@
 
                         <Label Content="Nr telefonu" HorizontalAlignment="Left" Margin="587,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="587,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.PhoneNumber, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="179"/>
-
-                        <Label Content="Miasto" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,388,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.Address.City, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
-                        <Label Content="Ulica" HorizontalAlignment="Left" Margin="300,362,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="300,388,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.Address.Street, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
-                        <Label Content="Kod pocztowy" HorizontalAlignment="Left" Margin="10,416,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.235,5.231"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,447,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.Address.PostalCode, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
-                        <Label Content="Kraj" HorizontalAlignment="Left" Margin="300,416,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="300,447,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.Address.Country, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
 
                         <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="587,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentCroupierCmd}"/>
 
@@ -147,50 +120,37 @@
             <TabItem Header="Wydarzenia">
                 <Grid>
                     <Grid Margin="0,0,110,62">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="109*"/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition Width="662*"/>
+                        </Grid.ColumnDefinitions>
                         <DataGrid IsReadOnly="True" ItemsSource="{Binding GameEvents}" SelectedItem="{Binding CurrentGameEvent}"
 							Margin="10,10,0,0" 
 							HorizontalAlignment="Left"
 							Height="293"
 							VerticalAlignment="Top"
 							Width="756"
-							AutoGenerateColumns="False">
+							AutoGenerateColumns="False" Grid.ColumnSpan="3">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID wydarzenia" Binding="{Binding Id}"/>
-                                <DataGridTextColumn Header="ID krupiera" Binding="{Binding CroupierId}"/>
-                                <DataGridTextColumn Header="ID graczy" Binding="{Binding GamblersId}"/>
-                                <DataGridTextColumn Header="ID siedzenia" Binding="{Binding SeatStateId}"/>
-                                <DataGridTextColumn Header="ID gry" Binding="{Binding GameId}"/>
+                                <DataGridTextColumn Header="ID krupiera" Binding="{Binding Croupier.Id}"/>
+                                <DataGridTextColumn Header="ID graczy" Binding="{Binding Gamblers}"/>
+                                <DataGridTextColumn Header="ID siedzenia" Binding="{Binding Seat.Id}"/>
+                                <DataGridTextColumn Header="ID gry" Binding="{Binding Game.Id}"/>
                                 <DataGridTextColumn Header="Czas rozpoczecia" Binding="{Binding BeginTime}"/>
                                 <DataGridTextColumn Header="Czas zakonczenia" Binding="{Binding EndTime}"/>
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Button x:Name="GameEventsDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGameEventDataCmd}" RenderTransformOrigin="0.571,1.318" />
+                        <Button x:Name="GameEventsDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="566.333,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGameEventDataCmd}" RenderTransformOrigin="0.571,1.318" Grid.Column="2" />
 
-                        <Label Content="ID wydarzenia" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.gameevent_id, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
+                        <Label Content="Czas zakonczenia" HorizontalAlignment="Left" Margin="27,308,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654" Grid.ColumnSpan="3"/>
+                        <TextBox HorizontalAlignment="Left" Height="23" Margin="27,339,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.EndTime, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267" Grid.ColumnSpan="3"/>
 
-                        <Label Content="ID graczy" HorizontalAlignment="Left" Margin="300,303,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="300,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.gamblers_id, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
+                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="471.333,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameEventCmd}" Grid.Column="2"/>
 
-                        <Label Content="ID krupiera" HorizontalAlignment="Left" Margin="587,303,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="587,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.croupier_id, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="179"/>
-
-                        <Label Content="ID siedzenia" HorizontalAlignment="Left" Margin="10,362,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,388,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.seatstate_id, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
-                        <Label Content="ID gry" HorizontalAlignment="Left" Margin="300,362,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="300,388,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.game_id, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
-                        <Label Content="Czas rozpoczecia" HorizontalAlignment="Left" Margin="10,416,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.235,5.231"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,447,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.begin_time, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
-                        <Label Content="Czas zakonczenia" HorizontalAlignment="Left" Margin="300,416,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="300,447,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.end_time, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
-
-                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="587,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameEventCmd}"/>
-
-                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="587,447,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameEventCmd}"/>
+                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="471.333,447,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameEventCmd}" Grid.Column="2"/>
                     </Grid>
                 </Grid>
             </TabItem>

@@ -17,100 +17,56 @@ namespace services
             $"Persist Security Info=True;" +
             $"User ID={Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User)["tpuser"]};" +
             $"Password={Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User)["tppassword"]}")
-        { }
+        {
+            Console.WriteLine(Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User)["tpuser"]);
+            Console.WriteLine(Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User)["tppassword"]);
+        }
 
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<Gambler> Gamblers { get; set; }
         public DbSet<Croupier> Croupiers { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Seat> Seats { get; set; }
-        public DbSet<SeatState> SeatStates { get; set; }
         public DbSet<GameEvent> GameEvents { get; set; }
-
 
 #if (true) // disable the db initialization code for now
         public void Initialize()
         {
             using (var data = new Context())
             {
-
                 Gambler gambler1 = new Gambler(
                     "Grzegorz",
                     "Janecki",
-                    "545123098",
-                    new Address
-                    {
-                        City = "Mrągowo",
-                        PostalCode = "44-150",
-                        Street = "Arktyczna 13",
-                        Country = "PL"
-                    }
+                    "545123098"
                 );
 
                 Gambler gambler2 = new Gambler(
                     "John",
                     "Deeee",
-                    "123234345",
-                    new Address
-                    {
-                        City = "Dallas",
-                        PostalCode = "70234",
-                        Street = "Acatia 20",
-                        Country = "US"
-                    }
+                    "123234345"
                 );
 
                 Gambler gambler3 = new Gambler(
                     "Glenn",
                     "Ark",
-                    "123434454",
-                    new Address
-                    {
-                        City = "Glasgow",
-                        PostalCode = "G1-G80",
-                        Street = "Parliamentary Road",
-                        Country = "GB"
-                    }
+                    "123434454"
                 );
 
                 Gambler gambler4 = new Gambler(
                     "Ikativ",
                     "Armanov",
-                    "10101010",
-                    new Address
-                    {
-
-                        City = "Koluszki",
-                        PostalCode = "90-900",
-                        Street = "Koluszkowa",
-                        Country = "PL"
-                    }
+                    "10101010"
                 );
 
                 Croupier croupier1 = new Croupier(
                     "Arkadiusz",
                     "Nowacki",
-                    "3423122312",
-                    new Address
-                    {
-                        City = "Kutno",
-                        PostalCode = "10-234",
-                        Street = "Kutnowska",
-                        Country = "PL"
-                    }
+                    "3423122312"
                 );
 
                 Croupier croupier2 = new Croupier(
                     "Antoni",
                     "Baltazar",
-                    "10102030",
-                    new Address
-                    {
-                        City = "Gdynia",
-                        PostalCode = "40-200",
-                        Street = "Sarnia",
-                        Country = "PL"
-                    }
+                    "10102030"
                 );
 
                 data.Gamblers.Add(gambler1);
@@ -127,14 +83,8 @@ namespace services
                 data.Games.Add(roulette);
                 data.Games.Add(poker);
 
-                SeatState seatState1 = new SeatState(new Seat(roulette));
-                SeatState seatState2 = new SeatState(new Seat(poker));
-
-                Seat seat1 = seatState1.Seat;
-                Seat seat2 = seatState2.Seat;
-
-                data.SeatStates.Add(seatState1);
-                data.SeatStates.Add(seatState2);
+                Seat seat1 = new Seat(roulette);
+                Seat seat2 = new Seat(poker);
 
                 data.Seats.Add(seat1);
                 data.Seats.Add(seat2);
@@ -150,7 +100,7 @@ namespace services
                 GameEvent pastGame = new GameEvent(
                     gamblers,
                     croupier1,
-                    seatState1,
+                    seat1,
                     roulette,
                     new DateTimeOffset(2017, 10, 10, 11, 0, 0, new TimeSpan(1, 0, 0)),
                     new DateTimeOffset(2017, 10, 10, 17, 0, 0, new TimeSpan(1, 0, 0))
@@ -159,7 +109,7 @@ namespace services
                 GameEvent ongoingGame = new GameEvent(
                     gamblers,
                     croupier2,
-                    seatState2,
+                    seat2,
                     poker,
                     new DateTimeOffset(2019, 05, 16, 14, 50, 00, new TimeSpan(1, 0, 0)),
                     null

@@ -69,10 +69,6 @@ namespace application
             return GetCollectionInfo(seats, "Seats");
         }
 
-        public string GetSeatStatesInfo(IEnumerable<SeatState> seatStates)
-        {
-            return GetCollectionInfo(seatStates, "SeatStates");
-        }
 
         public IEnumerable<GameEvent> GetGamblerGameEvents(Person gambler)
         {
@@ -90,9 +86,8 @@ namespace application
 
         public IEnumerable<Seat> GetFreeSeats()
         {
-            return repository.GetAllSeatStates()
-                .Where(state => state.IsAvailable)
-                .Select(state => state.Seat)
+            return repository.GetAllSeats()
+                .Where(seat => seat.IsAvailable)
                 .ToList();
         }
 
@@ -196,24 +191,8 @@ namespace application
             return repository.GetAllSeats();
         }
 
-        public void AddNewSeatState(SeatState seatState)
-        {
-            CheckRepoPresence(seatState, repository.GetAllSeatStates(), false);
-            repository.AddNewSeatState(seatState);
-        }
 
-        public void RemoveSeatState(SeatState seatState)
-        {
-            CheckRepoPresence(seatState, repository.GetAllSeatStates());
-            repository.RemoveSeatState(seatState);
-        }
-
-        public IEnumerable<SeatState> GetAllSeatStates()
-        {
-            return repository.GetAllSeatStates();
-        }
-
-        public void StartGameEvent(ICollection<Gambler> gamblers, Croupier croupier, SeatState seatState, Game game)
+        public void StartGameEvent(ICollection<Gambler> gamblers, Croupier croupier, Seat seat, Game game)
         {
             if (!gamblers.All(gambler => repository.GetAllGamblers().Contains(gambler)))
             {
@@ -225,14 +204,14 @@ namespace application
                 throw new ArgumentException("Selected croupier does not exist!");
             }
 
-            if (!seatState.IsAvailable)
+            if (!seat.IsAvailable)
             {
                 throw new ArgumentException("Selected seat is not available!");
             }
 
-            seatState.IsAvailable = false;
+            seat.IsAvailable = false;
 
-            var ev = new GameEvent(gamblers, croupier, seatState, game, DateTimeOffset.UtcNow, null);
+            var ev = new GameEvent(gamblers, croupier, seat, game, DateTimeOffset.UtcNow, null);
             repository.AddNewGameEvent(ev);
         }
 
@@ -244,7 +223,7 @@ namespace application
             }
 
             gameEvent.EndTime = DateTimeOffset.UtcNow;
-            gameEvent.SeatState.IsAvailable = true;
+            gameEvent.Seat.IsAvailable = true;
         }
     }
 }

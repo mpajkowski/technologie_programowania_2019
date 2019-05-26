@@ -11,13 +11,12 @@ namespace casino
     [DataContract]
     public abstract class Person
     {
-        public Person(string name, string surname, string phoneNumber, Address address)
+        public Person(string name, string surname, string phoneNumber)
         {
             Id = Guid.NewGuid();
             Name = name;
             Surname = surname;
             PhoneNumber = phoneNumber;
-            Address = address;
         }
 
         public override string ToString()
@@ -25,8 +24,7 @@ namespace casino
             return $"{nameof(Id)}: {Id}," +
                    $" {nameof(Name)}: {Name}," +
                    $" {nameof(Surname)}: {Surname}," +
-                   $" {nameof(PhoneNumber)}: {PhoneNumber}," +
-                   $" {nameof(Address)}: {Address}";
+                   $" {nameof(PhoneNumber)}: {PhoneNumber},";
         }
 
         [DataMember]
@@ -38,8 +36,6 @@ namespace casino
         public string Surname { get; set; }
         [DataMember]
         public string PhoneNumber { get; set; }
-        [DataMember]
-        public Address Address { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -48,8 +44,7 @@ namespace casino
                    Id.Equals(person.Id) &&
                    Name == person.Name &&
                    Surname == person.Surname &&
-                   PhoneNumber == person.PhoneNumber &&
-                   EqualityComparer<Address>.Default.Equals(Address, person.Address);
+                   PhoneNumber == person.PhoneNumber;
         }
 
         public override int GetHashCode()
@@ -59,7 +54,6 @@ namespace casino
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Surname);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PhoneNumber);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Address>.Default.GetHashCode(Address);
             return hashCode;
         }
     }

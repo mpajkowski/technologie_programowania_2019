@@ -162,40 +162,6 @@ namespace application
             dataContext.seats.Remove(seat);
         }
 
-        // dataContext.seatStates
-        public void AddNewSeatState(SeatState seatState)
-        {
-            dataContext.seatStates.Add(seatState);
-        }
-
-        public SeatState GetSeatState(SeatState seatState)
-        {
-            return GetByReference(seatState, dataContext.seatStates);
-        }
-
-        public SeatState GetSeatState(int index)
-        {
-            return GetByIndex(index, dataContext.seatStates);
-        }
-
-        public List<SeatState> GetAllSeatStates()
-        {
-            return dataContext.seatStates;
-        }
-
-        public void RemoveSeatState(SeatState seatState)
-        {
-            dataContext.seatStates.Remove(seatState);
-        }
-
-        public void UpdateSeatState(SeatState updatedSeatState)
-        {
-            var currentSeatState = dataContext.seatStates
-                .Single(seatState => seatState.Seat == updatedSeatState.Seat);
-            var index = dataContext.seatStates.IndexOf(currentSeatState);
-            dataContext.seatStates[index] = updatedSeatState;
-        }
-
         // dataContext.gameEvents
         public void AddNewGameEvent(GameEvent gameEvent)
         {

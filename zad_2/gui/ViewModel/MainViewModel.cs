@@ -13,11 +13,14 @@ using System.Windows.Controls;
 using System.Collections.Specialized;
 using System.Windows;
 using casino;
+using gui.Model;
 
 namespace gui.ViewModel
 {
     public class MainViewModel : BindableBase
     {
+        private IDataHandler dataHandler;
+
         // Collections
         private ObservableCollection<Gambler> gamblers;
         public ObservableCollection<Gambler> Gamblers
@@ -63,7 +66,17 @@ namespace gui.ViewModel
             }
         }
 
-        // Client
+        // Gambler
+        private Gambler currentGambler;
+        public Gambler CurrentGambler
+        {
+            get => currentGambler;
+            set
+            {
+                currentGambler = value;
+                RaisePropertyChanged();
+            }
+        }
         private string newGamblerName;
         public string NewGamblerName
         {
@@ -97,51 +110,18 @@ namespace gui.ViewModel
             }
         }
 
-        private string newGamblerAddressCity;
-        public string NewGamblerAddressCity
-        {
-            get => newGamblerName;
-            set
-            {
-                newGamblerAddressCity = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string newGamblerAddressStreet;
-        public string NewGamblerAddressStreet
-        {
-            get => newGamblerName;
-            set
-            {
-                newGamblerName = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string newGamblerAddressPostalCode;
-        public string NewGamblerAddressPostalCode
-        {
-            get => newGamblerName;
-            set
-            {
-                newGamblerName = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string newGamblerAddressCountry;
-        public string NewGamblerAddressCountry
-        {
-            get => newGamblerName;
-            set
-            {
-                newGamblerName = value;
-                RaisePropertyChanged();
-            }
-        }
-
         // Croupier
+        private Croupier currentCroupier;
+        public Croupier CurrentCroupier
+        {
+            get => currentCroupier;
+            set
+            {
+                currentCroupier = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private string newCroupierName;
         public string NewCroupierName
         {
@@ -175,51 +155,18 @@ namespace gui.ViewModel
             }
         }
 
-        private string newCroupierAddressCity;
-        public string NewCroupierAddressCity
-        {
-            get => newCroupierName;
-            set
-            {
-                newCroupierAddressCity = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string newCroupierAddressStreet;
-        public string NewCroupierAddressStreet
-        {
-            get => newCroupierName;
-            set
-            {
-                newCroupierName = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string newCroupierAddressPostalCode;
-        public string NewCroupierAddressPostalCode
-        {
-            get => newCroupierName;
-            set
-            {
-                newCroupierName = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private string newCroupierAddressCountry;
-        public string NewCroupierAddressCountry
-        {
-            get => newCroupierName;
-            set
-            {
-                newCroupierName = value;
-                RaisePropertyChanged();
-            }
-        }
-
         // Game
+        private Game currentGame;
+        public Game CurrentGame
+        {
+            get => currentGame;
+            set
+            {
+                currentGame = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public string newGameName;
         public string NewGameName
         {
@@ -232,57 +179,13 @@ namespace gui.ViewModel
         }
 
         // GameEvent
-        public string newGamblersId;
-        public string NewGamblersId
+        private GameEvent currentGameEvent;
+        public GameEvent CurrentGameEvent
         {
-            get => newGamblersId;
+            get => currentGameEvent;
             set
             {
-                newGamblersId = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string newCroupierId;
-        public string NewCroupierId
-        {
-            get => newCroupierId;
-            set
-            {
-                newCroupierId = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string newSeatStateId;
-        public string NewSeatStateId
-        {
-            get => newSeatStateId;
-            set
-            {
-                newSeatStateId = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string newGameId;
-        public string NewGameId
-        {
-            get => newGameId;
-            set
-            {
-                newGameId = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string newBeginTime;
-        public string NewBeginTime
-        {
-            get => newBeginTime;
-            set
-            {
-                newBeginTime = value;
+                currentGameEvent = value;
                 RaisePropertyChanged();
             }
         }
@@ -302,22 +205,26 @@ namespace gui.ViewModel
         // Get
         internal void GetGamblerData()
         {
-
+            var list = dataHandler.GetAllGamblers();
+            Gamblers = new ObservableCollection<Gambler>(list);
         }
 
         internal void GetCroupierData()
         {
-
+            var list = dataHandler.GetAllCroupiers();
+            Croupiers = new ObservableCollection<Croupier>(list);
         }
 
         internal void GetGameData()
         {
-
+            var list = dataHandler.GetAllGames();
+            Games = new ObservableCollection<Game>(list);
         }
 
         internal void GetGameEventData()
         {
-
+            var list = dataHandler.GetAllGameEvents();
+            GameEvents = new ObservableCollection<GameEvent>(list);
         }
 
         // Update
@@ -405,6 +312,8 @@ namespace gui.ViewModel
 
         public MainViewModel()
         {
+            dataHandler = new DataHandler();
+
             gamblers = new ObservableCollection<Gambler>();
             croupiers = new ObservableCollection<Croupier>();
             games = new ObservableCollection<Game>();
@@ -433,26 +342,13 @@ namespace gui.ViewModel
             newGamblerName = string.Empty;
             newGamblerSurname = string.Empty;
             newGamblerPhoneNumber = string.Empty;
-            newGamblerAddressCity = string.Empty;
-            newGamblerAddressStreet = string.Empty;
-            newGamblerAddressPostalCode = string.Empty;
-            newGamblerAddressCountry = string.Empty;
 
             newCroupierName = string.Empty;
             newCroupierSurname = string.Empty;
             newCroupierPhoneNumber = string.Empty;
-            newCroupierAddressCity = string.Empty;
-            newCroupierAddressStreet = string.Empty;
-            newCroupierAddressPostalCode = string.Empty;
-            newCroupierAddressCountry = string.Empty;
 
             newGameName = string.Empty;
 
-            newCroupierId = string.Empty;
-            newGamblersId = string.Empty;
-            newSeatStateId = string.Empty;
-            newGameId = string.Empty;
-            newBeginTime = string.Empty;
             newEndTime = string.Empty;
         }
     }

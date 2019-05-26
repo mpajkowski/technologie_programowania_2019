@@ -8,7 +8,8 @@ namespace casino
 {
     public class Gambler : Person
     {
-        public Gambler(string name, string surname, string phoneNumber, Address address) : base(name, surname, phoneNumber, address) { }
+        public Gambler() : base(string.Empty, string.Empty, string.Empty) { }
+        public Gambler(string name, string surname, string phoneNumber) : base(name, surname, phoneNumber) { }
         public ICollection<GameEvent> GameEvents { get; set; }
     }
 }

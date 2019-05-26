@@ -356,71 +356,6 @@ namespace application.Tests
             Assert.IsFalse(seats.Contains(firstSeat));
         }
 
-        public void AddNewSeatStateTest()
-        {
-            var seatStates = repository.GetAllSeatStates();
-            int seatStatesCount = seatStates.Count;
-
-            Seat seat = repository.GetSeat(0);
-            SeatState newSeatState = new SeatState(seat);
-
-            repository.AddNewSeatState(newSeatState);
-
-            Assert.AreEqual(seatStates.Last(), newSeatState);
-        }
-
-        [TestMethod()]
-        public void GetSeatStateTest()
-        {
-            Seat seat = repository.GetAllSeats()[0];
-            SeatState seatState = new SeatState(seat);
-
-            // by index
-            Assert.AreEqual(repository.GetSeatState(0).Seat.Game.Name, seatState.Seat.Game.Name);
-
-            var seatStatesFromRepo = repository.GetAllSeatStates();
-
-            var indexSeatStates = new List<SeatState>();
-            for (int i = 0; i < seatStatesFromRepo.Count; ++i)
-            {
-                indexSeatStates.Add(seatStatesFromRepo[i]);
-            }
-
-            for (int i = 0; i < seatStatesFromRepo.Count; ++i)
-            {
-                Assert.IsTrue(seatStatesFromRepo[i].Equals(indexSeatStates[i]));
-            }
-        }
-
-        [TestMethod()]
-        public void RemoveSeatStateTest()
-        {
-            var seatStates = repository.GetAllSeatStates();
-            var firstSeatState = seatStates[0];
-
-            int seatStatesCount = seatStates.Count;
-            int expectedCount = seatStates.Count - 1;
-
-            repository.RemoveSeatState(firstSeatState);
-
-            Assert.IsTrue(seatStates.Count == expectedCount);
-            Assert.IsFalse(seatStates.Contains(firstSeatState));
-        }
-
-        [TestMethod()]
-        public void UpdateSeatStateTest()
-        {
-            var seatStates = repository.GetAllSeatStates();
-            var selectedSeatState = seatStates[0];
-
-            selectedSeatState.IsAvailable = false;
-
-            repository.UpdateSeatState(selectedSeatState);
-
-            var selectedSeatStateAgain = seatStates[0];
-
-            Assert.AreEqual(selectedSeatState, selectedSeatStateAgain);
-        }
 
         [TestMethod()]
         public void AddNewGameEventTest()
@@ -430,7 +365,7 @@ namespace application.Tests
 
             IEnumerable<Gambler> gamblers = repository.GetAllGamblers();
             Croupier croupier = repository.GetCroupier(0);
-            SeatState seatState = repository.GetSeatState(0);
+            Seat seatState = repository.GetSeat(0);
             Game game = repository.GetGame(0);
 
             GameEvent newGameEvent = new GameEvent(gamblers, croupier, seatState, game, DateTimeOffset.Now, null);
@@ -448,10 +383,10 @@ namespace application.Tests
         {
             IEnumerable<Gambler> gamblers = repository.GetAllGamblers();
             Croupier croupier = repository.GetCroupier(0);
-            SeatState seatState = repository.GetSeatState(0);
+            Seat seat = repository.GetSeat(0);
             Game game = repository.GetGame(0);
 
-            GameEvent gameEvent = new GameEvent(gamblers, croupier, seatState, game, DateTimeOffset.Now, null);
+            GameEvent gameEvent = new GameEvent(gamblers, croupier, seat, game, DateTimeOffset.Now, null);
 
             try
             {

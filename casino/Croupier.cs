@@ -8,6 +8,7 @@ namespace casino
 {
     public class Croupier : Person
     {
-        public Croupier(string name, string surname, string phoneNumber, Address address) : base(name, surname, phoneNumber, address) { }
+        public Croupier() : base(string.Empty, string.Empty, string.Empty) { }
+        public Croupier(string name, string surname, string phoneNumber) : base(name, surname, phoneNumber) { }
     }
 }

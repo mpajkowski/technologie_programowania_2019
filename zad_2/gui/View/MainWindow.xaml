@@ -21,7 +21,7 @@
             <TabItem Header="Gracze">
                 <Grid>
                     <Grid Margin="0,0,110,62">
-                        <DataGrid IsReadOnly="True" ItemsSource="{Binding Gamblers}" SelectedItem="{Binding CurrentGambler}"
+                        <DataGrid IsReadOnly="True" ItemsSource="{Binding Gamblers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentGambler}"
 							Margin="10,10,0,0" 
 							HorizontalAlignment="Left"
 							Height="293"

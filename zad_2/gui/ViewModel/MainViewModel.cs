@@ -19,7 +19,7 @@ namespace gui.ViewModel
 {
     public class MainViewModel : BindableBase
     {
-        private IDataHandler dataHandler;
+        public IDataHandler DataHandler { get; set; }
 
         // Collections
         private ObservableCollection<Gambler> gamblers;
@@ -91,7 +91,7 @@ namespace gui.ViewModel
         private string newGamblerSurname;
         public string NewGamblerSurname
         {
-            get => newGamblerName;
+            get => newGamblerSurname;
             set
             {
                 newGamblerSurname = value;
@@ -102,7 +102,7 @@ namespace gui.ViewModel
         private string newGamblerPhoneNumber;
         public string NewGamblerPhoneNumber
         {
-            get => newGamblerName;
+            get => newGamblerPhoneNumber;
             set
             {
                 newGamblerPhoneNumber = value;
@@ -136,7 +136,7 @@ namespace gui.ViewModel
         private string newCroupierSurname;
         public string NewCroupierSurname
         {
-            get => newCroupierName;
+            get => newCroupierSurname;
             set
             {
                 newCroupierSurname = value;
@@ -147,7 +147,7 @@ namespace gui.ViewModel
         private string newCroupierPhoneNumber;
         public string NewCroupierPhoneNumber
         {
-            get => newCroupierName;
+            get => newCroupierPhoneNumber;
             set
             {
                 newCroupierPhoneNumber = value;
@@ -205,25 +205,25 @@ namespace gui.ViewModel
         // Get
         internal async void GetGamblerData()
         {
-            var list = await dataHandler.GetAllGamblers();
+            var list = await DataHandler.GetAllGamblers();
             Gamblers = new ObservableCollection<Gambler>(list);
         }
 
         internal async void GetCroupierData()
         {
-            var list =  await dataHandler.GetAllCroupiers();
+            var list =  await DataHandler.GetAllCroupiers();
             Croupiers = new ObservableCollection<Croupier>(list);
         }
 
         internal async void GetGameData()
         {
-            var list = await dataHandler.GetAllGames();
+            var list = await DataHandler.GetAllGames();
             Games = new ObservableCollection<Game>(list);
         }
 
         internal async void GetGameEventData()
         {
-            var list = await dataHandler.GetAllGameEvents();
+            var list = await DataHandler.GetAllGameEvents();
             GameEvents = new ObservableCollection<GameEvent>(list);
         }
 
@@ -239,7 +239,7 @@ namespace gui.ViewModel
             Utils.Text.ValidateInput(CurrentGambler.Surname);
             Utils.Text.ValidateInput(CurrentGambler.PhoneNumber);
 
-            dataHandler.UpdateGambler(CurrentGambler);
+            DataHandler.UpdateGambler(CurrentGambler);
         }
 
         internal void UpdateCurrentCroupier()
@@ -253,7 +253,7 @@ namespace gui.ViewModel
             Utils.Text.ValidateInput(CurrentCroupier.Surname);
             Utils.Text.ValidateInput(CurrentCroupier.PhoneNumber);
 
-            dataHandler.UpdateCroupier(CurrentCroupier);
+            DataHandler.UpdateCroupier(CurrentCroupier);
         }
 
         internal void UpdateCurrentGame()
@@ -265,7 +265,7 @@ namespace gui.ViewModel
 
             Utils.Text.ValidateInput(CurrentGame.Name);
 
-            dataHandler.UpdateGame(CurrentGame);
+            DataHandler.UpdateGame(CurrentGame);
         }
 
         internal void UpdateCurrentGameEvent()
@@ -277,7 +277,7 @@ namespace gui.ViewModel
 
             Utils.Text.ValidateInput(CurrentGameEvent.EndTime.ToString());
 
-            dataHandler.UpdateGameEvent(CurrentGameEvent);
+            DataHandler.UpdateGameEvent(CurrentGameEvent);
         }
 
         // Create
@@ -288,11 +288,10 @@ namespace gui.ViewModel
                 Id = Guid.NewGuid(),
                 Name = NewGamblerName,
                 Surname = NewGamblerSurname,
-                PhoneNumber = NewCroupierPhoneNumber
+                PhoneNumber = NewGamblerPhoneNumber
             };
 
-            Console.WriteLine("HALO");
-            dataHandler.AddNewGambler(gambler);
+            DataHandler.AddNewGambler(gambler);
         }
 
         internal void CreateNewCroupier()
@@ -302,20 +301,15 @@ namespace gui.ViewModel
             Utils.Text.ValidateInput(NewCroupierPhoneNumber);
 
             var newCroupier = new Croupier(NewCroupierName, NewCroupierSurname, NewCroupierPhoneNumber);
-            dataHandler.AddNewCroupier(newCroupier);
+            DataHandler.AddNewCroupier(newCroupier);
         }
 
         internal void CreateNewGame()
         {
-            if (CurrentGame == null)
-            {
-                return;
-            }
-
             Utils.Text.ValidateInput(NewGameName);
 
             var newGame = new Game(NewGameName);
-            dataHandler.AddNewGame(newGame);
+            DataHandler.AddNewGame(newGame);
         }
 
         internal void CreateNewGameEvent()
@@ -328,31 +322,39 @@ namespace gui.ViewModel
         {
             if (CurrentGambler != null)
             {
-                dataHandler.RemoveGambler(CurrentGambler);
+                DataHandler.RemoveGambler(CurrentGambler);
             }
+
+            CurrentGambler = null;
         }
 
         internal void DeleteCurrentCroupier()
         {
             if (CurrentCroupier != null)
             {
-                dataHandler.RemoveCroupier(CurrentCroupier);
+                DataHandler.RemoveCroupier(CurrentCroupier);
             }
+
+            CurrentCroupier = null;
         }
         internal void DeleteCurrentGame()
         {
             if (CurrentGame != null)
             {
-                dataHandler.RemoveGame(CurrentGame);
+                DataHandler.RemoveGame(CurrentGame);
             }
+
+            CurrentGame = null;
         }
 
         internal void DeleteCurrentGameEvent()
         {
             if (CurrentGameEvent != null)
             {
-                dataHandler.RemoveGameEvent(CurrentGameEvent);
+                DataHandler.RemoveGameEvent(CurrentGameEvent);
             }
+
+            CurrentGameEvent = null;
         }
 
         public DelegateCommand GetGamblerDataCmd { get; private set; }
@@ -378,7 +380,7 @@ namespace gui.ViewModel
 
         public MainViewModel()
         {
-            dataHandler = new DataHandler();
+            DataHandler = new DataHandler();
 
             gamblers = new ObservableCollection<Gambler>();
             croupiers = new ObservableCollection<Croupier>();
@@ -414,7 +416,6 @@ namespace gui.ViewModel
             newCroupierPhoneNumber = string.Empty;
 
             newGameName = string.Empty;
-
             newEndTime = string.Empty;
         }
     }

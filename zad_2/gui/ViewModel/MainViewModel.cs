@@ -270,31 +270,28 @@ namespace gui.ViewModel
         }
 
         // Get
-        internal static void GetData<T>(Collection<T> dataOut, IEnumerable<T> dataIn)
-        {
-            var list = dataIn;
-            dataOut.Clear();
-            dataOut.AddRange(list);
-        }
-
         internal void GetGamblerData()
         {
-            GetData(Gamblers, DataHandler.GetAllGamblers());
+            var list = DataHandler.GetAllGamblers();
+            Gamblers = new ObservableCollection<Gambler>(list);
         }
 
         internal void GetCroupierData()
         {
-            GetData(Croupiers, DataHandler.GetAllCroupiers());
+            var list = DataHandler.GetAllCroupiers();
+            Croupiers = new ObservableCollection<Croupier>(list);
         }
 
         internal void GetGameData()
         {
-            GetData(Games, DataHandler.GetAllGames());
+            var list = DataHandler.GetAllGames();
+            Games = new ObservableCollection<Game>(list);
         }
 
         internal void GetGameEventData()
         {
-            GetData(GameEvents, DataHandler.GetAllGameEvents());
+            var gameEvents = DataHandler.GetAllGameEvents();
+            GameEvents = new ObservableCollection<GameEvent>(gameEvents);
         }
 
         // Update

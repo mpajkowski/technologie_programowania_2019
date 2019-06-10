@@ -11,7 +11,7 @@ namespace casino
     [DataContract]
     public class GameEvent
     {
-        public GameEvent() { }
+        public GameEvent() { Gamblers = new HashSet<Gambler>(); }
 
         public GameEvent(ICollection<Gambler> gamblers, Croupier croupier, Seat seat, Game game, DateTimeOffset beginTime, DateTimeOffset? endTime)
         {

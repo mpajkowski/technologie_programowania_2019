@@ -182,58 +182,28 @@ namespace services
         public IEnumerable<GameEvent> GetAllGameEvents()
         {
             var gameEvents = context.GameEvents.ToList();
+            var gamblers = from g in context.Gamblers.Include(gambler => gambler.GameEvents)
+                           select g;
             var croupiers = context.Croupiers.ToList();
             var games = context.Games.ToList();
 
-            var query = gameEvents.Join(
-                croupiers,
-                ge => ge.Croupier.Id,
-                c => c.Id,
-                (ge, c) => new GameEvent
-                {
-                    Id = ge.Id,
-                    Gamblers = ge.Gamblers,
-                    Croupier = c,
-                    Game = ge.Game,
-                    BeginTime = ge.BeginTime,
-                    EndTime = ge.EndTime
-                }).ToList();
-
-
-            query = query.Join(
-                games,
-                ge => ge.Game.Id,
-                g => g.Id,
-                (ge, g) => new GameEvent
-                {
-                    Id = ge.Id,
-                    Gamblers = ge.Gamblers,
-                    Croupier = ge.Croupier,
-                    Game = g,
-                    BeginTime = ge.BeginTime,
-                    EndTime = ge.EndTime
-                }).ToList();
-
-            foreach (var q in query)
-            {
-                var param = new SqlParameter("@e_id", q.Id.ToString());
-                var gamblers = context.Database.SqlQuery<Gambler>(
-                    "select g.id, g.name, g.surname, g.phonenumber from gamblers g join gameeventgamblers as geg on gambler_id = g.id Where @e_id = geg.gameevent_id", param)
-                    .ToList();
-
-                Console.WriteLine(gamblers.ToString());
-
-                if (q.Gamblers == null)
-                {
-                    q.Gamblers = new List<Gambler>();
-                }
-
-                foreach (var g in gamblers)
-                {
-                    q.Gamblers.Add(g);
-                }
-            }
-            return query;
+            return (from gameEvent in gameEvents
+                    select new GameEvent
+                    {
+                        Id = gameEvent.Id,
+                        Gamblers = (from gambler in gamblers
+                                    from gge in gambler.GameEvents
+                                    where gge.Id == gameEvent.Id
+                                    select gambler).ToList(),
+                        Croupier = (from croupier in croupiers
+                                    where croupier.Id == gameEvent.Croupier.Id
+                                    select croupier).SingleOrDefault(),
+                        Game = (from game in games
+                                where game.Id == gameEvent.Game.Id
+                                select game).SingleOrDefault(),
+                        BeginTime = gameEvent.BeginTime,
+                        EndTime = gameEvent.EndTime
+                    }).ToList();
         }
 
         public void UpdateGameEvent(GameEvent updatedGameEvent)

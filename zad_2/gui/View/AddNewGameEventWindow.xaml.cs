@@ -22,6 +22,7 @@ namespace gui.View
         public AddNewGameEventWindow()
         {
             InitializeComponent();
+            DataContext = ViewModel.MainViewModel.Instance;
         }
     }
 }

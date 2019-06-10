@@ -8,13 +8,9 @@
         mc:Ignorable="d"
         Title="Dodaj nowa gre" Height="190.895" Width="338.132">
 
-    <Window.DataContext>
-        <ViewModel:MainViewModel />
-    </Window.DataContext>
-
     <Grid Margin="0,0,12,12">
 
-        <Label Content="Nazwa gry&#xD;&#xA;" HorizontalAlignment="Left" Margin="34,26,0,0" VerticalAlignment="Top"/>
+        <Label Content="Nazwa gry" HorizontalAlignment="Left" Margin="34,26,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="34,57,0,0" TextWrapping="Wrap" Text="{Binding NewGameName, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
 
         <Button Content="Dodaj!" HorizontalAlignment="Left" Margin="132,104,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CreateNewGameCmd}"/>

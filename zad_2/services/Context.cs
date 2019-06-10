@@ -18,8 +18,6 @@ namespace services
             $"User ID={Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User)["tpuser"]};" +
             $"Password={Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User)["tppassword"]}")
         {
-            Console.WriteLine(Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User)["tpuser"]);
-            Console.WriteLine(Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User)["tppassword"]);
         }
 
         public DbSet<Gambler> Gamblers { get; set; }

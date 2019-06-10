@@ -22,9 +22,9 @@ namespace gui.Model
             Task.Run(() => repository.AddNewGambler(gambler));
         }
 
-        public async Task<IEnumerable<Gambler>> GetAllGamblers()
+        public IEnumerable<Gambler> GetAllGamblers()
         {
-            return await repository.GetAllGamblers();
+            return repository.GetAllGamblers();
         }
 
         public void RemoveGambler(Gambler gambler)
@@ -47,7 +47,7 @@ namespace gui.Model
             return repository.GetCroupier(croupier);
         }
 
-        public Task<IEnumerable<Croupier>> GetAllCroupiers()
+        public IEnumerable<Croupier> GetAllCroupiers()
         {
             return repository.GetAllCroupiers();
         }
@@ -72,9 +72,9 @@ namespace gui.Model
             return repository.GetGame(game);
         }
 
-        public async Task<IEnumerable<Game>> GetAllGames()
+        public IEnumerable<Game> GetAllGames()
         {
-            return await repository.GetAllGames();
+            return repository.GetAllGames();
         }
 
         public void RemoveGame(Game game)
@@ -87,26 +87,6 @@ namespace gui.Model
             Task.Run(() => repository.UpdateGame(updatedGame));
         }
 
-        public void AddNewSeat(Seat seat)
-        {
-            Task.Run(() => repository.AddNewSeat(seat));
-        }
-
-        public Seat GetSeat(Seat seat)
-        {
-            return repository.GetSeat(seat);
-        }
-
-        public async Task<IEnumerable<Seat>> GetAllSeats()
-        {
-            return await repository.GetAllSeats();
-        }
-
-        public void RemoveSeat(Seat seat)
-        {
-            Task.Run(() => repository.RemoveSeat(seat));
-        }
-
         public void AddNewGameEvent(GameEvent gameEvent)
         {
             Task.Run(() => repository.AddNewGameEvent(gameEvent));
@@ -117,9 +97,9 @@ namespace gui.Model
             return repository.GetGameEvent(gameEvent);
         }
 
-        public async Task<IEnumerable<GameEvent>> GetAllGameEvents()
+        public IEnumerable<GameEvent> GetAllGameEvents()
         {
-            return await repository.GetAllGameEvents();
+            return repository.GetAllGameEvents();
         }
 
         public void RemoveGameEvent(GameEvent gameEvent)

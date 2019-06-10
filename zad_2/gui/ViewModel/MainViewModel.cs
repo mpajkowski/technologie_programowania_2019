@@ -14,12 +14,13 @@ using System.Collections.Specialized;
 using System.Windows;
 using casino;
 using gui.Model;
+using System.Collections;
 
 namespace gui.ViewModel
 {
     public class MainViewModel : BindableBase
     {
-        public IDataHandler DataHandler { get; set; }
+        private IDataHandler DataHandler { get; }
 
         // Collections
         private ObservableCollection<Gambler> gamblers;
@@ -167,7 +168,19 @@ namespace gui.ViewModel
             }
         }
 
-        public string newGameName;
+        // Seat
+        private Game currentSeat;
+        public Game CurrentSeat
+        {
+            get => currentSeat;
+            set
+            {
+                currentSeat = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string newGameName;
         public string NewGameName
         {
             get => newGameName;
@@ -190,41 +203,98 @@ namespace gui.ViewModel
             }
         }
 
-        public string newEndTime;
-        public string NewEndTime
+        private ObservableCollection<Gambler> newGameEventGamblers;
+        public ObservableCollection<Gambler> NewGameEventGamblers
         {
-            get => newEndTime;
+            get => newGameEventGamblers;
             set
             {
-                newEndTime = value;
+                newGameEventGamblers = value;
                 RaisePropertyChanged();
             }
         }
 
+        private Croupier newGameEventCroupier;
+        public Croupier NewGameEventCroupier
+        {
+            get => newGameEventCroupier;
+            set
+            {
+                newGameEventCroupier = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private Game newGameEventGame;
+        public Game NewGameEventGame
+        {
+            get => newGameEventGame;
+            set
+            {
+                newGameEventGame = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private DateTimeOffset newGameEventBeginTime;
+        public DateTimeOffset NewGameEventBeginTime
+        {
+            get => newGameEventBeginTime;
+            set
+            {
+                newGameEventBeginTime = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private DateTimeOffset? newGameEventEndTime;
+        public DateTimeOffset? NewGameEventEndTime
+        {
+            get => newGameEventEndTime;
+            set
+            {
+                newGameEventEndTime = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool isGameEventFinished;
+        public bool IsGameEventFinished
+        {
+            get => isGameEventFinished;
+            set
+            {
+                isGameEventFinished = value;
+                RaisePropertyChanged();
+            }
+        }
 
         // Get
-        internal async void GetGamblerData()
+        internal static void GetData<T>(Collection<T> dataOut, IEnumerable<T> dataIn)
         {
-            var list = await DataHandler.GetAllGamblers();
-            Gamblers = new ObservableCollection<Gambler>(list);
+            var list = dataIn;
+            dataOut.Clear();
+            dataOut.AddRange(list);
         }
 
-        internal async void GetCroupierData()
+        internal void GetGamblerData()
         {
-            var list =  await DataHandler.GetAllCroupiers();
-            Croupiers = new ObservableCollection<Croupier>(list);
+            GetData(Gamblers, DataHandler.GetAllGamblers());
         }
 
-        internal async void GetGameData()
+        internal void GetCroupierData()
         {
-            var list = await DataHandler.GetAllGames();
-            Games = new ObservableCollection<Game>(list);
+            GetData(Croupiers, DataHandler.GetAllCroupiers());
         }
 
-        internal async void GetGameEventData()
+        internal void GetGameData()
         {
-            var list = await DataHandler.GetAllGameEvents();
-            GameEvents = new ObservableCollection<GameEvent>(list);
+            GetData(Games, DataHandler.GetAllGames());
+        }
+
+        internal void GetGameEventData()
+        {
+            GetData(GameEvents, DataHandler.GetAllGameEvents());
         }
 
         // Update
@@ -275,8 +345,6 @@ namespace gui.ViewModel
                 return;
             }
 
-            Utils.Text.ValidateInput(CurrentGameEvent.EndTime.ToString());
-
             DataHandler.UpdateGameEvent(CurrentGameEvent);
         }
 
@@ -291,6 +359,7 @@ namespace gui.ViewModel
                 PhoneNumber = NewGamblerPhoneNumber
             };
 
+            Gamblers.Add(gambler);
             DataHandler.AddNewGambler(gambler);
         }
 
@@ -301,6 +370,7 @@ namespace gui.ViewModel
             Utils.Text.ValidateInput(NewCroupierPhoneNumber);
 
             var newCroupier = new Croupier(NewCroupierName, NewCroupierSurname, NewCroupierPhoneNumber);
+            Croupiers.Add(newCroupier);
             DataHandler.AddNewCroupier(newCroupier);
         }
 
@@ -309,12 +379,32 @@ namespace gui.ViewModel
             Utils.Text.ValidateInput(NewGameName);
 
             var newGame = new Game(NewGameName);
+            Games.Add(newGame);
             DataHandler.AddNewGame(newGame);
         }
 
         internal void CreateNewGameEvent()
         {
+            if (NewGameEventGamblers.Count == 0 || NewGameEventCroupier == null || NewGameEventGame == null)
+            {
+                System.Windows.MessageBox.Show("Proszę sprawdź swój wybór!");
+                return;
+            }
 
+            var endTime = IsGameEventFinished ? NewGameEventEndTime : null;
+
+            var newGameEvent = new GameEvent()
+            {
+                Id = Guid.NewGuid(),
+                Gamblers = NewGameEventGamblers,
+                Croupier = NewGameEventCroupier,
+                Game = NewGameEventGame,
+                BeginTime = NewGameEventBeginTime,
+                EndTime = endTime,
+            };
+
+            DataHandler.AddNewGameEvent(newGameEvent);
+            GameEvents.Add(newGameEvent);
         }
 
         // Delete
@@ -323,9 +413,9 @@ namespace gui.ViewModel
             if (CurrentGambler != null)
             {
                 DataHandler.RemoveGambler(CurrentGambler);
+                Gamblers.Remove(CurrentGambler);
+                CurrentGambler = null;
             }
-
-            CurrentGambler = null;
         }
 
         internal void DeleteCurrentCroupier()
@@ -333,18 +423,19 @@ namespace gui.ViewModel
             if (CurrentCroupier != null)
             {
                 DataHandler.RemoveCroupier(CurrentCroupier);
+                Croupiers.Remove(CurrentCroupier);
+                CurrentCroupier = null;
             }
-
-            CurrentCroupier = null;
         }
+
         internal void DeleteCurrentGame()
         {
             if (CurrentGame != null)
             {
                 DataHandler.RemoveGame(CurrentGame);
+                Games.Remove(CurrentGame);
+                CurrentGame = null;
             }
-
-            CurrentGame = null;
         }
 
         internal void DeleteCurrentGameEvent()
@@ -352,9 +443,9 @@ namespace gui.ViewModel
             if (CurrentGameEvent != null)
             {
                 DataHandler.RemoveGameEvent(CurrentGameEvent);
+                GameEvents.Remove(CurrentGameEvent);
+                CurrentGameEvent = null;
             }
-
-            CurrentGameEvent = null;
         }
 
         public DelegateCommand GetGamblerDataCmd { get; private set; }
@@ -378,9 +469,9 @@ namespace gui.ViewModel
         public DelegateCommand DeleteCurrentGameEventCmd { get; private set; }
 
 
-        public MainViewModel()
+        public MainViewModel(IDataHandler dataHandler)
         {
-            DataHandler = new DataHandler();
+            DataHandler = dataHandler;
 
             gamblers = new ObservableCollection<Gambler>();
             croupiers = new ObservableCollection<Croupier>();
@@ -416,7 +507,27 @@ namespace gui.ViewModel
             newCroupierPhoneNumber = string.Empty;
 
             newGameName = string.Empty;
-            newEndTime = string.Empty;
+
+            newGameEventGamblers = new ObservableCollection<Gambler>();
+            NewGameEventCroupier = null;
+            newGameEventGame = null;
+            newGameEventBeginTime = DateTimeOffset.UtcNow;
+            newGameEventEndTime = DateTimeOffset.UtcNow;
+            isGameEventFinished = true;
+        }
+
+        private static MainViewModel instance;
+        public static MainViewModel Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new MainViewModel(new DataHandler());
+                }
+
+                return instance;
+            }
         }
     }
 }

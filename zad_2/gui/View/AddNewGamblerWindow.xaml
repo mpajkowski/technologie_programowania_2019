@@ -8,10 +8,6 @@
         mc:Ignorable="d"
         Title="Dodaj nowego gracza" Height="273" Width="333">
 
-    <Window.DataContext>
-        <ViewModel:MainViewModel />
-    </Window.DataContext>
-
     <Grid Margin="0,0,12,12">
 
         <Label Content="Imię" HorizontalAlignment="Left" Margin="34,26,0,0" VerticalAlignment="Top"/>

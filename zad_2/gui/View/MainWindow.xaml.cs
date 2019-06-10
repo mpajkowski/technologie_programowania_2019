@@ -1,8 +1,10 @@
 ﻿using gui.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +26,7 @@ namespace gui
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = ViewModel.MainViewModel.Instance;
         }
 
         private void NewCroupier_ButtonClick(object sender, RoutedEventArgs e)
@@ -46,6 +49,7 @@ namespace gui
         private void NewGameEvent_ButtonClick(object sender, RoutedEventArgs e)
         {
             AddNewGameEventWindow addNewCroupierWindow = new AddNewGameEventWindow();
+            (DataContext as ViewModel.MainViewModel).NewGameEventGamblers = new ObservableCollection<casino.Gambler>();
             addNewCroupierWindow.Show();
         }
     }

@@ -22,6 +22,7 @@ namespace gui.View
         public AddNewCroupierWindow()
         {
             InitializeComponent();
+            DataContext = ViewModel.MainViewModel.Instance;
         }
     }
 }

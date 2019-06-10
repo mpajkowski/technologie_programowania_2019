@@ -60,15 +60,7 @@ namespace casino
 
         public override int GetHashCode()
         {
-            var hashCode = -596209425;
-            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
-            hashCode = hashCode * -1521134295 + EqualityComparer<ICollection<Gambler>>.Default.GetHashCode(Gamblers);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Croupier>.Default.GetHashCode(Croupier);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Seat>.Default.GetHashCode(Seat);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Game>.Default.GetHashCode(Game);
-            hashCode = hashCode * -1521134295 + EqualityComparer<DateTimeOffset>.Default.GetHashCode(BeginTime);
-            hashCode = hashCode * -1521134295 + EqualityComparer<DateTimeOffset?>.Default.GetHashCode(EndTime);
-            return hashCode;
+            return Id.GetHashCode();
         }
 
         public override string ToString()

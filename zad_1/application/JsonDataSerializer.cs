@@ -38,7 +38,7 @@ namespace application
                 }
             }
 
-            return (DataContext)context;
+            return context;
         }
     }
 }

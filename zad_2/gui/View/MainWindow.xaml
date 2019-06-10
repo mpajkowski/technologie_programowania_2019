@@ -3,14 +3,16 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:local="clr-namespace:gui"
-    xmlns:ViewModel="clr-namespace:gui.ViewModel"
-	mc:Ignorable="d"
+	xmlns:l="clr-namespace:gui" 
+    xmlns:u="clr-namespace:gui.Utils"
+	xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=System"
+    mc:Ignorable="d"
 	Title="Aplikacja dla kasyna" Height="557.76" Width="901.707">
 
-    <Window.DataContext>
-        <ViewModel:MainViewModel />
-    </Window.DataContext>
+    <Window.Resources>
+        <u:DateTimeConverter x:Key="DateTimeConverter" />
+    </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -21,13 +23,15 @@
             <TabItem Header="Gracze">
                 <Grid>
                     <Grid Margin="0,0,110,62">
-                        <DataGrid IsReadOnly="True" ItemsSource="{Binding Gamblers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentGambler}"
-							Margin="10,10,0,0" 
-							HorizontalAlignment="Left"
-							Height="293"
-							VerticalAlignment="Top"
-							Width="756"
-							AutoGenerateColumns="False">
+                        <DataGrid IsReadOnly="True"
+                                  ItemsSource="{Binding Gamblers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentGambler}"
+							      Margin="10,10,0,0" 
+							      HorizontalAlignment="Left"
+							      Height="293"
+							      VerticalAlignment="Top"
+							      Width="756"
+							      AutoGenerateColumns="False"
+                                  SelectionMode="Single">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID gracza" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Imię" Binding="{Binding Name}"/>
@@ -57,13 +61,16 @@
             <TabItem Header="Krupierzy">
                 <Grid>
                     <Grid Margin="0,0,110,62">
-                        <DataGrid IsReadOnly="True" ItemsSource="{Binding Croupiers}" SelectedItem="{Binding CurrentCroupier}"
-							Margin="10,10,0,0" 
-							HorizontalAlignment="Left"
-							Height="293"
-							VerticalAlignment="Top"
-							Width="756"
-							AutoGenerateColumns="False">
+                        <DataGrid IsReadOnly="True"
+                                  ItemsSource="{Binding Croupiers, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding CurrentCroupier}"
+							      Margin="10,10,0,0" 
+							      HorizontalAlignment="Left"
+							      Height="293"
+							      VerticalAlignment="Top"
+							      Width="756"
+							      AutoGenerateColumns="False"
+                                  SelectionMode="Single">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID krupiera" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Imię" Binding="{Binding Name}"/>
@@ -99,13 +106,17 @@
                             <ColumnDefinition Width="59*"/>
                             <ColumnDefinition Width="799*"/>
                         </Grid.ColumnDefinitions>
-                        <DataGrid IsReadOnly="True" ItemsSource="{Binding Games}" SelectedItem="{Binding CurrentGame}"
+                        <DataGrid
+                            IsReadOnly="True"
+                            ItemsSource="{Binding Games, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding CurrentGame}"
 							Margin="10,10,0,0" 
 							HorizontalAlignment="Left"
 							Height="293"
 							VerticalAlignment="Top"
 							Width="756"
-							AutoGenerateColumns="False" Grid.ColumnSpan="4">
+							AutoGenerateColumns="False" Grid.ColumnSpan="4"
+                            SelectionMode="Single">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID gry" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Nazwa gry" Binding="{Binding Name}"/>
@@ -130,32 +141,45 @@
                             <ColumnDefinition Width="7*"/>
                             <ColumnDefinition Width="662*"/>
                         </Grid.ColumnDefinitions>
-                        <DataGrid IsReadOnly="True" ItemsSource="{Binding GameEvents}" SelectedItem="{Binding CurrentGameEvent}"
+                        <DataGrid IsReadOnly="True" ItemsSource="{Binding GameEvents, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentGameEvent}"
 							Margin="10,10,0,0" 
 							HorizontalAlignment="Left"
-							Height="293"
+							Height="162"
 							VerticalAlignment="Top"
 							Width="756"
 							AutoGenerateColumns="False" Grid.ColumnSpan="3">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID wydarzenia" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="ID krupiera" Binding="{Binding Croupier.Id}"/>
-                                <DataGridTextColumn Header="ID graczy" Binding="{Binding Gamblers}"/>
                                 <DataGridTextColumn Header="Gra" Binding="{Binding Game.Name}"/>
                                 <DataGridTextColumn Header="Czas rozpoczecia" Binding="{Binding BeginTime}"/>
                                 <DataGridTextColumn Header="Czas zakonczenia" Binding="{Binding EndTime}"/>
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Button x:Name="GameEventsDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="566.333,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGameEventDataCmd}" RenderTransformOrigin="0.571,1.318" Grid.Column="2" />
+                        <Button x:Name="GameEventsDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="556.333,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGameEventDataCmd}" RenderTransformOrigin="0.571,1.318" Grid.Column="2" />
+                        <Label Content="Lista graczy biorących udział w wydarzeniu:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654" Grid.ColumnSpan="3" Margin="10,176.04,0,0" Width="251.956"/>
 
-                        <Label Content="Czas zakonczenia" HorizontalAlignment="Left" Margin="186,303,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654" Grid.Column="2"/>
-                        <TextBox HorizontalAlignment="Left" Height="24" Margin="186,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGameEvent.EndTime, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="266" Grid.Column="2"/>
+                        <Label Content="Czas zakończenia:" HorizontalAlignment="Left" Margin="63.958,390.01,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654" Grid.ColumnSpan="3"/>
 
                         <Button Content="Stwórz nowe wydarzenie..." Click="NewGameEvent_ButtonClick" HorizontalAlignment="Left" Margin="375,447,0,0" VerticalAlignment="Top" Width="171" Grid.Column="2"/>
 
                         <Button Content="Usuń!" HorizontalAlignment="Left" Margin="566,447,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameEventCmd}" Grid.Column="2"/>
-                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="471,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameEventCmd}" Grid.Column="2"/>
+                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="461,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameEventCmd}" Grid.Column="2"/>
+                        <DataGrid
+                            IsReadOnly="True"
+                            Grid.ColumnSpan="3"
+                            Margin="10,202,11.707,187.04"
+                            ItemsSource="{Binding CurrentGameEvent.Gamblers}"
+                            AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID gracza" Binding="{Binding Id}"/>
+                                <DataGridTextColumn Header="Imię" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}"/>
+                                <DataGridTextColumn Header="Nr telefonu" Binding="{Binding PhoneNumber}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <xctk:DateTimePicker Value="{Binding CurrentGameEvent.EndTime, Converter={StaticResource DateTimeConverter}}"  Margin="65.044,390.01,310.707,91.03" Grid.Column="2"/>
                     </Grid>
                 </Grid>
             </TabItem>

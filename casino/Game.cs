@@ -39,10 +39,7 @@ namespace casino
 
         public override int GetHashCode()
         {
-            var hashCode = -1919740922;
-            hashCode = hashCode * -1521134295 + EqualityComparer<Guid>.Default.GetHashCode(Id);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
-            return hashCode;
+            return Id.GetHashCode();
         }
     }
 }

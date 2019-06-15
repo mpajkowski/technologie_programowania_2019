@@ -16,6 +16,7 @@ namespace services
         public Repository()
         {
             this.context = new Context();
+            context.Database.Log = Console.WriteLine;
         }
 
         private static T GetFromEntity<T>(T item, DbSet<T> entity) where T : class
@@ -23,17 +24,13 @@ namespace services
             return entity.Single(it => item.Equals(it));
         }
 
-        private static void RemoveFromEntity<T>(T item, Context context, DbSet<T> entity) where T : class
+        private void RemoveFromEntity<T>(T item, DbSet<T> entity) where T : class
         {
             if (null != item)
             {
-                using (var transaction = context.Database.BeginTransaction())
-                {
-                    entity.Remove(item);
+                entity.Remove(item);
 
-                    context.SaveChanges();
-                    transaction.Commit();
-                }
+                context.SaveChanges();
             }
         }
 
@@ -61,7 +58,7 @@ namespace services
 
         public void RemoveGambler(Gambler gambler)
         {
-            RemoveFromEntity(gambler, context, context.Gamblers);
+            RemoveFromEntity(gambler, context.Gamblers);
         }
 
         public void UpdateGambler(Gambler updatedGambler)
@@ -104,7 +101,7 @@ namespace services
 
         public void RemoveCroupier(Croupier croupier)
         {
-            RemoveFromEntity(croupier, context, context.Croupiers);
+            RemoveFromEntity(croupier, context.Croupiers);
         }
 
         public void UpdateCroupier(Croupier updatedCroupier)
@@ -146,7 +143,7 @@ namespace services
 
         public void RemoveGame(Game game)
         {
-            RemoveFromEntity(game, context, context.Games);
+            RemoveFromEntity(game, context.Games);
         }
 
         public void UpdateGame(Game updatedGame)
@@ -222,7 +219,15 @@ namespace services
 
         public void RemoveGameEvent(GameEvent gameEvent)
         {
-            RemoveFromEntity(gameEvent, context, context.GameEvents);
+            var toDelete = context.GameEvents.FirstOrDefault(ge => ge.Id == gameEvent.Id);
+            foreach (var gambler in toDelete.Gamblers)
+            {
+                var g = context.Gamblers.FirstOrDefault(gg => gg.Id == gambler.Id);
+                g.GameEvents.Remove(gameEvent);
+            }
+            toDelete.Gamblers.Clear();
+            context.GameEvents.Remove(toDelete);
+            context.SaveChanges();
         }
     }
 }

@@ -104,7 +104,7 @@ namespace gui.Model
 
         public void RemoveGameEvent(GameEvent gameEvent)
         {
-            Task.Run(() => repository.AddNewGameEvent(gameEvent));
+            Task.Run(() => repository.RemoveGameEvent(gameEvent));
         }
 
         public void UpdateGameEvent(GameEvent gameEvent)

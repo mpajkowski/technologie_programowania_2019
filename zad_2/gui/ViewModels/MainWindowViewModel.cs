@@ -6,6 +6,9 @@ using gui.Model;
 using System.Collections;
 using System.Windows.Threading;
 using Prism.Events;
+using System.Linq;
+using System.Windows.Data;
+using System.Collections.Generic;
 
 namespace gui.ViewModels
 {
@@ -49,7 +52,7 @@ namespace gui.ViewModels
             set => SetProperty(ref currentGambler, value);
         }
 
-        // Croupier
+
         private Croupier currentCroupier;
         public Croupier CurrentCroupier
         {
@@ -58,7 +61,6 @@ namespace gui.ViewModels
         }
 
 
-        // Game
         private Game currentGame;
         public Game CurrentGame
         {
@@ -100,9 +102,9 @@ namespace gui.ViewModels
             EventAggregator.GetEvent<GamesFetchedMessage>().Publish(Games);
         }
 
-        internal void FetchGameEventData()
+        internal async void FetchGameEventData()
         {
-            var gameEvents = DataHandler.FetchAllGameEvents();
+            var gameEvents = await DataHandler.FetchAllGameEvents();
             GameEvents = new ObservableCollection<GameEvent>(gameEvents);
 
             EventAggregator.GetEvent<GameEventsFetchedMessage>().Publish(GameEvents);
@@ -227,7 +229,6 @@ namespace gui.ViewModels
         public DelegateCommand DeleteCurrentCroupierCmd { get; private set; }
         public DelegateCommand DeleteCurrentGameCmd { get; private set; }
         public DelegateCommand DeleteCurrentGameEventCmd { get; private set; }
-
         public DelegateCommand NotifyNewGameEventViewModelCmd { get; private set; }
 
         public MainWindowViewModel(IEventAggregator ea, IDataHandler dataHandler)
@@ -240,11 +241,11 @@ namespace gui.ViewModels
             FetchGameData();
             FetchGameEventData();
 
-            EventAggregator.GetEvent<DataRequest>().Subscribe((x) => SendData());
+            EventAggregator.GetEvent<DataRequest>().Subscribe(() => SendData());
             EventAggregator.GetEvent<GamblerAddedMessage>().Subscribe((gambler) => Gamblers.Add(gambler));
             EventAggregator.GetEvent<CroupierAddedMessage>().Subscribe((croupier) => Croupiers.Add(croupier));
             EventAggregator.GetEvent<GameAddedMessage>().Subscribe((game) => Games.Add(game));
-            EventAggregator.GetEvent<GameEventAddedMessage>().Subscribe((gameEvent) => GameEvents.Add(gameEvent), ThreadOption.UIThread);
+            EventAggregator.GetEvent<GameEventAddedMessage>().Subscribe((gameEvent) => GameEvents.Add(gameEvent));
 
             FetchGamblerDataCmd = new DelegateCommand(FetchGamblerData);
             FetchCroupierDataCmd = new DelegateCommand(FetchCroupierData);

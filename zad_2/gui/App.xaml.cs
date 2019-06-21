@@ -5,6 +5,7 @@ using System.Windows;
 using Unity;
 using gui.Model;
 using services;
+using Prism.Events;
 
 namespace gui
 {
@@ -15,7 +16,6 @@ namespace gui
     {
         protected override Window CreateShell()
         {
-
             return Container.Resolve<MainWindow>();
         }
 

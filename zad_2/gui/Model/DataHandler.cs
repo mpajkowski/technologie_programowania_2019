@@ -84,9 +84,9 @@ namespace gui.Model
             await Task.Run(() => Repository.AddNewGameEvent(gameEvent));
         }
 
-        public IEnumerable<GameEvent> FetchAllGameEvents()
+        public async Task<IEnumerable<GameEvent>> FetchAllGameEvents()
         {
-            return Repository.GetAllGameEvents();
+            return await Repository.GetAllGameEvents();
         }
 
         public async void RemoveGameEvent(GameEvent gameEvent)

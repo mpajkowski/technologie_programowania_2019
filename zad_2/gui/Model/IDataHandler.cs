@@ -35,7 +35,7 @@ namespace gui.Model
 
         void AddNewGameEvent(GameEvent gameEvent);
 
-        IEnumerable<GameEvent> FetchAllGameEvents();
+        Task<IEnumerable<GameEvent>> FetchAllGameEvents();
 
         void UpdateGameEvent(GameEvent gameEvent);
 

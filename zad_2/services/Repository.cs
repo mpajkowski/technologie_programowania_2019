@@ -208,33 +208,15 @@ namespace services
             }
         }
 
-        public IEnumerable<GameEvent> GetAllGameEvents()
+        public async Task<IEnumerable<GameEvent>> GetAllGameEvents()
         {
             using (var context = new Context())
             {
-                var gameEvents = context.GameEvents.ToList();
-                var gamblers = from g in context.Gamblers.Include(gambler => gambler.GameEvents)
-                               select g;
-                var croupiers = context.Croupiers.ToList();
-                var games = context.Games.ToList();
-
-                return (from gameEvent in gameEvents
-                        select new GameEvent
-                        {
-                            Id = gameEvent.Id,
-                            Gamblers = (from gambler in gamblers
-                                        from gge in gambler.GameEvents
-                                        where gge.Id == gameEvent.Id
-                                        select gambler).ToList(),
-                            Croupier = (from croupier in croupiers
-                                        where croupier.Id == gameEvent.Croupier.Id
-                                        select croupier).SingleOrDefault(),
-                            Game = (from game in games
-                                    where game.Id == gameEvent.Game.Id
-                                    select game).SingleOrDefault(),
-                            BeginTime = gameEvent.BeginTime,
-                            EndTime = gameEvent.EndTime
-                        }).ToList();
+                return await context.GameEvents
+                    .Include(ge => ge.Gamblers.Select(g => g.GameEvents))
+                    .Include(ge => ge.Croupier)
+                    .Include(ge => ge.Game)
+                    .ToListAsync();
             }
         }
 
@@ -263,15 +245,19 @@ namespace services
                 {
                     using (var tx = context.Database.BeginTransaction())
                     {
-                        context.GameEvents.Attach(gameEvent);
-                        foreach (var gambler in gameEvent.Gamblers)
+                        var toDelete = context.GameEvents
+                            .Include(ge => ge.Gamblers.Select(g => g.GameEvents))
+                            .Where(ge => ge.Id == gameEvent.Id)
+                            .FirstOrDefault();
+
+                        foreach (var gambler in toDelete.Gamblers)
                         {
-                            var g = context.Gamblers.FirstOrDefault(gg => gg.Id == gambler.Id);
-                            g.GameEvents.Remove(gameEvent);
+                            gambler.GameEvents.Remove(toDelete);
                         }
 
-                        gameEvent.Gamblers.Clear();
-                        context.GameEvents.Remove(gameEvent);
+                        toDelete.Gamblers.Clear();
+                        context.GameEvents.Remove(toDelete);
+
                         context.SaveChanges();
                         tx.Commit();
                     }

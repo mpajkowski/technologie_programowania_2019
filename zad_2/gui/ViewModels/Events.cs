@@ -14,7 +14,7 @@ namespace gui.ViewModels
     public class GamesFetchedMessage : PubSubEvent<ObservableCollection<Game>> { }
     public class GameEventsFetchedMessage : PubSubEvent<ObservableCollection<GameEvent>> { }
 
-    public class DataRequest : PubSubEvent<object> { }
+    public class DataRequest : PubSubEvent { }
 
     public class GamblerAddedMessage : PubSubEvent<Gambler> { }
     public class CroupierAddedMessage : PubSubEvent<Croupier> { }

@@ -6,6 +6,7 @@ using casino;
 using gui.Model;
 using Prism.Events;
 using System.Windows;
+using System.Collections.Generic;
 
 namespace gui.ViewModels
 {
@@ -54,18 +55,8 @@ namespace gui.ViewModels
             }
         }
 
-        private GameEvent currentGameEvent;
-        public GameEvent CurrentGameEvent
-        {
-            get => currentGameEvent;
-            set
-            {
-                SetProperty(ref currentGameEvent, value);
-            }
-        }
-
-        private ObservableCollection<Gambler> newGameEventGamblers;
-        public ObservableCollection<Gambler> NewGameEventGamblers
+        private List<Gambler> newGameEventGamblers;
+        public List<Gambler> NewGameEventGamblers
         {
             get => newGameEventGamblers;
             set
@@ -158,11 +149,11 @@ namespace gui.ViewModels
             EventAggregator.GetEvent<CroupiersFetchedMessage>().Subscribe((receivedCroupiers) => Croupiers = receivedCroupiers);
             EventAggregator.GetEvent<GamesFetchedMessage>().Subscribe((receivedGames) => Games = receivedGames);
 
-            EventAggregator.GetEvent<DataRequest>().Publish(new object());
+            EventAggregator.GetEvent<DataRequest>().Publish();
 
             CreateNewGameEventCmd = new DelegateCommand(CreateNewGameEvent);
 
-            NewGameEventGamblers = new ObservableCollection<Gambler>();
+            NewGameEventGamblers = new List<Gambler>();
             NewGameEventCroupier = null;
             newGameEventGame = null;
             newGameEventBeginTime = DateTimeOffset.UtcNow;

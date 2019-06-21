@@ -6,7 +6,8 @@
         mc:Ignorable="d"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="Dodaj nowego krupiera" Height="273" Width="333">
+        Title="Dodaj nowego krupiera" Height="273" Width="333"
+        ResizeMode="NoResize">
 
     <Grid Margin="0,0,12,12">
 

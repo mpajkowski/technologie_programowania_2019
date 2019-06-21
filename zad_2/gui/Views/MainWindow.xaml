@@ -5,7 +5,8 @@
 	xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
-	Title="Aplikacja dla kasyna" Height="557.76" Width="901.707">
+	Title="Aplikacja dla kasyna" Height="557.76" Width="901.707"
+    ResizeMode="CanMinimize">
 
     <Window.Resources>
         <u:DateTimeConverter x:Key="DateTimeConverter" />
@@ -13,10 +14,12 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="725*"/>
+            <ColumnDefinition Width="66*"/>
+            <ColumnDefinition Width="106*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <TabControl Grid.Row="0" Margin="0,10,0,0" Height="597" VerticalAlignment="Top">
+        <TabControl Grid.Row="0" Margin="0,10,0,-78" Height="597" VerticalAlignment="Top" Grid.ColumnSpan="3">
             <TabItem Header="Gracze">
                 <Grid>
                     <Grid Margin="0,0,110,62">
@@ -30,14 +33,11 @@
 							      AutoGenerateColumns="False"
                                   SelectionMode="Single">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID gracza" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Imię" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}"/>
                                 <DataGridTextColumn Header="Nr telefonu" Binding="{Binding PhoneNumber}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-
-                        <Button x:Name="GamblersDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding FetchGamblerDataCmd}" RenderTransformOrigin="0.571,1.318" />
 
                         <Label Content="Imię" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.Name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
@@ -48,9 +48,9 @@
                         <Label Content="Nr telefonu" HorizontalAlignment="Left" Margin="587,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="587,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.PhoneNumber, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="179"/>
 
-                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="587,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGamblerCmd}"/>
+                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="691,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGamblerCmd}"/>
 
-                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="682,431,0,0" VerticalAlignment="Top" Width="84" Command="{Binding DeleteCurrentGamblerCmd}" RenderTransformOrigin="1.773,0.6"/>
+                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="691,431,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGamblerCmd}" RenderTransformOrigin="1.773,0.6"/>
                         <Button x:Name="GamblerCreateButton" Content="Stwórz nowego gracza..." Click="NewGambler_ButtonClick" HorizontalAlignment="Left" Margin="523,431,0,0" VerticalAlignment="Top" Width="139"/>
                     </Grid>
                 </Grid>
@@ -69,14 +69,11 @@
 							      AutoGenerateColumns="False"
                                   SelectionMode="Single">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID krupiera" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Imię" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}"/>
                                 <DataGridTextColumn Header="Nr telefonu" Binding="{Binding PhoneNumber}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-
-                        <Button x:Name="CroupiersDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding FetchCroupierDataCmd}" RenderTransformOrigin="0.571,1.318" />
 
                         <Label Content="Imię" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.Name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
@@ -87,7 +84,7 @@
                         <Label Content="Nr telefonu" HorizontalAlignment="Left" Margin="587,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="587,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.PhoneNumber, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="179"/>
 
-                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="587,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentCroupierCmd}"/>
+                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="691,394,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentCroupierCmd}"/>
 
                         <Button Content="Usuń!" HorizontalAlignment="Left" Margin="691,436,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentCroupierCmd}"/>
                         <Button Content="Stwórz nowego krupiera..." Click="NewCroupier_ButtonClick" HorizontalAlignment="Left" Margin="521,436,0,0" VerticalAlignment="Top" Width="141" />
@@ -115,18 +112,16 @@
 							AutoGenerateColumns="False" Grid.ColumnSpan="4"
                             SelectionMode="Single">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID gry" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Nazwa gry" Binding="{Binding Name}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <Button x:Name="GamesDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="493,339,0,0" VerticalAlignment="Top" Width="84" Command="{Binding FetchGameDataCmd}" Grid.Column="3" />
 
                         <Label Content="Nazwa gry" HorizontalAlignment="Left" Margin="10,308,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,331,0,0" TextWrapping="Wrap" Text="{Binding CurrentGame.Name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="310" Grid.ColumnSpan="4"/>
                         <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="601,339,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameCmd}" Grid.Column="3"/>
 
-                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="601,397,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameCmd}" Grid.Column="3"/>
-                        <Button x:Name="GamesCreateButton" Click="NewGame_ButtonClick" Content="Utwórz nową grę" HorizontalAlignment="Left" Margin="477,397,0,0" VerticalAlignment="Top" Width="100" Grid.Column="3" />
+                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="601,382,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameCmd}" Grid.Column="3"/>
+                        <Button x:Name="GamesCreateButton" Click="NewGame_ButtonClick" Content="Utwórz nową grę" HorizontalAlignment="Left" Margin="477,382,0,0" VerticalAlignment="Top" Width="100" Grid.Column="3" />
                     </Grid>
                 </Grid>
             </TabItem>
@@ -146,23 +141,20 @@
 							Width="756"
 							AutoGenerateColumns="False" Grid.ColumnSpan="3">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID wydarzenia" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="ID krupiera" Binding="{Binding Croupier.Id}"/>
                                 <DataGridTextColumn Header="Gra" Binding="{Binding Game.Name}"/>
-                                <DataGridTextColumn Header="Czas rozpoczecia" Binding="{Binding BeginTime}"/>
-                                <DataGridTextColumn Header="Czas zakonczenia" Binding="{Binding EndTime}"/>
+                                <DataGridTextColumn Header="Czas rozpoczęcia" Binding="{Binding BeginTime}"/>
+                                <DataGridTextColumn Header="Czas zakończenia" Binding="{Binding EndTime}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-
-                        <Button x:Name="GameEventsDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="556.333,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding FetchGameEventDataCmd}" RenderTransformOrigin="0.571,1.318" Grid.Column="2" />
                         <Label Content="Lista graczy biorących udział w wydarzeniu:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654" Grid.ColumnSpan="3" Margin="10,176.04,0,0" Width="251.956"/>
 
                         <Label Content="Czas zakończenia:" HorizontalAlignment="Left" Margin="63.958,390.01,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654" Grid.ColumnSpan="3"/>
 
-                        <Button Content="Stwórz nowe wydarzenie..." Click="NewGameEvent_ButtonClick" HorizontalAlignment="Left" Margin="375,447,0,0" VerticalAlignment="Top" Width="171" Grid.Column="2"/>
+                        <Button Content="Stwórz nowe wydarzenie..." Click="NewGameEvent_ButtonClick" HorizontalAlignment="Left" Margin="373,447,0,0" VerticalAlignment="Top" Width="171" Grid.Column="2"/>
 
                         <Button Content="Usuń!" HorizontalAlignment="Left" Margin="566,447,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameEventCmd}" Grid.Column="2"/>
-                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="461,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameEventCmd}" Grid.Column="2"/>
+                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="566,401,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameEventCmd}" Grid.Column="2"/>
                         <DataGrid
                             IsReadOnly="True"
                             Grid.ColumnSpan="3"
@@ -170,7 +162,6 @@
                             ItemsSource="{Binding CurrentGameEvent.Gamblers}"
                             AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="ID gracza" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Imię" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}"/>
                                 <DataGridTextColumn Header="Nr telefonu" Binding="{Binding PhoneNumber}"/>

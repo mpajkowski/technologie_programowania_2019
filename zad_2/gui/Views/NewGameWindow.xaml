@@ -1,14 +1,10 @@
 ﻿<Window x:Class="gui.Views.NewGameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:gui.Views"
-        xmlns:ViewModel="clr-namespace:gui.ViewModels"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        mc:Ignorable="d"
-        Title="Dodaj nowa gre" Height="190.895" Width="338.132">
+        Title="Dodaj nową grę" Height="190.895" Width="338.132"
+        ResizeMode="NoResize">
 
     <Grid Margin="0,0,12,12">
 

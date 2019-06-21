@@ -5,7 +5,8 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="Dodaj nowe wydarzenie" Height="648.292" Width="646.026">
+        Title="Dodaj nowe wydarzenie" Height="648.292" Width="646.026"
+        ResizeMode="NoResize">
 
     <Window.Resources>
         <u:DateTimeConverter x:Key="DateTimeConverter" />

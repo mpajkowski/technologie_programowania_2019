@@ -1,6 +1,6 @@
 ﻿using casino;
 using gui.Model;
-using gui.ViewModel;
+using gui.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using System;
@@ -20,7 +20,8 @@ namespace guiTests.ViewModel.Tests
         public void SetUp()
         {
             dataHandler = MockRepository.GenerateStub<IDataHandler>();
-            mvm = new MainViewModel(dataHandler);
+            mvm = new MainViewModel(null);
+            mvm.SetDataHandler(dataHandler);
         }
 
         [TestMethod()]

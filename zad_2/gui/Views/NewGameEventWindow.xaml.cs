@@ -1,4 +1,5 @@
-﻿using System;
+﻿using gui.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,17 +13,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace gui.View
+namespace gui.Views
 {
     /// <summary>
     /// Logika interakcji dla klasy AddNewCroupierWindow.xaml
     /// </summary>
-    public partial class AddNewCroupierWindow : Window
+    public partial class NewGameEventWindow : Window
     {
-        public AddNewCroupierWindow()
+        public NewGameEventWindow()
         {
             InitializeComponent();
-            DataContext = ViewModel.MainViewModel.Instance;
         }
     }
 }

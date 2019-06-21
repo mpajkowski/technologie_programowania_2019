@@ -11,6 +11,8 @@ namespace casino
     [DataContract]
     public abstract class Person
     {
+        public Person() { }
+
         public Person(string name, string surname, string phoneNumber)
         {
             Id = Guid.NewGuid();

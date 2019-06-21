@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using casino;
 using services;
@@ -10,106 +12,91 @@ namespace gui.Model
 {
     public class DataHandler : IDataHandler
     {
-        private Repository repository;
+        private Repository Repository { get; }
 
-        public DataHandler()
+        public DataHandler(Repository repository)
         {
-            this.repository = new Repository();
+            Repository = repository;
         }
 
-        public void AddNewGambler(Gambler gambler)
+        public async void AddNewGambler(Gambler gambler)
         {
-            Task.Run(() => repository.AddNewGambler(gambler));
+            await Task.Run(() => Repository.AddNewGambler(gambler));
         }
 
-        public IEnumerable<Gambler> GetAllGamblers()
+        public async Task<IEnumerable<Gambler>> FetchAllGamblers()
         {
-            return repository.GetAllGamblers();
+            return await Repository.GetAllGamblers();
         }
 
-        public void RemoveGambler(Gambler gambler)
+        public async void RemoveGambler(Gambler gambler)
         {
-            Task.Run(() => repository.RemoveGambler(gambler));
+            await Task.Run(() => Repository.RemoveGambler(gambler));
         }
 
-        public void UpdateGambler(Gambler updatedGambler)
+        public async void UpdateGambler(Gambler updatedGambler)
         {
-            Task.Run(() => repository.UpdateGambler(updatedGambler));
+            await Task.Run(() => Repository.UpdateGambler(updatedGambler));
         }
 
-        public void AddNewCroupier(Croupier croupier)
+        public async void AddNewCroupier(Croupier croupier)
         {
-            Task.Run(() => repository.AddNewCroupier(croupier));
+            await Task.Run(() => Repository.AddNewCroupier(croupier));
         }
 
-        public Croupier GetCroupier(Croupier croupier)
+        public async Task<IEnumerable<Croupier>> FetchAllCroupiers()
         {
-            return repository.GetCroupier(croupier);
+            return await Repository.GetAllCroupiers();
         }
 
-        public IEnumerable<Croupier> GetAllCroupiers()
+        public async void RemoveCroupier(Croupier croupier)
         {
-            return repository.GetAllCroupiers();
+            await Task.Run(() => Repository.RemoveCroupier(croupier));
         }
 
-        public void RemoveCroupier(Croupier croupier)
+        public async void UpdateCroupier(Croupier updatedCroupier)
         {
-            Task.Run(() => repository.RemoveCroupier(croupier));
+            await Task.Run(() => Repository.UpdateCroupier(updatedCroupier));
         }
 
-        public void UpdateCroupier(Croupier updatedCroupier)
+        public async void AddNewGame(Game game)
         {
-            Task.Run(() => repository.UpdateCroupier(updatedCroupier));
+            await Task.Run(() => Repository.AddNewGame(game));
         }
 
-        public void AddNewGame(Game game)
+        public async Task<IEnumerable<Game>> FetchAllGames()
         {
-            Task.Run(() => repository.AddNewGame(game));
+           return await Repository.GetAllGames();
         }
 
-        public Game GetGame(Game game)
+        public async void RemoveGame(Game game)
         {
-            return repository.GetGame(game);
+            await Task.Run(() => Repository.RemoveGame(game));
         }
 
-        public IEnumerable<Game> GetAllGames()
+        public async void UpdateGame(Game updatedGame)
         {
-            return repository.GetAllGames();
+            await Task.Run(() => Repository.UpdateGame(updatedGame));
         }
 
-        public void RemoveGame(Game game)
+        public async void AddNewGameEvent(GameEvent gameEvent)
         {
-            Task.Run(() => repository.RemoveGame(game));
+            await Task.Run(() => Repository.AddNewGameEvent(gameEvent));
         }
 
-        public void UpdateGame(Game updatedGame)
+        public IEnumerable<GameEvent> FetchAllGameEvents()
         {
-            Task.Run(() => repository.UpdateGame(updatedGame));
+            return Repository.GetAllGameEvents();
         }
 
-        public void AddNewGameEvent(GameEvent gameEvent)
+        public async void RemoveGameEvent(GameEvent gameEvent)
         {
-            Task.Run(() => repository.AddNewGameEvent(gameEvent));
+            await Task.Run(() => Repository.RemoveGameEvent(gameEvent));
         }
 
-        public GameEvent GetGameEvent(GameEvent gameEvent)
+        public async void UpdateGameEvent(GameEvent gameEvent)
         {
-            return repository.GetGameEvent(gameEvent);
-        }
-
-        public IEnumerable<GameEvent> GetAllGameEvents()
-        {
-            return repository.GetAllGameEvents();
-        }
-
-        public void RemoveGameEvent(GameEvent gameEvent)
-        {
-            Task.Run(() => repository.RemoveGameEvent(gameEvent));
-        }
-
-        public void UpdateGameEvent(GameEvent gameEvent)
-        {
-            Task.Run(() => repository.UpdateGameEvent(gameEvent));
+            await Task.Run(() => Repository.UpdateGameEvent(gameEvent));
         }
     }
 }

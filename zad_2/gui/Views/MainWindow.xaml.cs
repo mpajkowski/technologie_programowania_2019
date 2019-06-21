@@ -1,4 +1,4 @@
-﻿using gui.View;
+﻿using gui.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace gui
+namespace gui.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,30 +26,28 @@ namespace gui
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = ViewModel.MainViewModel.Instance;
         }
 
         private void NewCroupier_ButtonClick(object sender, RoutedEventArgs e)
         {
-            AddNewCroupierWindow addNewCroupierWindow = new AddNewCroupierWindow();
+            NewCroupierWindow addNewCroupierWindow = new NewCroupierWindow();
             addNewCroupierWindow.Show();
         }
 
         private void NewGambler_ButtonClick(object sender, RoutedEventArgs e)
         {
-            AddNewGamblerWindow addNewCroupierWindow = new AddNewGamblerWindow();
+            NewGamblerWindow addNewCroupierWindow = new NewGamblerWindow();
             addNewCroupierWindow.Show();
         }
 
         private void NewGame_ButtonClick(object sender, RoutedEventArgs e)
         {
-            AddNewGameWindow addNewCroupierWindow = new AddNewGameWindow();
+            NewGameWindow addNewCroupierWindow = new NewGameWindow();
             addNewCroupierWindow.Show();
         }
         private void NewGameEvent_ButtonClick(object sender, RoutedEventArgs e)
         {
-            AddNewGameEventWindow addNewCroupierWindow = new AddNewGameEventWindow();
-            (DataContext as ViewModel.MainViewModel).NewGameEventGamblers = new ObservableCollection<casino.Gambler>();
+            NewGameEventWindow addNewCroupierWindow = new NewGameEventWindow();
             addNewCroupierWindow.Show();
         }
     }

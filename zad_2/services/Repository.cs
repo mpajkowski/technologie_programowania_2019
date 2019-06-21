@@ -11,223 +11,272 @@ namespace services
 {
     public class Repository
     {
-        private readonly Context context;
-
-        public Repository()
-        {
-            this.context = new Context();
-            context.Database.Log = Console.WriteLine;
-        }
-
-        private static T GetFromEntity<T>(T item, DbSet<T> entity) where T : class
-        {
-            return entity.Single(it => item.Equals(it));
-        }
-
-        private void RemoveFromEntity<T>(T item, DbSet<T> entity) where T : class
-        {
-            if (null != item)
-            {
-                entity.Remove(item);
-
-                context.SaveChanges();
-            }
-        }
-
         // dataContext.gamblers
         public void AddNewGambler(Gambler gambler)
         {
-            using (var transaction = context.Database.BeginTransaction())
+            using (var context = new Context())
             {
-                context.Gamblers.Add(gambler);
+                using (var tx = context.Database.BeginTransaction())
+                {
+                    context.Gamblers.Add(gambler);
 
-                context.SaveChanges();
-                transaction.Commit();
+                    context.SaveChanges();
+                    tx.Commit();
+                }
             }
         }
 
-        public Gambler GetGambler(Gambler gambler)
-        {
-            return GetFromEntity(gambler, context.Gamblers);
-        }
+        public async Task<List<Gambler>> GetAllGamblers()
 
-        public IEnumerable<Gambler> GetAllGamblers()
         {
-            return context.Gamblers.ToList();
+            using (var context = new Context())
+            {
+                return await context.Gamblers.ToListAsync();
+            }
         }
 
         public void RemoveGambler(Gambler gambler)
         {
-            RemoveFromEntity(gambler, context.Gamblers);
+            using (var context = new Context())
+            {
+                if (null != gambler)
+                {
+                    using (var tx = context.Database.BeginTransaction())
+                    {
+                        context.Gamblers.Attach(gambler);
+                        context.Gamblers.Remove(gambler);
+                        context.SaveChanges();
+                        tx.Commit();
+                    }
+                }
+            }
         }
 
         public void UpdateGambler(Gambler updatedGambler)
         {
-            using (var transaction = context.Database.BeginTransaction())
+            using (var context = new Context())
             {
-                var currentGambler = context.Gamblers
-                    .Single(gambler => gambler.Id.Equals(updatedGambler.Id));
+                using (var tx = context.Database.BeginTransaction())
+                {
+                    var currentGambler = context.Gamblers
+                        .Single(gambler => gambler.Id.Equals(updatedGambler.Id));
 
-                currentGambler.Name = updatedGambler.Name;
-                currentGambler.Surname = updatedGambler.Surname;
-                currentGambler.PhoneNumber = updatedGambler.PhoneNumber;
+                    currentGambler.Name = updatedGambler.Name;
+                    currentGambler.Surname = updatedGambler.Surname;
+                    currentGambler.PhoneNumber = updatedGambler.PhoneNumber;
 
-                context.SaveChanges();
-                transaction.Commit();
+                    context.SaveChanges();
+                    tx.Commit();
+                }
             }
         }
 
         // dataContext.croupiers
         public void AddNewCroupier(Croupier croupier)
         {
-            using (var transaction = context.Database.BeginTransaction())
+            using (var context = new Context())
             {
-                context.Croupiers.Add(croupier);
+                using (var tx = context.Database.BeginTransaction())
+                {
+                    context.Croupiers.Add(croupier);
 
-                context.SaveChanges();
-                transaction.Commit();
+                    context.SaveChanges();
+                    tx.Commit();
+                }
             }
         }
 
-        public Croupier GetCroupier(Croupier croupier)
+        public async Task<IEnumerable<Croupier>> GetAllCroupiers()
         {
-            return GetFromEntity(croupier, context.Croupiers);
-        }
-
-        public IEnumerable<Croupier> GetAllCroupiers()
-        {
-            return context.Croupiers.ToList();
+            using (var context = new Context())
+            {
+                return await context.Croupiers.ToListAsync();
+            }
         }
 
         public void RemoveCroupier(Croupier croupier)
         {
-            RemoveFromEntity(croupier, context.Croupiers);
+            using (var context = new Context())
+            {
+                using (var tx = context.Database.BeginTransaction())
+                {
+                    if (null != croupier)
+                    {
+                        context.Croupiers.Attach(croupier);
+                        context.Croupiers.Remove(croupier);
+                        context.SaveChanges();
+                        tx.Commit();
+                    }
+                }
+            }
         }
 
         public void UpdateCroupier(Croupier updatedCroupier)
         {
-            using (var transaction = context.Database.BeginTransaction())
+            using (var context = new Context())
             {
-                var currentCroupier = context.Croupiers
-                    .Single(croupier => croupier.Id.Equals(updatedCroupier.Id));
+                using (var tx = context.Database.BeginTransaction())
+                {
+                    var currentCroupier = context.Croupiers
+                        .Single(croupier => croupier.Id.Equals(updatedCroupier.Id));
 
-                currentCroupier.Name = updatedCroupier.Name;
-                currentCroupier.Surname = updatedCroupier.Surname;
-                currentCroupier.PhoneNumber = updatedCroupier.PhoneNumber;
+                    currentCroupier.Name = updatedCroupier.Name;
+                    currentCroupier.Surname = updatedCroupier.Surname;
+                    currentCroupier.PhoneNumber = updatedCroupier.PhoneNumber;
 
-                context.SaveChanges();
-                transaction.Commit();
+                    context.SaveChanges();
+                    tx.Commit();
+                }
             }
         }
 
         public void AddNewGame(Game game)
         {
-            using (var transaction = context.Database.BeginTransaction())
+            using (var context = new Context())
             {
-                context.Games.Add(game);
+                using (var tx = context.Database.BeginTransaction())
+                {
+                    context.Games.Add(game);
 
-                context.SaveChanges();
-                transaction.Commit();
+                    context.SaveChanges();
+                    tx.Commit();
+                }
             }
         }
 
-        public Game GetGame(Game game)
+        public async Task<IEnumerable<Game>> GetAllGames()
         {
-            return GetFromEntity(game, context.Games);
-        }
-
-        public IEnumerable<Game> GetAllGames()
-        {
-            return context.Games.ToList();
+            using (var context = new Context())
+            {
+                return await context.Games.ToListAsync();
+            }
         }
 
         public void RemoveGame(Game game)
         {
-            RemoveFromEntity(game, context.Games);
+            using (var context = new Context())
+            {
+                if (null != game)
+                {
+                    using (var tx = context.Database.BeginTransaction())
+                    {
+                        context.Games.Attach(game);
+                        context.Games.Remove(game);
+                        context.SaveChanges();
+                        tx.Commit();
+                    }
+                }
+            }
         }
 
         public void UpdateGame(Game updatedGame)
         {
-            using (var transaction = context.Database.BeginTransaction())
+            using (var context = new Context())
             {
-                var currentGame = context.Games
-                    .Single(game => game.Id.Equals(updatedGame.Id));
+                using (var tx = context.Database.BeginTransaction())
+                {
+                    var currentGame = context.Games
+                        .Single(game => game.Id.Equals(updatedGame.Id));
 
-                currentGame.Name = updatedGame.Name;
+                    currentGame.Name = updatedGame.Name;
 
-                context.SaveChanges();
-                transaction.Commit();
+                    context.SaveChanges();
+                    tx.Commit();
+                }
             }
         }
 
         public void AddNewGameEvent(GameEvent gameEvent)
         {
-            using (var transaction = context.Database.BeginTransaction())
+            using (var context = new Context())
             {
-                context.GameEvents.Add(gameEvent);
+                foreach (var gambler in gameEvent.Gamblers)
+                {
+                    context.Gamblers.Attach(gambler);
+                }
 
-                context.SaveChanges();
-                transaction.Commit();
+                context.Croupiers.Attach(gameEvent.Croupier);
+                context.Games.Attach(gameEvent.Game);
+
+                using (var tx = context.Database.BeginTransaction())
+                {
+                    context.GameEvents.Add(gameEvent);
+
+                    context.SaveChanges();
+                    tx.Commit();
+                }
             }
-        }
-
-        public GameEvent GetGameEvent(GameEvent gameEvent)
-        {
-            return GetFromEntity(gameEvent, context.GameEvents);
         }
 
         public IEnumerable<GameEvent> GetAllGameEvents()
         {
-            var gameEvents = context.GameEvents.ToList();
-            var gamblers = from g in context.Gamblers.Include(gambler => gambler.GameEvents)
-                           select g;
-            var croupiers = context.Croupiers.ToList();
-            var games = context.Games.ToList();
+            using (var context = new Context())
+            {
+                var gameEvents = context.GameEvents.ToList();
+                var gamblers = from g in context.Gamblers.Include(gambler => gambler.GameEvents)
+                               select g;
+                var croupiers = context.Croupiers.ToList();
+                var games = context.Games.ToList();
 
-            return (from gameEvent in gameEvents
-                    select new GameEvent
-                    {
-                        Id = gameEvent.Id,
-                        Gamblers = (from gambler in gamblers
-                                    from gge in gambler.GameEvents
-                                    where gge.Id == gameEvent.Id
-                                    select gambler).ToList(),
-                        Croupier = (from croupier in croupiers
-                                    where croupier.Id == gameEvent.Croupier.Id
-                                    select croupier).SingleOrDefault(),
-                        Game = (from game in games
-                                where game.Id == gameEvent.Game.Id
-                                select game).SingleOrDefault(),
-                        BeginTime = gameEvent.BeginTime,
-                        EndTime = gameEvent.EndTime
-                    }).ToList();
+                return (from gameEvent in gameEvents
+                        select new GameEvent
+                        {
+                            Id = gameEvent.Id,
+                            Gamblers = (from gambler in gamblers
+                                        from gge in gambler.GameEvents
+                                        where gge.Id == gameEvent.Id
+                                        select gambler).ToList(),
+                            Croupier = (from croupier in croupiers
+                                        where croupier.Id == gameEvent.Croupier.Id
+                                        select croupier).SingleOrDefault(),
+                            Game = (from game in games
+                                    where game.Id == gameEvent.Game.Id
+                                    select game).SingleOrDefault(),
+                            BeginTime = gameEvent.BeginTime,
+                            EndTime = gameEvent.EndTime
+                        }).ToList();
+            }
         }
 
         public void UpdateGameEvent(GameEvent updatedGameEvent)
         {
-            using (var transaction = context.Database.BeginTransaction())
+            using (var context = new Context())
             {
-                var currentEvent = context.GameEvents
-                    .Single(gameEvent => gameEvent.Id.Equals(updatedGameEvent.Id));
+                using (var tx = context.Database.BeginTransaction())
+                {
+                    var currentEvent = context.GameEvents
+                        .Single(gameEvent => gameEvent.Id.Equals(updatedGameEvent.Id));
 
-                currentEvent.EndTime = updatedGameEvent.EndTime;
+                    currentEvent.EndTime = updatedGameEvent.EndTime;
 
-                context.SaveChanges();
-                transaction.Commit();
+                    context.SaveChanges();
+                    tx.Commit();
+                }
             }
         }
 
         public void RemoveGameEvent(GameEvent gameEvent)
         {
-            var toDelete = context.GameEvents.FirstOrDefault(ge => ge.Id == gameEvent.Id);
-            foreach (var gambler in toDelete.Gamblers)
+            using (var context = new Context())
             {
-                var g = context.Gamblers.FirstOrDefault(gg => gg.Id == gambler.Id);
-                g.GameEvents.Remove(gameEvent);
+                if (null != gameEvent)
+                {
+                    using (var tx = context.Database.BeginTransaction())
+                    {
+                        context.GameEvents.Attach(gameEvent);
+                        foreach (var gambler in gameEvent.Gamblers)
+                        {
+                            var g = context.Gamblers.FirstOrDefault(gg => gg.Id == gambler.Id);
+                            g.GameEvents.Remove(gameEvent);
+                        }
+
+                        gameEvent.Gamblers.Clear();
+                        context.GameEvents.Remove(gameEvent);
+                        context.SaveChanges();
+                        tx.Commit();
+                    }
+                }
             }
-            toDelete.Gamblers.Clear();
-            context.GameEvents.Remove(toDelete);
-            context.SaveChanges();
         }
     }
 }

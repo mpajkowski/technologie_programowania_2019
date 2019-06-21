@@ -12,17 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace gui.View
+namespace gui.Views
 {
     /// <summary>
     /// Logika interakcji dla klasy AddNewCroupierWindow.xaml
     /// </summary>
-    public partial class AddNewGamblerWindow : Window
+    public partial class NewCroupierWindow : Window
     {
-        public AddNewGamblerWindow()
+        public NewCroupierWindow()
         {
             InitializeComponent();
-            DataContext = ViewModel.MainViewModel.Instance;
         }
     }
 }

@@ -1,13 +1,10 @@
-﻿<Window x:Class="gui.MainWindow"
+﻿<Window x:Class="gui.Views.MainWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:l="clr-namespace:gui" 
     xmlns:u="clr-namespace:gui.Utils"
 	xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-    xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=System"
-    mc:Ignorable="d"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
 	Title="Aplikacja dla kasyna" Height="557.76" Width="901.707">
 
     <Window.Resources>
@@ -24,7 +21,7 @@
                 <Grid>
                     <Grid Margin="0,0,110,62">
                         <DataGrid IsReadOnly="True"
-                                  ItemsSource="{Binding Gamblers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentGambler}"
+                                  ItemsSource="{Binding Gamblers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentGambler}"
 							      Margin="10,10,0,0" 
 							      HorizontalAlignment="Left"
 							      Height="293"
@@ -40,7 +37,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Button x:Name="GamblersDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGamblerDataCmd}" RenderTransformOrigin="0.571,1.318" />
+                        <Button x:Name="GamblersDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding FetchGamblerDataCmd}" RenderTransformOrigin="0.571,1.318" />
 
                         <Label Content="Imię" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.Name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
@@ -79,7 +76,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Button x:Name="CroupiersDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetCroupierDataCmd}" RenderTransformOrigin="0.571,1.318" />
+                        <Button x:Name="CroupiersDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="682,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding FetchCroupierDataCmd}" RenderTransformOrigin="0.571,1.318" />
 
                         <Label Content="Imię" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.Name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
@@ -122,7 +119,7 @@
                                 <DataGridTextColumn Header="Nazwa gry" Binding="{Binding Name}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <Button x:Name="GamesDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="493,339,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGameDataCmd}" Grid.Column="3" />
+                        <Button x:Name="GamesDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="493,339,0,0" VerticalAlignment="Top" Width="84" Command="{Binding FetchGameDataCmd}" Grid.Column="3" />
 
                         <Label Content="Nazwa gry" HorizontalAlignment="Left" Margin="10,308,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
                         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,331,0,0" TextWrapping="Wrap" Text="{Binding CurrentGame.Name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="310" Grid.ColumnSpan="4"/>
@@ -157,7 +154,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Button x:Name="GameEventsDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="556.333,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding GetGameEventDataCmd}" RenderTransformOrigin="0.571,1.318" Grid.Column="2" />
+                        <Button x:Name="GameEventsDownloadButton" Content="Pobierz dane" HorizontalAlignment="Left" Margin="556.333,388,0,0" VerticalAlignment="Top" Width="84" Command="{Binding FetchGameEventDataCmd}" RenderTransformOrigin="0.571,1.318" Grid.Column="2" />
                         <Label Content="Lista graczy biorących udział w wydarzeniu:" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654" Grid.ColumnSpan="3" Margin="10,176.04,0,0" Width="251.956"/>
 
                         <Label Content="Czas zakończenia:" HorizontalAlignment="Left" Margin="63.958,390.01,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.867,0.654" Grid.ColumnSpan="3"/>

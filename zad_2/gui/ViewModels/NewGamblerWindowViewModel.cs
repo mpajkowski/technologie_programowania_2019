@@ -1,5 +1,6 @@
 ﻿using casino;
 using gui.Model;
+using gui.Utils;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -14,8 +15,9 @@ namespace gui.ViewModels
 {
     public class NewGamblerWindowViewModel : BindableBase
     {
-        internal IEventAggregator EventAggregator { get; set; }
-        internal IDataHandler DataHandler { get; private set; }
+        internal IDialogService DialogService  { get; }
+        internal IEventAggregator EventAggregator { get; }
+        internal IDataHandler DataHandler { get; }
 
         private string newGamblerName;
         public string NewGamblerName
@@ -53,8 +55,9 @@ namespace gui.ViewModels
 
         public DelegateCommand CreateNewGamblerCmd { get; private set; }
 
-        public NewGamblerWindowViewModel(IEventAggregator ea, IDataHandler dataHandler)
+        public NewGamblerWindowViewModel(IDialogService dialogService, IEventAggregator ea, IDataHandler dataHandler)
         {
+            DialogService = dialogService;
             EventAggregator = ea;
             DataHandler = dataHandler;
 

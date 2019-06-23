@@ -9,6 +9,9 @@ using Prism.Events;
 using System.Linq;
 using System.Windows.Data;
 using System.Collections.Generic;
+using System;
+using gui.Utils;
+using System.Windows;
 
 namespace gui.ViewModels
 {
@@ -16,6 +19,7 @@ namespace gui.ViewModels
     {
         internal IEventAggregator EventAggregator { get; set; }
         internal IDataHandler DataHandler { get; set; }
+        internal IDialogService DialogService { get; set; }
 
         private ObservableCollection<Gambler> gamblers;
         public ObservableCollection<Gambler> Gamblers
@@ -52,14 +56,12 @@ namespace gui.ViewModels
             set => SetProperty(ref currentGambler, value);
         }
 
-
         private Croupier currentCroupier;
         public Croupier CurrentCroupier
         {
             get => currentCroupier;
             set => SetProperty(ref currentCroupier, value);
         }
-
 
         private Game currentGame;
         public Game CurrentGame
@@ -68,15 +70,15 @@ namespace gui.ViewModels
             set => SetProperty(ref currentGame, value);
         }
 
-
-        // GameEvent
         private GameEvent currentGameEvent;
         public GameEvent CurrentGameEvent
         {
             get => currentGameEvent;
-            set => SetProperty(ref currentGameEvent, value);
+            set
+            {
+                SetProperty(ref currentGameEvent, value);
+            }
         }
-
         // Fetch
         internal async void FetchGamblerData()
         {
@@ -110,55 +112,24 @@ namespace gui.ViewModels
             EventAggregator.GetEvent<GameEventsFetchedMessage>().Publish(GameEvents);
         }
 
-
         // Update
         internal void UpdateCurrentGambler()
         {
-            if (CurrentGambler == null)
-            {
-                return;
-            }
-
-            Utils.Text.ValidateInput(CurrentGambler.Name);
-            Utils.Text.ValidateInput(CurrentGambler.Surname);
-            Utils.Text.ValidateInput(CurrentGambler.PhoneNumber);
-
             DataHandler.UpdateGambler(CurrentGambler);
         }
 
         internal void UpdateCurrentCroupier()
         {
-            if (CurrentCroupier == null)
-            {
-                return;
-            }
-
-            Utils.Text.ValidateInput(CurrentCroupier.Name);
-            Utils.Text.ValidateInput(CurrentCroupier.Surname);
-            Utils.Text.ValidateInput(CurrentCroupier.PhoneNumber);
-
             DataHandler.UpdateCroupier(CurrentCroupier);
         }
 
         internal void UpdateCurrentGame()
         {
-            if (CurrentGame == null)
-            {
-                return;
-            }
-
-            Utils.Text.ValidateInput(CurrentGame.Name);
-
             DataHandler.UpdateGame(CurrentGame);
         }
 
         internal void UpdateCurrentGameEvent()
         {
-            if (CurrentGameEvent == null)
-            {
-                return;
-            }
-
             DataHandler.UpdateGameEvent(CurrentGameEvent);
         }
 
@@ -168,9 +139,14 @@ namespace gui.ViewModels
         {
             if (CurrentGambler != null)
             {
-                DataHandler.RemoveGambler(CurrentGambler);
-                Gamblers.Remove(CurrentGambler);
-                CurrentGambler = null;
+                var response = DialogService.YesNo(Constants.REMOVE_GAMBLER_TITLE, Constants.ENSURE_DELETE);
+
+                if (response == MessageBoxResult.Yes)
+                {
+                    DataHandler.RemoveGambler(CurrentGambler);
+                    Gamblers.Remove(CurrentGambler);
+                    CurrentGambler = null;
+                }
             }
         }
 
@@ -178,9 +154,14 @@ namespace gui.ViewModels
         {
             if (CurrentCroupier != null)
             {
-                DataHandler.RemoveCroupier(CurrentCroupier);
-                Croupiers.Remove(CurrentCroupier);
-                CurrentCroupier = null;
+                var response = DialogService.YesNo(Constants.REMOVE_CROUPIER_TITLE, Constants.ENSURE_DELETE);
+
+                if (response == MessageBoxResult.Yes)
+                {
+                    DataHandler.RemoveCroupier(CurrentCroupier);
+                    Croupiers.Remove(CurrentCroupier);
+                    CurrentCroupier = null;
+                }
             }
         }
 
@@ -188,9 +169,14 @@ namespace gui.ViewModels
         {
             if (CurrentGame != null)
             {
-                DataHandler.RemoveGame(CurrentGame);
-                Games.Remove(CurrentGame);
-                CurrentGame = null;
+                var response = DialogService.YesNo(Constants.REMOVE_GAME_TITLE, Constants.ENSURE_DELETE);
+
+                if (response == MessageBoxResult.Yes)
+                {
+                    DataHandler.RemoveGame(CurrentGame);
+                    Games.Remove(CurrentGame);
+                    CurrentGame = null;
+                }
             }
         }
 
@@ -198,9 +184,14 @@ namespace gui.ViewModels
         {
             if (CurrentGameEvent != null)
             {
-                DataHandler.RemoveGameEvent(CurrentGameEvent);
-                GameEvents.Remove(CurrentGameEvent);
-                CurrentGameEvent = null;
+                var response = DialogService.YesNo(Constants.REMOVE_GAMEEVENT_TITLE, Constants.ENSURE_DELETE);
+
+                if (response == MessageBoxResult.Yes)
+                {
+                    DataHandler.RemoveGameEvent(CurrentGameEvent);
+                    GameEvents.Remove(CurrentGameEvent);
+                    CurrentGameEvent = null;
+                }
             }
         }
 
@@ -231,10 +222,11 @@ namespace gui.ViewModels
         public DelegateCommand DeleteCurrentGameEventCmd { get; private set; }
         public DelegateCommand NotifyNewGameEventViewModelCmd { get; private set; }
 
-        public MainWindowViewModel(IEventAggregator ea, IDataHandler dataHandler)
+        public MainWindowViewModel(IDialogService dialogService, IEventAggregator ea, IDataHandler dataHandler)
         {
             EventAggregator = ea;
             DataHandler = dataHandler;
+            DialogService = dialogService;
 
             FetchGamblerData();
             FetchCroupierData();

@@ -1,6 +1,7 @@
 ﻿<Window x:Class="gui.Views.NewGameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:u="clr-namespace:gui.Utils"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="Dodaj nową grę" Height="190.895" Width="338.132"
@@ -9,7 +10,20 @@
     <Grid Margin="0,0,12,12">
 
         <Label Content="Nazwa gry" HorizontalAlignment="Left" Margin="34,26,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="34,57,0,0" TextWrapping="Wrap" Text="{Binding NewGameName, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="34,57,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="267">
+                <TextBox.Text>
+                    <Binding Path="NewGameName"
+                             TargetNullValue="x:Static system:String.Empty">
+                        <Binding.ValidationRules>
+                            <u:TextValidation ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+        </TextBox>
 
         <Button Content="Dodaj!" HorizontalAlignment="Left" Margin="132,104,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CreateNewGameCmd}"/>
     </Grid>

@@ -146,7 +146,9 @@
     <Compile Include="Model\IDataHandler.cs" />
     <Compile Include="Utils\DataGridSelectedItems.cs" />
     <Compile Include="Utils\DateTimeConverter.cs" />
-    <Compile Include="Utils\Text.cs" />
+    <Compile Include="Utils\DialogService.cs" />
+    <Compile Include="Utils\Validation.cs" />
+    <Compile Include="Utils\Constants.cs" />
     <Compile Include="ViewModels\Events.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NewCroupierWindowViewModel.cs" />

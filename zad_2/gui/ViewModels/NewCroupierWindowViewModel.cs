@@ -1,5 +1,6 @@
 ﻿using casino;
 using gui.Model;
+using gui.Utils;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -11,10 +12,11 @@ using System.Threading.Tasks;
 
 namespace gui.ViewModels
 {
-    class NewCroupierWindowViewModel : BindableBase
+    public class NewCroupierWindowViewModel : BindableBase
     {
-        internal IEventAggregator EventAggregator { get; private set; }
-        internal IDataHandler DataHandler { get; private set; }
+        internal IDialogService DialogService { get; }
+        internal IEventAggregator EventAggregator { get; }
+        internal IDataHandler DataHandler { get; }
 
         private string newCroupierName;
         public string NewCroupierName
@@ -39,21 +41,21 @@ namespace gui.ViewModels
 
         internal void CreateNewCroupier()
         {
-            Utils.Text.ValidateInput(NewCroupierName);
-            Utils.Text.ValidateInput(NewCroupierSurname);
-            Utils.Text.ValidateInput(NewCroupierPhoneNumber);
-
             var newCroupier = new Croupier(NewCroupierName, NewCroupierSurname, NewCroupierPhoneNumber);
 
             DataHandler.AddNewCroupier(newCroupier);
+            DialogService.Show(Constants.ADDED_OBJECT);
+
             EventAggregator.GetEvent<CroupierAddedMessage>().Publish(newCroupier);
         }
 
         public DelegateCommand CreateNewCroupierCmd { get; set; }
-        public NewCroupierWindowViewModel(IEventAggregator ea, IDataHandler dataHandler)
+        public NewCroupierWindowViewModel(IDialogService dialogService, IEventAggregator ea, IDataHandler dataHandler)
         {
+            DialogService = dialogService;
             EventAggregator = ea;
             DataHandler = dataHandler;
+
             CreateNewCroupierCmd = new DelegateCommand(CreateNewCroupier);
 
             newCroupierName = string.Empty;

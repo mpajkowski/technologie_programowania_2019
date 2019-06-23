@@ -57,6 +57,7 @@
     <Reference Include="MockEF.Rhino, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MockEF.Rhino.0.0.4.1\lib\net452\MockEF.Rhino.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -76,7 +77,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\MainViewModelTests.cs" />
+    <Compile Include="TestUtils\DataFiller.cs" />
+    <Compile Include="ViewModels\MainWindowViewModelTests.cs" />
+    <Compile Include="ViewModels\NewCroupierWindowViewModelTests.cs" />
+    <Compile Include="ViewModels\NewGamblerWindowViewModelTests.cs" />
+    <Compile Include="ViewModels\NewGameEventWindowViewModelTests.cs" />
+    <Compile Include="ViewModels\NewGameWindowViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

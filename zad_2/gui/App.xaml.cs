@@ -5,7 +5,7 @@ using System.Windows;
 using Unity;
 using gui.Model;
 using services;
-using Prism.Events;
+using gui.Utils;
 
 namespace gui
 {
@@ -21,6 +21,7 @@ namespace gui
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<IDialogService, DialogService>();
             containerRegistry.Register<IDataHandler, DataHandler>();
             containerRegistry.Register<Repository>();
         }

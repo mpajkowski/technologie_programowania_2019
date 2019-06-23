@@ -40,13 +40,52 @@
                         </DataGrid>
 
                         <Label Content="Imię" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.Name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
+                        <TextBox HorizontalAlignment="Left"
+                                 Height="23"
+                                 Margin="10,334,0,0"
+                                 TextWrapping="Wrap"
+                                 VerticalAlignment="Top" Width="267">
+                            <TextBox.Text>
+                                <Binding Path="CurrentGambler.Name"
+                                         TargetNullValue="x:Static system:String.Empty">
+                                    <Binding.ValidationRules>
+                                        <u:TextValidation ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
                         <Label Content="Nazwisko" HorizontalAlignment="Left" Margin="300,303,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="300,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.Surname, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
+                        <TextBox HorizontalAlignment="Left"
+                                 Height="23"
+                                 Margin="300,334,0,0"
+                                 TextWrapping="Wrap"
+                                 VerticalAlignment="Top" Width="267">
+                            <TextBox.Text>
+                                <Binding Path="CurrentGambler.Surname"
+                                         TargetNullValue="x:Static system:String.Empty">
+                                    <Binding.ValidationRules>
+                                        <u:TextValidation ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
                         <Label Content="Nr telefonu" HorizontalAlignment="Left" Margin="587,303,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="587,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentGambler.PhoneNumber, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="179"/>
+                        <TextBox HorizontalAlignment="Left"
+                                 Height="23"
+                                 Margin="587,334,0,0"
+                                 TextWrapping="Wrap"
+                                 VerticalAlignment="Top" Width="179">
+                            <TextBox.Text>
+                                <Binding Path="CurrentGambler.PhoneNumber"
+                                         TargetNullValue="x:Static system:String.Empty">
+                                    <Binding.ValidationRules>
+                                        <u:TextValidation ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
                         <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="691,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGamblerCmd}"/>
 
@@ -76,13 +115,52 @@
                         </DataGrid>
 
                         <Label Content="Imię" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.Name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
+                        <TextBox HorizontalAlignment="Left"
+                                 Height="23"
+                                 Margin="10,334,0,0"
+                                 TextWrapping="Wrap"
+                                 VerticalAlignment="Top" Width="267">
+                            <TextBox.Text>
+                                <Binding Path="CurrentCroupier.Name"
+                                         TargetNullValue="x:Static system:String.Empty">
+                                    <Binding.ValidationRules>
+                                        <u:TextValidation ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
                         <Label Content="Nazwisko" HorizontalAlignment="Left" Margin="300,303,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="300,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.Surname, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="267"/>
+                        <TextBox HorizontalAlignment="Left"
+                                 Height="23"
+                                 Margin="300,334,0,0"
+                                 TextWrapping="Wrap"
+                                 VerticalAlignment="Top" Width="267">
+                            <TextBox.Text>
+                                <Binding Path="CurrentCroupier.Surname"
+                                         TargetNullValue="x:Static system:String.Empty">
+                                    <Binding.ValidationRules>
+                                        <u:TextValidation ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
                         <Label Content="Nr telefonu" HorizontalAlignment="Left" Margin="587,303,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="587,334,0,0" TextWrapping="Wrap" Text="{Binding CurrentCroupier.PhoneNumber, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="179"/>
+                        <TextBox HorizontalAlignment="Left"
+                                 Height="23"
+                                 Margin="587,334,0,0"
+                                 TextWrapping="Wrap"
+                                 VerticalAlignment="Top" Width="179">
+                            <TextBox.Text>
+                                <Binding Path="CurrentCroupier.PhoneNumber"
+                                         TargetNullValue="x:Static system:String.Empty">
+                                    <Binding.ValidationRules>
+                                        <u:TextValidation ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
 
                         <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="691,394,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentCroupierCmd}"/>
 
@@ -117,7 +195,20 @@
                         </DataGrid>
 
                         <Label Content="Nazwa gry" HorizontalAlignment="Left" Margin="10,308,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
-                        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,331,0,0" TextWrapping="Wrap" Text="{Binding CurrentGame.Name, TargetNullValue=x:Static system:String.Empty}" VerticalAlignment="Top" Width="310" Grid.ColumnSpan="4"/>
+                        <TextBox HorizontalAlignment="Left"
+                                 Height="23"
+                                 Margin="10,331,0,0"
+                                 TextWrapping="Wrap"
+                                 VerticalAlignment="Top" Width="310" Grid.ColumnSpan="4">
+                            <TextBox.Text>
+                                <Binding Path="CurrentGame.Name"
+                                         TargetNullValue="x:Static system:String.Empty">
+                                    <Binding.ValidationRules>
+                                        <u:TextValidation ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
                         <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="601,339,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGameCmd}" Grid.Column="3"/>
 
                         <Button Content="Usuń!" HorizontalAlignment="Left" Margin="601,382,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameCmd}" Grid.Column="3"/>

@@ -12,8 +12,8 @@ namespace application.Tests
     public class FileDataFillerTests
     {
         private IDataSerializer dataSerializer;
-        private string OUT_JSON_PATH = "testfile.json";
-        private string IN_JSON_PATH = "testjson.json";
+        private readonly string OUT_JSON_PATH = "json_outcome.json";
+        private readonly string IN_JSON_PATH = "json_income.json";
         
 
         private void PerformanceJsonDataFillerInternal()
@@ -109,32 +109,6 @@ namespace application.Tests
             {
                 var jsonDataFiller = new FileDataFiller(dataSerializer);
                 jsonDataFiller.Fill(ref jsonFilledDataContext);
-            }
-
-            // compare the results
-            for (int i = 0; i < constFilledDataContext.gamblers.Count; ++i)
-            {
-                Assert.AreEqual(constFilledDataContext.gamblers[i], jsonFilledDataContext.gamblers[i]);
-            }
-
-            for (int i = 0; i < constFilledDataContext.croupiers.Count; ++i)
-            {
-                Assert.AreEqual(constFilledDataContext.croupiers[i], jsonFilledDataContext.croupiers[i]);
-            }
-
-            for (int i = 0; i < constFilledDataContext.games.Count; ++i)
-            {
-                Assert.AreEqual(constFilledDataContext.games[i], jsonFilledDataContext.games[i]);
-            }
-
-            for (int i = 0; i < constFilledDataContext.seats.Count; ++i)
-            {
-                Assert.AreEqual(constFilledDataContext.seats[i], jsonFilledDataContext.seats[i]);
-            }
-
-            for (int i = 0; i < constFilledDataContext.gameEvents.Count; ++i)
-            {
-                Assert.AreEqual(constFilledDataContext.gameEvents[i], jsonFilledDataContext.gameEvents[i]);
             }
 
             Assert.AreEqual(constFilledDataContext, jsonFilledDataContext);

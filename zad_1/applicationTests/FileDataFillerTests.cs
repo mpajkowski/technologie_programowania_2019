@@ -35,6 +35,14 @@ namespace application.Tests
             }
         }
 
+        [TestMethod()]
+        public void Performance10000TimesFillConstDataFill()
+        {
+            for (int i = 0; i < 10000; ++i)
+            {
+                PerformanceConstDataTestInternal();
+            }
+        }
 
         [TestMethod()]
         public void Performance1000TimesFillConstDataFill()
@@ -60,6 +68,15 @@ namespace application.Tests
             for (int i = 0; i < 10; ++i)
             {
                 PerformanceConstDataTestInternal();
+            }
+        }
+
+        [TestMethod()]
+        public void Performance10000TimesJsonFill()
+        {
+            for (int i = 0; i < 10000; ++i)
+            {
+                PerformanceJsonDataFillerInternal();
             }
         }
 

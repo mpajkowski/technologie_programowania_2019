@@ -23,6 +23,12 @@
             <TabItem Header="Gracze">
                 <Grid>
                     <Grid Margin="0,0,110,62">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0*"/>
+                            <ColumnDefinition Width="77*"/>
+                            <ColumnDefinition Width="17*"/>
+                            <ColumnDefinition Width="687*"/>
+                        </Grid.ColumnDefinitions>
                         <DataGrid IsReadOnly="True"
                                   ItemsSource="{Binding Gamblers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentGambler}"
 							      Margin="10,10,0,0" 
@@ -31,7 +37,7 @@
 							      VerticalAlignment="Top"
 							      Width="756"
 							      AutoGenerateColumns="False"
-                                  SelectionMode="Single">
+                                  SelectionMode="Single" Grid.ColumnSpan="4">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Imię" Binding="{Binding Name}"/>
                                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding Surname}"/>
@@ -39,12 +45,12 @@
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <Label Content="Imię" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Imię" HorizontalAlignment="Left" Margin="10,303,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                         <TextBox HorizontalAlignment="Left"
                                  Height="23"
                                  Margin="10,334,0,0"
                                  TextWrapping="Wrap"
-                                 VerticalAlignment="Top" Width="267">
+                                 VerticalAlignment="Top" Width="267" Grid.ColumnSpan="4">
                             <TextBox.Text>
                                 <Binding Path="CurrentGambler.Name"
                                          TargetNullValue="x:Static system:String.Empty">
@@ -55,12 +61,12 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <Label Content="Nazwisko" HorizontalAlignment="Left" Margin="300,303,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Nazwisko" HorizontalAlignment="Left" Margin="207,303,0,0" VerticalAlignment="Top" Grid.Column="3"/>
                         <TextBox HorizontalAlignment="Left"
                                  Height="23"
-                                 Margin="300,334,0,0"
+                                 Margin="207,334,0,0"
                                  TextWrapping="Wrap"
-                                 VerticalAlignment="Top" Width="267">
+                                 VerticalAlignment="Top" Width="267" Grid.Column="3">
                             <TextBox.Text>
                                 <Binding Path="CurrentGambler.Surname"
                                          TargetNullValue="x:Static system:String.Empty">
@@ -71,12 +77,12 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <Label Content="Nr telefonu" HorizontalAlignment="Left" Margin="587,303,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Nr telefonu" HorizontalAlignment="Left" Margin="494,303,0,0" VerticalAlignment="Top" Grid.Column="3"/>
                         <TextBox HorizontalAlignment="Left"
                                  Height="23"
-                                 Margin="587,334,0,0"
+                                 Margin="494,334,0,0"
                                  TextWrapping="Wrap"
-                                 VerticalAlignment="Top" Width="179">
+                                 VerticalAlignment="Top" Width="179" Grid.Column="3">
                             <TextBox.Text>
                                 <Binding Path="CurrentGambler.PhoneNumber"
                                          TargetNullValue="x:Static system:String.Empty">
@@ -87,10 +93,11 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="691,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGamblerCmd}"/>
+                        <Button Content="Aktualizuj!" HorizontalAlignment="Left" Margin="598,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding UpdateCurrentGamblerCmd}" Grid.Column="3"/>
 
-                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="691,431,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGamblerCmd}" RenderTransformOrigin="1.773,0.6"/>
-                        <Button x:Name="GamblerCreateButton" Content="Stwórz nowego gracza..." Click="NewGambler_ButtonClick" HorizontalAlignment="Left" Margin="523,431,0,0" VerticalAlignment="Top" Width="139"/>
+                        <Button Content="Usuń!" HorizontalAlignment="Left" Margin="598,431,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGamblerCmd}" RenderTransformOrigin="1.773,0.6" Grid.Column="3"/>
+                        <Button x:Name="GamblerCreateButton" Content="Stwórz nowego gracza..." Click="NewGambler_ButtonClick" HorizontalAlignment="Left" Margin="430,431,0,0" VerticalAlignment="Top" Width="139" Grid.Column="3"/>
+                        <Button Content="Pobierz dane" HorizontalAlignment="Left" Margin="494,388,0,0" VerticalAlignment="Top" Width="75" Command="{Binding FetchGamblerDataCmd}" Grid.Column="3"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -166,6 +173,7 @@
 
                         <Button Content="Usuń!" HorizontalAlignment="Left" Margin="691,436,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentCroupierCmd}"/>
                         <Button Content="Stwórz nowego krupiera..." Click="NewCroupier_ButtonClick" HorizontalAlignment="Left" Margin="521,436,0,0" VerticalAlignment="Top" Width="141" />
+                        <Button Content="Pobierz dane" HorizontalAlignment="Left" Margin="587,399,0,0" VerticalAlignment="Top" Width="75" Command="{Binding FetchCroupierDataCmd}"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -213,6 +221,7 @@
 
                         <Button Content="Usuń!" HorizontalAlignment="Left" Margin="601,382,0,0" VerticalAlignment="Top" Width="75" Command="{Binding DeleteCurrentGameCmd}" Grid.Column="3"/>
                         <Button x:Name="GamesCreateButton" Click="NewGame_ButtonClick" Content="Utwórz nową grę" HorizontalAlignment="Left" Margin="477,382,0,0" VerticalAlignment="Top" Width="100" Grid.Column="3" />
+                        <Button Content="Pobierz dane" HorizontalAlignment="Left" Margin="502,339,0,0" VerticalAlignment="Top" Width="75" Command="{Binding FetchGameDataCmd}" Grid.Column="3"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -259,6 +268,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
                         <xctk:DateTimePicker Value="{Binding CurrentGameEvent.EndTime, Converter={StaticResource DateTimeConverter}}"  Margin="65.044,390.01,310.707,91.03" Grid.Column="2"/>
+                        <Button Content="Pobierz dane" HorizontalAlignment="Left" Margin="469,401,0,0" VerticalAlignment="Top" Width="75" Command="{Binding FetchGameEventDataCmd}" Grid.Column="2"/>
                     </Grid>
                 </Grid>
             </TabItem>

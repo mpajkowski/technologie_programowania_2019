@@ -111,6 +111,8 @@ namespace gui.ViewModels
 
             DataHandler.AddNewGameEvent(newGameEvent);
             EventAggregator.GetEvent<GameEventAddedMessage>().Publish(newGameEvent);
+
+            DialogService.Show(Constants.ADDED_OBJECT);
         }
 
         public DelegateCommand CreateNewGameEventCmd { get; private set; }

@@ -51,6 +51,8 @@ namespace gui.ViewModels
 
             DataHandler.AddNewGambler(gambler);
             EventAggregator.GetEvent<GamblerAddedMessage>().Publish(gambler);
+
+            DialogService.Show(Constants.ADDED_OBJECT);
         }
 
         public DelegateCommand CreateNewGamblerCmd { get; private set; }

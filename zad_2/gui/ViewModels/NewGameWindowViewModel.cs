@@ -31,6 +31,7 @@ namespace gui.ViewModels
 
             DataHandler.AddNewGame(newGame);
             EventAggregator.GetEvent<GameAddedMessage>().Publish(newGame);
+            DialogService.Show(Constants.ADDED_OBJECT);
         }
 
         public DelegateCommand CreateNewGameCmd { get; set; }

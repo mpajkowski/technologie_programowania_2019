@@ -44,9 +44,9 @@ namespace gui.ViewModels
             var newCroupier = new Croupier(NewCroupierName, NewCroupierSurname, NewCroupierPhoneNumber);
 
             DataHandler.AddNewCroupier(newCroupier);
-            DialogService.Show(Constants.ADDED_OBJECT);
-
             EventAggregator.GetEvent<CroupierAddedMessage>().Publish(newCroupier);
+
+            DialogService.Show(Constants.ADDED_OBJECT);
         }
 
         public DelegateCommand CreateNewCroupierCmd { get; set; }
